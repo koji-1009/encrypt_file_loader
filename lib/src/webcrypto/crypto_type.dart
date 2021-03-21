@@ -10,7 +10,7 @@ part 'crypto_type.freezed.dart';
 /// A type of encryption based on Web Crypto.
 /// see: https://pub.dev/packages/webcrypto
 @freezed
-abstract class CryptoType with _$CryptoType {
+class CryptoType with _$CryptoType {
   /// see [AesCbcSecretKey]
   const factory CryptoType.aesCbc({
     required AesCbcSecretKey key,
