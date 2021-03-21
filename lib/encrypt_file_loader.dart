@@ -1,1 +1,1 @@
-library encrypt_file_loader;
+export 'src/encrypt_file_loader.dart';
