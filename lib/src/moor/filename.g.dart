@@ -11,6 +11,9 @@ class Cache extends DataClass implements Insertable<Cache> {
   /// primary key
   final int id;
 
+  /// grouping key
+  final String group;
+
   /// server url
   final String url;
 
@@ -24,6 +27,7 @@ class Cache extends DataClass implements Insertable<Cache> {
   final DateTime updated;
   Cache(
       {required this.id,
+      required this.group,
       required this.url,
       required this.bytes,
       this.filename,
@@ -37,6 +41,8 @@ class Cache extends DataClass implements Insertable<Cache> {
     final dateTimeType = db.typeSystem.forDartType<DateTime>();
     return Cache(
       id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
+      group:
+          stringType.mapFromDatabaseResponse(data['${effectivePrefix}group'])!,
       url: stringType.mapFromDatabaseResponse(data['${effectivePrefix}url'])!,
       bytes: uint8ListType
           .mapFromDatabaseResponse(data['${effectivePrefix}bytes'])!,
@@ -50,6 +56,7 @@ class Cache extends DataClass implements Insertable<Cache> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
+    map['group'] = Variable<String>(group);
     map['url'] = Variable<String>(url);
     map['bytes'] = Variable<Uint8List>(bytes);
     if (!nullToAbsent || filename != null) {
@@ -62,6 +69,7 @@ class Cache extends DataClass implements Insertable<Cache> {
   CachesCompanion toCompanion(bool nullToAbsent) {
     return CachesCompanion(
       id: Value(id),
+      group: Value(group),
       url: Value(url),
       bytes: Value(bytes),
       filename: filename == null && nullToAbsent
@@ -76,6 +84,7 @@ class Cache extends DataClass implements Insertable<Cache> {
     serializer ??= moorRuntimeOptions.defaultSerializer;
     return Cache(
       id: serializer.fromJson<int>(json['id']),
+      group: serializer.fromJson<String>(json['group']),
       url: serializer.fromJson<String>(json['url']),
       bytes: serializer.fromJson<Uint8List>(json['bytes']),
       filename: serializer.fromJson<String?>(json['filename']),
@@ -87,6 +96,7 @@ class Cache extends DataClass implements Insertable<Cache> {
     serializer ??= moorRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
+      'group': serializer.toJson<String>(group),
       'url': serializer.toJson<String>(url),
       'bytes': serializer.toJson<Uint8List>(bytes),
       'filename': serializer.toJson<String?>(filename),
@@ -96,12 +106,14 @@ class Cache extends DataClass implements Insertable<Cache> {
 
   Cache copyWith(
           {int? id,
+          String? group,
           String? url,
           Uint8List? bytes,
           String? filename,
           DateTime? updated}) =>
       Cache(
         id: id ?? this.id,
+        group: group ?? this.group,
         url: url ?? this.url,
         bytes: bytes ?? this.bytes,
         filename: filename ?? this.filename,
@@ -111,6 +123,7 @@ class Cache extends DataClass implements Insertable<Cache> {
   String toString() {
     return (StringBuffer('Cache(')
           ..write('id: $id, ')
+          ..write('group: $group, ')
           ..write('url: $url, ')
           ..write('bytes: $bytes, ')
           ..write('filename: $filename, ')
@@ -122,13 +135,18 @@ class Cache extends DataClass implements Insertable<Cache> {
   @override
   int get hashCode => $mrjf($mrjc(
       id.hashCode,
-      $mrjc(url.hashCode,
-          $mrjc(bytes.hashCode, $mrjc(filename.hashCode, updated.hashCode)))));
+      $mrjc(
+          group.hashCode,
+          $mrjc(
+              url.hashCode,
+              $mrjc(bytes.hashCode,
+                  $mrjc(filename.hashCode, updated.hashCode))))));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
       (other is Cache &&
           other.id == this.id &&
+          other.group == this.group &&
           other.url == this.url &&
           other.bytes == this.bytes &&
           other.filename == this.filename &&
@@ -137,12 +155,14 @@ class Cache extends DataClass implements Insertable<Cache> {
 
 class CachesCompanion extends UpdateCompanion<Cache> {
   final Value<int> id;
+  final Value<String> group;
   final Value<String> url;
   final Value<Uint8List> bytes;
   final Value<String?> filename;
   final Value<DateTime> updated;
   const CachesCompanion({
     this.id = const Value.absent(),
+    this.group = const Value.absent(),
     this.url = const Value.absent(),
     this.bytes = const Value.absent(),
     this.filename = const Value.absent(),
@@ -150,15 +170,18 @@ class CachesCompanion extends UpdateCompanion<Cache> {
   });
   CachesCompanion.insert({
     this.id = const Value.absent(),
+    required String group,
     required String url,
     required Uint8List bytes,
     this.filename = const Value.absent(),
     required DateTime updated,
-  })   : url = Value(url),
+  })   : group = Value(group),
+        url = Value(url),
         bytes = Value(bytes),
         updated = Value(updated);
   static Insertable<Cache> custom({
     Expression<int>? id,
+    Expression<String>? group,
     Expression<String>? url,
     Expression<Uint8List>? bytes,
     Expression<String?>? filename,
@@ -166,6 +189,7 @@ class CachesCompanion extends UpdateCompanion<Cache> {
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
+      if (group != null) 'group': group,
       if (url != null) 'url': url,
       if (bytes != null) 'bytes': bytes,
       if (filename != null) 'filename': filename,
@@ -175,12 +199,14 @@ class CachesCompanion extends UpdateCompanion<Cache> {
 
   CachesCompanion copyWith(
       {Value<int>? id,
+      Value<String>? group,
       Value<String>? url,
       Value<Uint8List>? bytes,
       Value<String?>? filename,
       Value<DateTime>? updated}) {
     return CachesCompanion(
       id: id ?? this.id,
+      group: group ?? this.group,
       url: url ?? this.url,
       bytes: bytes ?? this.bytes,
       filename: filename ?? this.filename,
@@ -193,6 +219,9 @@ class CachesCompanion extends UpdateCompanion<Cache> {
     final map = <String, Expression>{};
     if (id.present) {
       map['id'] = Variable<int>(id.value);
+    }
+    if (group.present) {
+      map['group'] = Variable<String>(group.value);
     }
     if (url.present) {
       map['url'] = Variable<String>(url.value);
@@ -213,6 +242,7 @@ class CachesCompanion extends UpdateCompanion<Cache> {
   String toString() {
     return (StringBuffer('CachesCompanion(')
           ..write('id: $id, ')
+          ..write('group: $group, ')
           ..write('url: $url, ')
           ..write('bytes: $bytes, ')
           ..write('filename: $filename, ')
@@ -232,6 +262,17 @@ class $CachesTable extends Caches with TableInfo<$CachesTable, Cache> {
   GeneratedIntColumn _constructId() {
     return GeneratedIntColumn('id', $tableName, false,
         hasAutoIncrement: true, declaredAsPrimaryKey: true);
+  }
+
+  final VerificationMeta _groupMeta = const VerificationMeta('group');
+  @override
+  late final GeneratedTextColumn group = _constructGroup();
+  GeneratedTextColumn _constructGroup() {
+    return GeneratedTextColumn(
+      'group',
+      $tableName,
+      false,
+    );
   }
 
   final VerificationMeta _urlMeta = const VerificationMeta('url');
@@ -279,7 +320,8 @@ class $CachesTable extends Caches with TableInfo<$CachesTable, Cache> {
   }
 
   @override
-  List<GeneratedColumn> get $columns => [id, url, bytes, filename, updated];
+  List<GeneratedColumn> get $columns =>
+      [id, group, url, bytes, filename, updated];
   @override
   $CachesTable get asDslTable => this;
   @override
@@ -293,6 +335,12 @@ class $CachesTable extends Caches with TableInfo<$CachesTable, Cache> {
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('group')) {
+      context.handle(
+          _groupMeta, group.isAcceptableOrUnknown(data['group']!, _groupMeta));
+    } else if (isInserting) {
+      context.missing(_groupMeta);
     }
     if (data.containsKey('url')) {
       context.handle(

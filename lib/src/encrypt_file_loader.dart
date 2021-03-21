@@ -32,7 +32,10 @@ class EncryptFileLoader {
   final _client = HttpClient();
 
   /// Load file from server or internal db.
-  Future<LoadResult> load(String url) async {
+  Future<LoadResult> load({
+    required String url,
+    String group = 'no_group',
+  }) async {
     final cache = await _db.getFile(url);
     if (cache != null) {
       return LoadResult.cached;
@@ -54,6 +57,7 @@ class EncryptFileLoader {
 
         final entry = createEntity(
           url: url,
+          group: group,
           bytes: bytes,
           filename: filename,
         );

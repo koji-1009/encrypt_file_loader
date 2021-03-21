@@ -12,6 +12,9 @@ class Caches extends Table {
   /// primary key
   IntColumn get id => integer().autoIncrement()();
 
+  /// grouping key
+  TextColumn get group => text()();
+
   /// server url
   TextColumn get url => text()();
 
@@ -55,6 +58,11 @@ class Database extends _$Database {
   Future<int> deleteOldFiles(DateTime base) =>
       (delete(caches)..where((tbl) => tbl.updated.isSmallerOrEqualValue(base)))
           .go();
+
+  /// Delete files whose group value is [group].
+  Future<int> deleteGroup(String group) =>
+      (delete(caches)..where((tbl) => tbl.group.isSmallerOrEqualValue(group)))
+          .go();
 }
 
 LazyDatabase _openConnection() {
@@ -68,11 +76,13 @@ LazyDatabase _openConnection() {
 /// Create entity for saving
 CachesCompanion createEntity({
   required String url,
+  required String group,
   required Uint8List bytes,
   required String? filename,
 }) {
   return CachesCompanion(
     url: Value(url),
+    group: Value(group),
     bytes: Value(bytes),
     filename: Value(filename),
     updated: Value(DateTime.now()),
