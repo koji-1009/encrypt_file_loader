@@ -214,6 +214,25 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_web_plugins:
+    dependency: transitive
+    description: flutter
+    source: sdk
+    version: "0.0.0"
+  freezed:
+    dependency: "direct dev"
+    description:
+      name: freezed
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.14.1+1"
+  freezed_annotation:
+    dependency: "direct main"
+    description:
+      name: freezed_annotation
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.14.1"
   glob:
     dependency: transitive
     description:
@@ -541,6 +560,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+  webcrypto:
+    dependency: "direct main"
+    description:
+      name: webcrypto
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.5.2"
   win32:
     dependency: transitive
     description:

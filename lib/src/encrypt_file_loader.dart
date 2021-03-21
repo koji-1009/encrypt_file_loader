@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 
 import 'moor/filename.dart';
+import 'webcrypto/crypto_type.dart';
 
 /// Result pattern on [EncryptFileLoader.load]
 enum LoadResult {
@@ -59,5 +60,18 @@ class EncryptFileLoader {
     }
 
     return LoadResult.failed;
+  }
+
+  /// Get file from db, and decrypt by [CryptoType].
+  Future<File?> getFile({
+    required String url,
+    required CryptoType type,
+  }) async {
+    final cache = await _db.getFile(url);
+    if (cache == null) {
+      return null;
+    }
+
+    return type.decrypt(cache.bytes);
   }
 }
