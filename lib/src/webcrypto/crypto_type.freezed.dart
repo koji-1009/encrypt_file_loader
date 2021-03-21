@@ -16,6 +16,10 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$CryptoTypeTearOff {
   const _$CryptoTypeTearOff();
 
+  TypePlain plain() {
+    return const TypePlain();
+  }
+
   TypeAesCbc aesCbc({required AesCbcSecretKey key, required Uint8List iv}) {
     return TypeAesCbc(
       key: key,
@@ -49,6 +53,7 @@ const $CryptoType = _$CryptoTypeTearOff();
 mixin _$CryptoType {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() plain,
     required TResult Function(AesCbcSecretKey key, Uint8List iv) aesCbc,
     required TResult Function(
             AesCtrSecretKey key, List<int> counter, int length)
@@ -58,6 +63,7 @@ mixin _$CryptoType {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? plain,
     TResult Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
     TResult Function(AesCtrSecretKey key, List<int> counter, int length)?
         aesCtr,
@@ -67,6 +73,7 @@ mixin _$CryptoType {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(TypePlain value) plain,
     required TResult Function(TypeAesCbc value) aesCbc,
     required TResult Function(TypeAesCtr value) aesCtr,
     required TResult Function(TypeAesGcm value) aesGcm,
@@ -74,6 +81,7 @@ mixin _$CryptoType {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(TypePlain value)? plain,
     TResult Function(TypeAesCbc value)? aesCbc,
     TResult Function(TypeAesCtr value)? aesCtr,
     TResult Function(TypeAesGcm value)? aesGcm,
@@ -96,6 +104,105 @@ class _$CryptoTypeCopyWithImpl<$Res> implements $CryptoTypeCopyWith<$Res> {
   final CryptoType _value;
   // ignore: unused_field
   final $Res Function(CryptoType) _then;
+}
+
+/// @nodoc
+abstract class $TypePlainCopyWith<$Res> {
+  factory $TypePlainCopyWith(TypePlain value, $Res Function(TypePlain) then) =
+      _$TypePlainCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$TypePlainCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
+    implements $TypePlainCopyWith<$Res> {
+  _$TypePlainCopyWithImpl(TypePlain _value, $Res Function(TypePlain) _then)
+      : super(_value, (v) => _then(v as TypePlain));
+
+  @override
+  TypePlain get _value => super._value as TypePlain;
+}
+
+/// @nodoc
+class _$TypePlain with DiagnosticableTreeMixin implements TypePlain {
+  const _$TypePlain();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'CryptoType.plain()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties..add(DiagnosticsProperty('type', 'CryptoType.plain'));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is TypePlain);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() plain,
+    required TResult Function(AesCbcSecretKey key, Uint8List iv) aesCbc,
+    required TResult Function(
+            AesCtrSecretKey key, List<int> counter, int length)
+        aesCtr,
+    required TResult Function(AesGcmSecretKey key, Uint8List iv) aesGcm,
+  }) {
+    return plain();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? plain,
+    TResult Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
+    TResult Function(AesCtrSecretKey key, List<int> counter, int length)?
+        aesCtr,
+    TResult Function(AesGcmSecretKey key, Uint8List iv)? aesGcm,
+    required TResult orElse(),
+  }) {
+    if (plain != null) {
+      return plain();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(TypePlain value) plain,
+    required TResult Function(TypeAesCbc value) aesCbc,
+    required TResult Function(TypeAesCtr value) aesCtr,
+    required TResult Function(TypeAesGcm value) aesGcm,
+  }) {
+    return plain(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(TypePlain value)? plain,
+    TResult Function(TypeAesCbc value)? aesCbc,
+    TResult Function(TypeAesCtr value)? aesCtr,
+    TResult Function(TypeAesGcm value)? aesGcm,
+    required TResult orElse(),
+  }) {
+    if (plain != null) {
+      return plain(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class TypePlain implements CryptoType {
+  const factory TypePlain() = _$TypePlain;
 }
 
 /// @nodoc
@@ -180,6 +287,7 @@ class _$TypeAesCbc with DiagnosticableTreeMixin implements TypeAesCbc {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() plain,
     required TResult Function(AesCbcSecretKey key, Uint8List iv) aesCbc,
     required TResult Function(
             AesCtrSecretKey key, List<int> counter, int length)
@@ -192,6 +300,7 @@ class _$TypeAesCbc with DiagnosticableTreeMixin implements TypeAesCbc {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? plain,
     TResult Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
     TResult Function(AesCtrSecretKey key, List<int> counter, int length)?
         aesCtr,
@@ -207,6 +316,7 @@ class _$TypeAesCbc with DiagnosticableTreeMixin implements TypeAesCbc {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(TypePlain value) plain,
     required TResult Function(TypeAesCbc value) aesCbc,
     required TResult Function(TypeAesCtr value) aesCtr,
     required TResult Function(TypeAesGcm value) aesGcm,
@@ -217,6 +327,7 @@ class _$TypeAesCbc with DiagnosticableTreeMixin implements TypeAesCbc {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(TypePlain value)? plain,
     TResult Function(TypeAesCbc value)? aesCbc,
     TResult Function(TypeAesCtr value)? aesCtr,
     TResult Function(TypeAesGcm value)? aesGcm,
@@ -335,6 +446,7 @@ class _$TypeAesCtr with DiagnosticableTreeMixin implements TypeAesCtr {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() plain,
     required TResult Function(AesCbcSecretKey key, Uint8List iv) aesCbc,
     required TResult Function(
             AesCtrSecretKey key, List<int> counter, int length)
@@ -347,6 +459,7 @@ class _$TypeAesCtr with DiagnosticableTreeMixin implements TypeAesCtr {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? plain,
     TResult Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
     TResult Function(AesCtrSecretKey key, List<int> counter, int length)?
         aesCtr,
@@ -362,6 +475,7 @@ class _$TypeAesCtr with DiagnosticableTreeMixin implements TypeAesCtr {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(TypePlain value) plain,
     required TResult Function(TypeAesCbc value) aesCbc,
     required TResult Function(TypeAesCtr value) aesCtr,
     required TResult Function(TypeAesGcm value) aesGcm,
@@ -372,6 +486,7 @@ class _$TypeAesCtr with DiagnosticableTreeMixin implements TypeAesCtr {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(TypePlain value)? plain,
     TResult Function(TypeAesCbc value)? aesCbc,
     TResult Function(TypeAesCtr value)? aesCtr,
     TResult Function(TypeAesGcm value)? aesGcm,
@@ -480,6 +595,7 @@ class _$TypeAesGcm with DiagnosticableTreeMixin implements TypeAesGcm {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() plain,
     required TResult Function(AesCbcSecretKey key, Uint8List iv) aesCbc,
     required TResult Function(
             AesCtrSecretKey key, List<int> counter, int length)
@@ -492,6 +608,7 @@ class _$TypeAesGcm with DiagnosticableTreeMixin implements TypeAesGcm {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? plain,
     TResult Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
     TResult Function(AesCtrSecretKey key, List<int> counter, int length)?
         aesCtr,
@@ -507,6 +624,7 @@ class _$TypeAesGcm with DiagnosticableTreeMixin implements TypeAesGcm {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(TypePlain value) plain,
     required TResult Function(TypeAesCbc value) aesCbc,
     required TResult Function(TypeAesCtr value) aesCtr,
     required TResult Function(TypeAesGcm value) aesGcm,
@@ -517,6 +635,7 @@ class _$TypeAesGcm with DiagnosticableTreeMixin implements TypeAesGcm {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(TypePlain value)? plain,
     TResult Function(TypeAesCbc value)? aesCbc,
     TResult Function(TypeAesCtr value)? aesCtr,
     TResult Function(TypeAesGcm value)? aesGcm,

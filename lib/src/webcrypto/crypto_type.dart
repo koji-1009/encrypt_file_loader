@@ -11,6 +11,9 @@ part 'crypto_type.freezed.dart';
 /// see: https://pub.dev/packages/webcrypto
 @freezed
 class CryptoType with _$CryptoType {
+  /// non-encrypted file
+  const factory CryptoType.plain() = TypePlain;
+
   /// see [AesCbcSecretKey]
   const factory CryptoType.aesCbc({
     required AesCbcSecretKey key,
@@ -39,6 +42,7 @@ extension CryptoTypeExt on CryptoType {
     required String? filename,
   }) async {
     final raw = await when(
+      plain: () async => bytes,
       aesCbc: (key, iv) => key.decryptBytes(bytes, iv),
       aesCtr: (key, counter, length) =>
           key.decryptBytes(bytes, counter, length),
