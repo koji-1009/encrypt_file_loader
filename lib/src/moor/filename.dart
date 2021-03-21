@@ -7,7 +7,7 @@ import 'package:path_provider/path_provider.dart';
 
 part 'filename.g.dart';
 
-/// Transfer
+/// Cache file's table
 class Caches extends Table {
   /// primary key
   IntColumn get id => integer().autoIncrement()();
@@ -17,6 +17,12 @@ class Caches extends Table {
 
   /// downloaded data
   BlobColumn get bytes => blob()();
+
+  /// filename (nullable)
+  TextColumn get filename => text().nullable()();
+
+  /// last edited date and time
+  DateTimeColumn get updated => dateTime()();
 }
 
 /// DataBase
@@ -39,8 +45,16 @@ class Database extends _$Database {
           .getSingleOrNull();
 
   /// Delete cache file
-  Future deleteFile(String url) =>
+  Future<int> deleteFile(String url) =>
       (delete(caches)..where((tbl) => tbl.url.isSmallerOrEqualValue(url))).go();
+
+  /// Delete all files
+  Future<int> deleteAll() => delete(caches).go();
+
+  /// Delete files older than the [base].
+  Future<int> deleteOldFiles(DateTime base) =>
+      (delete(caches)..where((tbl) => tbl.updated.isSmallerOrEqualValue(base)))
+          .go();
 }
 
 LazyDatabase _openConnection() {
@@ -55,9 +69,12 @@ LazyDatabase _openConnection() {
 CachesCompanion createEntity({
   required String url,
   required Uint8List bytes,
+  required String? filename,
 }) {
   return CachesCompanion(
     url: Value(url),
     bytes: Value(bytes),
+    filename: Value(filename),
+    updated: Value(DateTime.now()),
   );
 }

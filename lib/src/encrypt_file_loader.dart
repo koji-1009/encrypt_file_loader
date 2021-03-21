@@ -43,9 +43,19 @@ class EncryptFileLoader {
       final response = await request.close();
       if (response.statusCode == 200) {
         final bytes = await consolidateHttpClientResponseBytes(response);
+
+        String? filename;
+        final disposition = response.headers['Content-Disposition']?.toString();
+        if (disposition != null) {
+          final reg = RegExp('''/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/''');
+          final match = reg.firstMatch(disposition);
+          filename = match?[0];
+        }
+
         final entry = createEntity(
           url: url,
           bytes: bytes,
+          filename: filename,
         );
         _db.insertCache(entry);
 
@@ -72,6 +82,19 @@ class EncryptFileLoader {
       return null;
     }
 
-    return type.decrypt(cache.bytes);
+    return type.decrypt(
+      bytes: cache.bytes,
+      filename: cache.filename,
+    );
+  }
+
+  /// Delete all files.
+  Future deleteAllFiles() async {
+    await _db.deleteAll();
+  }
+
+  /// Delete files older than the [base].
+  Future deleteOldFiles(DateTime base) async {
+    await _db.deleteOldFiles(base);
   }
 }

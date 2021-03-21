@@ -16,18 +16,34 @@ class Cache extends DataClass implements Insertable<Cache> {
 
   /// downloaded data
   final Uint8List bytes;
-  Cache({required this.id, required this.url, required this.bytes});
+
+  /// filename (nullable)
+  final String? filename;
+
+  /// last edited date and time
+  final DateTime updated;
+  Cache(
+      {required this.id,
+      required this.url,
+      required this.bytes,
+      this.filename,
+      required this.updated});
   factory Cache.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     final intType = db.typeSystem.forDartType<int>();
     final stringType = db.typeSystem.forDartType<String>();
     final uint8ListType = db.typeSystem.forDartType<Uint8List>();
+    final dateTimeType = db.typeSystem.forDartType<DateTime>();
     return Cache(
       id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
       url: stringType.mapFromDatabaseResponse(data['${effectivePrefix}url'])!,
       bytes: uint8ListType
           .mapFromDatabaseResponse(data['${effectivePrefix}bytes'])!,
+      filename: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}filename']),
+      updated: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}updated'])!,
     );
   }
   @override
@@ -36,6 +52,10 @@ class Cache extends DataClass implements Insertable<Cache> {
     map['id'] = Variable<int>(id);
     map['url'] = Variable<String>(url);
     map['bytes'] = Variable<Uint8List>(bytes);
+    if (!nullToAbsent || filename != null) {
+      map['filename'] = Variable<String?>(filename);
+    }
+    map['updated'] = Variable<DateTime>(updated);
     return map;
   }
 
@@ -44,6 +64,10 @@ class Cache extends DataClass implements Insertable<Cache> {
       id: Value(id),
       url: Value(url),
       bytes: Value(bytes),
+      filename: filename == null && nullToAbsent
+          ? const Value.absent()
+          : Value(filename),
+      updated: Value(updated),
     );
   }
 
@@ -54,6 +78,8 @@ class Cache extends DataClass implements Insertable<Cache> {
       id: serializer.fromJson<int>(json['id']),
       url: serializer.fromJson<String>(json['url']),
       bytes: serializer.fromJson<Uint8List>(json['bytes']),
+      filename: serializer.fromJson<String?>(json['filename']),
+      updated: serializer.fromJson<DateTime>(json['updated']),
     );
   }
   @override
@@ -63,69 +89,102 @@ class Cache extends DataClass implements Insertable<Cache> {
       'id': serializer.toJson<int>(id),
       'url': serializer.toJson<String>(url),
       'bytes': serializer.toJson<Uint8List>(bytes),
+      'filename': serializer.toJson<String?>(filename),
+      'updated': serializer.toJson<DateTime>(updated),
     };
   }
 
-  Cache copyWith({int? id, String? url, Uint8List? bytes}) => Cache(
+  Cache copyWith(
+          {int? id,
+          String? url,
+          Uint8List? bytes,
+          String? filename,
+          DateTime? updated}) =>
+      Cache(
         id: id ?? this.id,
         url: url ?? this.url,
         bytes: bytes ?? this.bytes,
+        filename: filename ?? this.filename,
+        updated: updated ?? this.updated,
       );
   @override
   String toString() {
     return (StringBuffer('Cache(')
           ..write('id: $id, ')
           ..write('url: $url, ')
-          ..write('bytes: $bytes')
+          ..write('bytes: $bytes, ')
+          ..write('filename: $filename, ')
+          ..write('updated: $updated')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode =>
-      $mrjf($mrjc(id.hashCode, $mrjc(url.hashCode, bytes.hashCode)));
+  int get hashCode => $mrjf($mrjc(
+      id.hashCode,
+      $mrjc(url.hashCode,
+          $mrjc(bytes.hashCode, $mrjc(filename.hashCode, updated.hashCode)))));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
       (other is Cache &&
           other.id == this.id &&
           other.url == this.url &&
-          other.bytes == this.bytes);
+          other.bytes == this.bytes &&
+          other.filename == this.filename &&
+          other.updated == this.updated);
 }
 
 class CachesCompanion extends UpdateCompanion<Cache> {
   final Value<int> id;
   final Value<String> url;
   final Value<Uint8List> bytes;
+  final Value<String?> filename;
+  final Value<DateTime> updated;
   const CachesCompanion({
     this.id = const Value.absent(),
     this.url = const Value.absent(),
     this.bytes = const Value.absent(),
+    this.filename = const Value.absent(),
+    this.updated = const Value.absent(),
   });
   CachesCompanion.insert({
     this.id = const Value.absent(),
     required String url,
     required Uint8List bytes,
+    this.filename = const Value.absent(),
+    required DateTime updated,
   })   : url = Value(url),
-        bytes = Value(bytes);
+        bytes = Value(bytes),
+        updated = Value(updated);
   static Insertable<Cache> custom({
     Expression<int>? id,
     Expression<String>? url,
     Expression<Uint8List>? bytes,
+    Expression<String?>? filename,
+    Expression<DateTime>? updated,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (url != null) 'url': url,
       if (bytes != null) 'bytes': bytes,
+      if (filename != null) 'filename': filename,
+      if (updated != null) 'updated': updated,
     });
   }
 
   CachesCompanion copyWith(
-      {Value<int>? id, Value<String>? url, Value<Uint8List>? bytes}) {
+      {Value<int>? id,
+      Value<String>? url,
+      Value<Uint8List>? bytes,
+      Value<String?>? filename,
+      Value<DateTime>? updated}) {
     return CachesCompanion(
       id: id ?? this.id,
       url: url ?? this.url,
       bytes: bytes ?? this.bytes,
+      filename: filename ?? this.filename,
+      updated: updated ?? this.updated,
     );
   }
 
@@ -141,6 +200,12 @@ class CachesCompanion extends UpdateCompanion<Cache> {
     if (bytes.present) {
       map['bytes'] = Variable<Uint8List>(bytes.value);
     }
+    if (filename.present) {
+      map['filename'] = Variable<String?>(filename.value);
+    }
+    if (updated.present) {
+      map['updated'] = Variable<DateTime>(updated.value);
+    }
     return map;
   }
 
@@ -149,7 +214,9 @@ class CachesCompanion extends UpdateCompanion<Cache> {
     return (StringBuffer('CachesCompanion(')
           ..write('id: $id, ')
           ..write('url: $url, ')
-          ..write('bytes: $bytes')
+          ..write('bytes: $bytes, ')
+          ..write('filename: $filename, ')
+          ..write('updated: $updated')
           ..write(')'))
         .toString();
   }
@@ -189,8 +256,30 @@ class $CachesTable extends Caches with TableInfo<$CachesTable, Cache> {
     );
   }
 
+  final VerificationMeta _filenameMeta = const VerificationMeta('filename');
   @override
-  List<GeneratedColumn> get $columns => [id, url, bytes];
+  late final GeneratedTextColumn filename = _constructFilename();
+  GeneratedTextColumn _constructFilename() {
+    return GeneratedTextColumn(
+      'filename',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _updatedMeta = const VerificationMeta('updated');
+  @override
+  late final GeneratedDateTimeColumn updated = _constructUpdated();
+  GeneratedDateTimeColumn _constructUpdated() {
+    return GeneratedDateTimeColumn(
+      'updated',
+      $tableName,
+      false,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns => [id, url, bytes, filename, updated];
   @override
   $CachesTable get asDslTable => this;
   @override
@@ -216,6 +305,16 @@ class $CachesTable extends Caches with TableInfo<$CachesTable, Cache> {
           _bytesMeta, bytes.isAcceptableOrUnknown(data['bytes']!, _bytesMeta));
     } else if (isInserting) {
       context.missing(_bytesMeta);
+    }
+    if (data.containsKey('filename')) {
+      context.handle(_filenameMeta,
+          filename.isAcceptableOrUnknown(data['filename']!, _filenameMeta));
+    }
+    if (data.containsKey('updated')) {
+      context.handle(_updatedMeta,
+          updated.isAcceptableOrUnknown(data['updated']!, _updatedMeta));
+    } else if (isInserting) {
+      context.missing(_updatedMeta);
     }
     return context;
   }

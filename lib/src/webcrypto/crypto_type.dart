@@ -26,12 +26,20 @@ abstract class CryptoType with _$CryptoType {
 /// extension
 extension CryptoTypeExt on CryptoType {
   /// Decrypt [Uint8List] and create [File].
-  Future<File> decrypt(Uint8List bytes) async {
+  Future<File> decrypt({
+    required Uint8List bytes,
+    required String? filename,
+  }) async {
     final raw = await when(
       rsaPss: (key, saltLength) => key.signBytes(bytes, saltLength),
       hash: (key) => key.digestBytes(bytes),
     );
 
-    return File.fromRawPath(raw);
+    final file = File.fromRawPath(raw);
+    if (filename != null) {
+      return await file.rename(filename);
+    }
+
+    return file;
   }
 }
