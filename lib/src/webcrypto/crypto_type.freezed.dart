@@ -16,16 +16,28 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$CryptoTypeTearOff {
   const _$CryptoTypeTearOff();
 
-  TypeRsaPss rsaPss({required RsaPssPrivateKey key, required int saltLength}) {
-    return TypeRsaPss(
+  TypeAesCbc aesCbc({required AesCbcSecretKey key, required Uint8List iv}) {
+    return TypeAesCbc(
       key: key,
-      saltLength: saltLength,
+      iv: iv,
     );
   }
 
-  TypeHash hash({required Hash key}) {
-    return TypeHash(
+  TypeAesCtr aesCtr(
+      {required AesCtrSecretKey key,
+      required List<int> counter,
+      required int length}) {
+    return TypeAesCtr(
       key: key,
+      counter: counter,
+      length: length,
+    );
+  }
+
+  TypeAesGcm aesGcm({required AesGcmSecretKey key, required Uint8List iv}) {
+    return TypeAesGcm(
+      key: key,
+      iv: iv,
     );
   }
 }
@@ -37,27 +49,34 @@ const $CryptoType = _$CryptoTypeTearOff();
 mixin _$CryptoType {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(RsaPssPrivateKey key, int saltLength) rsaPss,
-    required TResult Function(Hash key) hash,
+    required TResult Function(AesCbcSecretKey key, Uint8List iv) aesCbc,
+    required TResult Function(
+            AesCtrSecretKey key, List<int> counter, int length)
+        aesCtr,
+    required TResult Function(AesGcmSecretKey key, Uint8List iv) aesGcm,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(RsaPssPrivateKey key, int saltLength)? rsaPss,
-    TResult Function(Hash key)? hash,
+    TResult Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
+    TResult Function(AesCtrSecretKey key, List<int> counter, int length)?
+        aesCtr,
+    TResult Function(AesGcmSecretKey key, Uint8List iv)? aesGcm,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(TypeRsaPss value) rsaPss,
-    required TResult Function(TypeHash value) hash,
+    required TResult Function(TypeAesCbc value) aesCbc,
+    required TResult Function(TypeAesCtr value) aesCtr,
+    required TResult Function(TypeAesGcm value) aesGcm,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(TypeRsaPss value)? rsaPss,
-    TResult Function(TypeHash value)? hash,
+    TResult Function(TypeAesCbc value)? aesCbc,
+    TResult Function(TypeAesCtr value)? aesCtr,
+    TResult Function(TypeAesGcm value)? aesGcm,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -80,103 +99,107 @@ class _$CryptoTypeCopyWithImpl<$Res> implements $CryptoTypeCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class $TypeRsaPssCopyWith<$Res> {
-  factory $TypeRsaPssCopyWith(
-          TypeRsaPss value, $Res Function(TypeRsaPss) then) =
-      _$TypeRsaPssCopyWithImpl<$Res>;
-  $Res call({RsaPssPrivateKey key, int saltLength});
+abstract class $TypeAesCbcCopyWith<$Res> {
+  factory $TypeAesCbcCopyWith(
+          TypeAesCbc value, $Res Function(TypeAesCbc) then) =
+      _$TypeAesCbcCopyWithImpl<$Res>;
+  $Res call({AesCbcSecretKey key, Uint8List iv});
 }
 
 /// @nodoc
-class _$TypeRsaPssCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
-    implements $TypeRsaPssCopyWith<$Res> {
-  _$TypeRsaPssCopyWithImpl(TypeRsaPss _value, $Res Function(TypeRsaPss) _then)
-      : super(_value, (v) => _then(v as TypeRsaPss));
+class _$TypeAesCbcCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
+    implements $TypeAesCbcCopyWith<$Res> {
+  _$TypeAesCbcCopyWithImpl(TypeAesCbc _value, $Res Function(TypeAesCbc) _then)
+      : super(_value, (v) => _then(v as TypeAesCbc));
 
   @override
-  TypeRsaPss get _value => super._value as TypeRsaPss;
+  TypeAesCbc get _value => super._value as TypeAesCbc;
 
   @override
   $Res call({
     Object? key = freezed,
-    Object? saltLength = freezed,
+    Object? iv = freezed,
   }) {
-    return _then(TypeRsaPss(
+    return _then(TypeAesCbc(
       key: key == freezed
           ? _value.key
           : key // ignore: cast_nullable_to_non_nullable
-              as RsaPssPrivateKey,
-      saltLength: saltLength == freezed
-          ? _value.saltLength
-          : saltLength // ignore: cast_nullable_to_non_nullable
-              as int,
+              as AesCbcSecretKey,
+      iv: iv == freezed
+          ? _value.iv
+          : iv // ignore: cast_nullable_to_non_nullable
+              as Uint8List,
     ));
   }
 }
 
 /// @nodoc
-class _$TypeRsaPss with DiagnosticableTreeMixin implements TypeRsaPss {
-  const _$TypeRsaPss({required this.key, required this.saltLength});
+class _$TypeAesCbc with DiagnosticableTreeMixin implements TypeAesCbc {
+  const _$TypeAesCbc({required this.key, required this.iv});
 
   @override
-  final RsaPssPrivateKey key;
+  final AesCbcSecretKey key;
   @override
-  final int saltLength;
+  final Uint8List iv;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'CryptoType.rsaPss(key: $key, saltLength: $saltLength)';
+    return 'CryptoType.aesCbc(key: $key, iv: $iv)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'CryptoType.rsaPss'))
+      ..add(DiagnosticsProperty('type', 'CryptoType.aesCbc'))
       ..add(DiagnosticsProperty('key', key))
-      ..add(DiagnosticsProperty('saltLength', saltLength));
+      ..add(DiagnosticsProperty('iv', iv));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is TypeRsaPss &&
+        (other is TypeAesCbc &&
             (identical(other.key, key) ||
                 const DeepCollectionEquality().equals(other.key, key)) &&
-            (identical(other.saltLength, saltLength) ||
-                const DeepCollectionEquality()
-                    .equals(other.saltLength, saltLength)));
+            (identical(other.iv, iv) ||
+                const DeepCollectionEquality().equals(other.iv, iv)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(key) ^
-      const DeepCollectionEquality().hash(saltLength);
+      const DeepCollectionEquality().hash(iv);
 
   @JsonKey(ignore: true)
   @override
-  $TypeRsaPssCopyWith<TypeRsaPss> get copyWith =>
-      _$TypeRsaPssCopyWithImpl<TypeRsaPss>(this, _$identity);
+  $TypeAesCbcCopyWith<TypeAesCbc> get copyWith =>
+      _$TypeAesCbcCopyWithImpl<TypeAesCbc>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(RsaPssPrivateKey key, int saltLength) rsaPss,
-    required TResult Function(Hash key) hash,
+    required TResult Function(AesCbcSecretKey key, Uint8List iv) aesCbc,
+    required TResult Function(
+            AesCtrSecretKey key, List<int> counter, int length)
+        aesCtr,
+    required TResult Function(AesGcmSecretKey key, Uint8List iv) aesGcm,
   }) {
-    return rsaPss(key, saltLength);
+    return aesCbc(key, iv);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(RsaPssPrivateKey key, int saltLength)? rsaPss,
-    TResult Function(Hash key)? hash,
+    TResult Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
+    TResult Function(AesCtrSecretKey key, List<int> counter, int length)?
+        aesCtr,
+    TResult Function(AesGcmSecretKey key, Uint8List iv)? aesGcm,
     required TResult orElse(),
   }) {
-    if (rsaPss != null) {
-      return rsaPss(key, saltLength);
+    if (aesCbc != null) {
+      return aesCbc(key, iv);
     }
     return orElse();
   }
@@ -184,121 +207,154 @@ class _$TypeRsaPss with DiagnosticableTreeMixin implements TypeRsaPss {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(TypeRsaPss value) rsaPss,
-    required TResult Function(TypeHash value) hash,
+    required TResult Function(TypeAesCbc value) aesCbc,
+    required TResult Function(TypeAesCtr value) aesCtr,
+    required TResult Function(TypeAesGcm value) aesGcm,
   }) {
-    return rsaPss(this);
+    return aesCbc(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(TypeRsaPss value)? rsaPss,
-    TResult Function(TypeHash value)? hash,
+    TResult Function(TypeAesCbc value)? aesCbc,
+    TResult Function(TypeAesCtr value)? aesCtr,
+    TResult Function(TypeAesGcm value)? aesGcm,
     required TResult orElse(),
   }) {
-    if (rsaPss != null) {
-      return rsaPss(this);
+    if (aesCbc != null) {
+      return aesCbc(this);
     }
     return orElse();
   }
 }
 
-abstract class TypeRsaPss implements CryptoType {
-  const factory TypeRsaPss(
-      {required RsaPssPrivateKey key, required int saltLength}) = _$TypeRsaPss;
+abstract class TypeAesCbc implements CryptoType {
+  const factory TypeAesCbc(
+      {required AesCbcSecretKey key, required Uint8List iv}) = _$TypeAesCbc;
 
-  RsaPssPrivateKey get key => throw _privateConstructorUsedError;
-  int get saltLength => throw _privateConstructorUsedError;
+  AesCbcSecretKey get key => throw _privateConstructorUsedError;
+  Uint8List get iv => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $TypeRsaPssCopyWith<TypeRsaPss> get copyWith =>
+  $TypeAesCbcCopyWith<TypeAesCbc> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $TypeHashCopyWith<$Res> {
-  factory $TypeHashCopyWith(TypeHash value, $Res Function(TypeHash) then) =
-      _$TypeHashCopyWithImpl<$Res>;
-  $Res call({Hash key});
+abstract class $TypeAesCtrCopyWith<$Res> {
+  factory $TypeAesCtrCopyWith(
+          TypeAesCtr value, $Res Function(TypeAesCtr) then) =
+      _$TypeAesCtrCopyWithImpl<$Res>;
+  $Res call({AesCtrSecretKey key, List<int> counter, int length});
 }
 
 /// @nodoc
-class _$TypeHashCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
-    implements $TypeHashCopyWith<$Res> {
-  _$TypeHashCopyWithImpl(TypeHash _value, $Res Function(TypeHash) _then)
-      : super(_value, (v) => _then(v as TypeHash));
+class _$TypeAesCtrCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
+    implements $TypeAesCtrCopyWith<$Res> {
+  _$TypeAesCtrCopyWithImpl(TypeAesCtr _value, $Res Function(TypeAesCtr) _then)
+      : super(_value, (v) => _then(v as TypeAesCtr));
 
   @override
-  TypeHash get _value => super._value as TypeHash;
+  TypeAesCtr get _value => super._value as TypeAesCtr;
 
   @override
   $Res call({
     Object? key = freezed,
+    Object? counter = freezed,
+    Object? length = freezed,
   }) {
-    return _then(TypeHash(
+    return _then(TypeAesCtr(
       key: key == freezed
           ? _value.key
           : key // ignore: cast_nullable_to_non_nullable
-              as Hash,
+              as AesCtrSecretKey,
+      counter: counter == freezed
+          ? _value.counter
+          : counter // ignore: cast_nullable_to_non_nullable
+              as List<int>,
+      length: length == freezed
+          ? _value.length
+          : length // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
 
 /// @nodoc
-class _$TypeHash with DiagnosticableTreeMixin implements TypeHash {
-  const _$TypeHash({required this.key});
+class _$TypeAesCtr with DiagnosticableTreeMixin implements TypeAesCtr {
+  const _$TypeAesCtr(
+      {required this.key, required this.counter, required this.length});
 
   @override
-  final Hash key;
+  final AesCtrSecretKey key;
+  @override
+  final List<int> counter;
+  @override
+  final int length;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'CryptoType.hash(key: $key)';
+    return 'CryptoType.aesCtr(key: $key, counter: $counter, length: $length)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'CryptoType.hash'))
-      ..add(DiagnosticsProperty('key', key));
+      ..add(DiagnosticsProperty('type', 'CryptoType.aesCtr'))
+      ..add(DiagnosticsProperty('key', key))
+      ..add(DiagnosticsProperty('counter', counter))
+      ..add(DiagnosticsProperty('length', length));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is TypeHash &&
+        (other is TypeAesCtr &&
             (identical(other.key, key) ||
-                const DeepCollectionEquality().equals(other.key, key)));
+                const DeepCollectionEquality().equals(other.key, key)) &&
+            (identical(other.counter, counter) ||
+                const DeepCollectionEquality()
+                    .equals(other.counter, counter)) &&
+            (identical(other.length, length) ||
+                const DeepCollectionEquality().equals(other.length, length)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(key);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(key) ^
+      const DeepCollectionEquality().hash(counter) ^
+      const DeepCollectionEquality().hash(length);
 
   @JsonKey(ignore: true)
   @override
-  $TypeHashCopyWith<TypeHash> get copyWith =>
-      _$TypeHashCopyWithImpl<TypeHash>(this, _$identity);
+  $TypeAesCtrCopyWith<TypeAesCtr> get copyWith =>
+      _$TypeAesCtrCopyWithImpl<TypeAesCtr>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(RsaPssPrivateKey key, int saltLength) rsaPss,
-    required TResult Function(Hash key) hash,
+    required TResult Function(AesCbcSecretKey key, Uint8List iv) aesCbc,
+    required TResult Function(
+            AesCtrSecretKey key, List<int> counter, int length)
+        aesCtr,
+    required TResult Function(AesGcmSecretKey key, Uint8List iv) aesGcm,
   }) {
-    return hash(key);
+    return aesCtr(key, counter, length);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(RsaPssPrivateKey key, int saltLength)? rsaPss,
-    TResult Function(Hash key)? hash,
+    TResult Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
+    TResult Function(AesCtrSecretKey key, List<int> counter, int length)?
+        aesCtr,
+    TResult Function(AesGcmSecretKey key, Uint8List iv)? aesGcm,
     required TResult orElse(),
   }) {
-    if (hash != null) {
-      return hash(key);
+    if (aesCtr != null) {
+      return aesCtr(key, counter, length);
     }
     return orElse();
   }
@@ -306,31 +362,180 @@ class _$TypeHash with DiagnosticableTreeMixin implements TypeHash {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(TypeRsaPss value) rsaPss,
-    required TResult Function(TypeHash value) hash,
+    required TResult Function(TypeAesCbc value) aesCbc,
+    required TResult Function(TypeAesCtr value) aesCtr,
+    required TResult Function(TypeAesGcm value) aesGcm,
   }) {
-    return hash(this);
+    return aesCtr(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(TypeRsaPss value)? rsaPss,
-    TResult Function(TypeHash value)? hash,
+    TResult Function(TypeAesCbc value)? aesCbc,
+    TResult Function(TypeAesCtr value)? aesCtr,
+    TResult Function(TypeAesGcm value)? aesGcm,
     required TResult orElse(),
   }) {
-    if (hash != null) {
-      return hash(this);
+    if (aesCtr != null) {
+      return aesCtr(this);
     }
     return orElse();
   }
 }
 
-abstract class TypeHash implements CryptoType {
-  const factory TypeHash({required Hash key}) = _$TypeHash;
+abstract class TypeAesCtr implements CryptoType {
+  const factory TypeAesCtr(
+      {required AesCtrSecretKey key,
+      required List<int> counter,
+      required int length}) = _$TypeAesCtr;
 
-  Hash get key => throw _privateConstructorUsedError;
+  AesCtrSecretKey get key => throw _privateConstructorUsedError;
+  List<int> get counter => throw _privateConstructorUsedError;
+  int get length => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $TypeHashCopyWith<TypeHash> get copyWith =>
+  $TypeAesCtrCopyWith<TypeAesCtr> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $TypeAesGcmCopyWith<$Res> {
+  factory $TypeAesGcmCopyWith(
+          TypeAesGcm value, $Res Function(TypeAesGcm) then) =
+      _$TypeAesGcmCopyWithImpl<$Res>;
+  $Res call({AesGcmSecretKey key, Uint8List iv});
+}
+
+/// @nodoc
+class _$TypeAesGcmCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
+    implements $TypeAesGcmCopyWith<$Res> {
+  _$TypeAesGcmCopyWithImpl(TypeAesGcm _value, $Res Function(TypeAesGcm) _then)
+      : super(_value, (v) => _then(v as TypeAesGcm));
+
+  @override
+  TypeAesGcm get _value => super._value as TypeAesGcm;
+
+  @override
+  $Res call({
+    Object? key = freezed,
+    Object? iv = freezed,
+  }) {
+    return _then(TypeAesGcm(
+      key: key == freezed
+          ? _value.key
+          : key // ignore: cast_nullable_to_non_nullable
+              as AesGcmSecretKey,
+      iv: iv == freezed
+          ? _value.iv
+          : iv // ignore: cast_nullable_to_non_nullable
+              as Uint8List,
+    ));
+  }
+}
+
+/// @nodoc
+class _$TypeAesGcm with DiagnosticableTreeMixin implements TypeAesGcm {
+  const _$TypeAesGcm({required this.key, required this.iv});
+
+  @override
+  final AesGcmSecretKey key;
+  @override
+  final Uint8List iv;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'CryptoType.aesGcm(key: $key, iv: $iv)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'CryptoType.aesGcm'))
+      ..add(DiagnosticsProperty('key', key))
+      ..add(DiagnosticsProperty('iv', iv));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is TypeAesGcm &&
+            (identical(other.key, key) ||
+                const DeepCollectionEquality().equals(other.key, key)) &&
+            (identical(other.iv, iv) ||
+                const DeepCollectionEquality().equals(other.iv, iv)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(key) ^
+      const DeepCollectionEquality().hash(iv);
+
+  @JsonKey(ignore: true)
+  @override
+  $TypeAesGcmCopyWith<TypeAesGcm> get copyWith =>
+      _$TypeAesGcmCopyWithImpl<TypeAesGcm>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(AesCbcSecretKey key, Uint8List iv) aesCbc,
+    required TResult Function(
+            AesCtrSecretKey key, List<int> counter, int length)
+        aesCtr,
+    required TResult Function(AesGcmSecretKey key, Uint8List iv) aesGcm,
+  }) {
+    return aesGcm(key, iv);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
+    TResult Function(AesCtrSecretKey key, List<int> counter, int length)?
+        aesCtr,
+    TResult Function(AesGcmSecretKey key, Uint8List iv)? aesGcm,
+    required TResult orElse(),
+  }) {
+    if (aesGcm != null) {
+      return aesGcm(key, iv);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(TypeAesCbc value) aesCbc,
+    required TResult Function(TypeAesCtr value) aesCtr,
+    required TResult Function(TypeAesGcm value) aesGcm,
+  }) {
+    return aesGcm(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(TypeAesCbc value)? aesCbc,
+    TResult Function(TypeAesCtr value)? aesCtr,
+    TResult Function(TypeAesGcm value)? aesGcm,
+    required TResult orElse(),
+  }) {
+    if (aesGcm != null) {
+      return aesGcm(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class TypeAesGcm implements CryptoType {
+  const factory TypeAesGcm(
+      {required AesGcmSecretKey key, required Uint8List iv}) = _$TypeAesGcm;
+
+  AesGcmSecretKey get key => throw _privateConstructorUsedError;
+  Uint8List get iv => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $TypeAesGcmCopyWith<TypeAesGcm> get copyWith =>
       throw _privateConstructorUsedError;
 }

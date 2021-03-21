@@ -11,16 +11,24 @@ part 'crypto_type.freezed.dart';
 /// see: https://pub.dev/packages/webcrypto
 @freezed
 abstract class CryptoType with _$CryptoType {
-  /// see [RsaPssPrivateKey]
-  const factory CryptoType.rsaPss({
-    required RsaPssPrivateKey key,
-    required int saltLength,
-  }) = TypeRsaPss;
+  /// see [AesCbcSecretKey]
+  const factory CryptoType.aesCbc({
+    required AesCbcSecretKey key,
+    required Uint8List iv,
+  }) = TypeAesCbc;
 
-  /// see [Hash]
-  const factory CryptoType.hash({
-    required Hash key,
-  }) = TypeHash;
+  /// see [AesCtrSecretKey]
+  const factory CryptoType.aesCtr({
+    required AesCtrSecretKey key,
+    required List<int> counter,
+    required int length,
+  }) = TypeAesCtr;
+
+  /// see [AesGcmSecretKey]
+  const factory CryptoType.aesGcm({
+    required AesGcmSecretKey key,
+    required Uint8List iv,
+  }) = TypeAesGcm;
 }
 
 /// extension
@@ -31,8 +39,10 @@ extension CryptoTypeExt on CryptoType {
     required String? filename,
   }) async {
     final raw = await when(
-      rsaPss: (key, saltLength) => key.signBytes(bytes, saltLength),
-      hash: (key) => key.digestBytes(bytes),
+      aesCbc: (key, iv) => key.decryptBytes(bytes, iv),
+      aesCtr: (key, counter, length) =>
+          key.decryptBytes(bytes, counter, length),
+      aesGcm: (key, iv) => key.decryptBytes(bytes, iv),
     );
 
     final file = File.fromRawPath(raw);
