@@ -5,6 +5,8 @@ import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:webcrypto/webcrypto.dart';
 
+import '../result/decrypt_result.dart';
+
 part 'crypto_type.freezed.dart';
 
 /// A type of encryption based on Web Crypto.
@@ -37,11 +39,11 @@ class CryptoType with _$CryptoType {
 /// extension
 extension CryptoTypeExt on CryptoType {
   /// Decrypt [Uint8List] and create [File].
-  Future<File> decrypt({
+  Future<DecryptResult> decrypt({
     required Uint8List bytes,
     required String? filename,
   }) async {
-    final raw = await when(
+    final data = await when(
       plain: () async => bytes,
       aesCbc: (key, iv) => key.decryptBytes(bytes, iv),
       aesCtr: (key, counter, length) =>
@@ -49,11 +51,9 @@ extension CryptoTypeExt on CryptoType {
       aesGcm: (key, iv) => key.decryptBytes(bytes, iv),
     );
 
-    final file = File.fromRawPath(raw);
-    if (filename != null) {
-      return await file.rename(filename);
-    }
-
-    return file;
+    return DecryptResult(
+      data: data,
+      filename: filename,
+    );
   }
 }
