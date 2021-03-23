@@ -10,13 +10,11 @@ part 'filename.g.dart';
 /// Cache file's table
 class Caches extends Table {
   /// primary key
-  IntColumn get id => integer().autoIncrement()();
+  /// server url
+  TextColumn get url => text()();
 
   /// grouping key
   TextColumn get group => text()();
-
-  /// server url
-  TextColumn get url => text()();
 
   /// downloaded data
   BlobColumn get bytes => blob()();
@@ -26,6 +24,9 @@ class Caches extends Table {
 
   /// last edited date and time
   DateTimeColumn get updated => dateTime()();
+
+  @override
+  Set<Column> get primaryKey => {url};
 }
 
 /// DataBase
