@@ -45,12 +45,11 @@ class Database extends _$Database {
 
   /// Get cache file
   Future<Cache?> getFile(String url) =>
-      (select(caches)..where((tbl) => tbl.url.isSmallerOrEqualValue(url)))
-          .getSingleOrNull();
+      (select(caches)..where((tbl) => tbl.url.equals(url))).getSingleOrNull();
 
   /// Delete cache file
   Future<int> deleteFile(String url) =>
-      (delete(caches)..where((tbl) => tbl.url.isSmallerOrEqualValue(url))).go();
+      (delete(caches)..where((tbl) => tbl.url.equals(url))).go();
 
   /// Delete all files
   Future<int> deleteAll() => delete(caches).go();
@@ -62,8 +61,7 @@ class Database extends _$Database {
 
   /// Delete files whose group value is [group].
   Future<int> deleteGroup(String group) =>
-      (delete(caches)..where((tbl) => tbl.group.isSmallerOrEqualValue(group)))
-          .go();
+      (delete(caches)..where((tbl) => tbl.group.equals(group))).go();
 }
 
 LazyDatabase _openConnection() {
