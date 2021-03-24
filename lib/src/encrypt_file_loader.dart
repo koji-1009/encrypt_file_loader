@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
 
 import 'moor/filename.dart';
 import 'result/decrypt_result.dart';
@@ -30,7 +30,6 @@ enum LoadResult {
 /// [EncryptFileLoader] is a class that loads, caches, and decrypts.
 class EncryptFileLoader {
   final _db = Database();
-  final _client = HttpClient();
 
   /// Load file from server or internal db.
   Future<LoadResult> load({
@@ -43,10 +42,9 @@ class EncryptFileLoader {
     }
 
     try {
-      final request = await _client.getUrl(Uri.parse(url));
-      final response = await request.close();
+      final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
-        final bytes = await consolidateHttpClientResponseBytes(response);
+        final bytes = response.bodyBytes;
 
         String? filename;
         final disposition = response.headers['Content-Disposition']?.toString();
