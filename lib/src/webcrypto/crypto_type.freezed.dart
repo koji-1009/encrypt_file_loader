@@ -134,7 +134,7 @@ class _$TypePlain with DiagnosticableTreeMixin implements TypePlain {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties..add(DiagnosticsProperty('type', 'CryptoType.plain'));
+    properties.add(DiagnosticsProperty('type', 'CryptoType.plain'));
   }
 
   @override

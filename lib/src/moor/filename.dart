@@ -1,9 +1,6 @@
-import 'dart:io';
-
-import 'package:moor/ffi.dart';
 import 'package:moor/moor.dart';
-import 'package:path/path.dart' as p;
-import 'package:path_provider/path_provider.dart';
+
+import 'db/connection.dart';
 
 part 'filename.g.dart';
 
@@ -33,7 +30,7 @@ class Caches extends Table {
 @UseMoor(tables: [Caches])
 class Database extends _$Database {
   /// constructor
-  Database() : super(_openConnection());
+  Database() : super(Connection.instance);
 
   @override
   int get schemaVersion => 1;
@@ -62,14 +59,6 @@ class Database extends _$Database {
   /// Delete files whose group value is [group].
   Future<int> deleteGroup(String group) =>
       (delete(caches)..where((tbl) => tbl.group.equals(group))).go();
-}
-
-LazyDatabase _openConnection() {
-  return LazyDatabase(() async {
-    final dbFolder = await getApplicationDocumentsDirectory();
-    final file = File(p.join(dbFolder.path, 'encrypt_file_loader.sqlite'));
-    return VmDatabase(file);
-  });
 }
 
 /// Create entity for saving
