@@ -33,7 +33,15 @@ class CryptoType with _$CryptoType {
   const factory CryptoType.aesGcm({
     required AesGcmSecretKey key,
     required Uint8List iv,
+    List<int>? additionalData,
+    int? tagLength,
   }) = TypeAesGcm;
+
+  /// see [RsaOaepPrivateKey]
+  const factory CryptoType.rsaOaep({
+    required RsaOaepPrivateKey key,
+    List<int>? label,
+  }) = TypeRsaOaep;
 }
 
 /// extension
@@ -48,7 +56,9 @@ extension CryptoTypeExt on CryptoType {
       aesCbc: (key, iv) => key.decryptBytes(bytes, iv),
       aesCtr: (key, counter, length) =>
           key.decryptBytes(bytes, counter, length),
-      aesGcm: (key, iv) => key.decryptBytes(bytes, iv),
+      aesGcm: (key, iv, data, tag) =>
+          key.decryptBytes(bytes, iv, additionalData: data, tagLength: tag),
+      rsaOaep: (key, label) => key.decryptBytes(bytes, label: label),
     );
 
     return DecryptResult(
