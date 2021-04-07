@@ -41,11 +41,13 @@ class _$CryptoTypeTearOff {
   TypeAesGcm aesGcm(
       {required AesGcmSecretKey key,
       required Uint8List iv,
+      List<int>? authTag,
       List<int>? additionalData,
       int? tagLength}) {
     return TypeAesGcm(
       key: key,
       iv: iv,
+      authTag: authTag,
       additionalData: additionalData,
       tagLength: tagLength,
     );
@@ -72,7 +74,7 @@ mixin _$CryptoType {
             AesCtrSecretKey key, List<int> counter, int length)
         aesCtr,
     required TResult Function(AesGcmSecretKey key, Uint8List iv,
-            List<int>? additionalData, int? tagLength)
+            List<int>? authTag, List<int>? additionalData, int? tagLength)
         aesGcm,
     required TResult Function(RsaOaepPrivateKey key, List<int>? label) rsaOaep,
   }) =>
@@ -83,7 +85,7 @@ mixin _$CryptoType {
     TResult Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
     TResult Function(AesCtrSecretKey key, List<int> counter, int length)?
         aesCtr,
-    TResult Function(AesGcmSecretKey key, Uint8List iv,
+    TResult Function(AesGcmSecretKey key, Uint8List iv, List<int>? authTag,
             List<int>? additionalData, int? tagLength)?
         aesGcm,
     TResult Function(RsaOaepPrivateKey key, List<int>? label)? rsaOaep,
@@ -175,7 +177,7 @@ class _$TypePlain with DiagnosticableTreeMixin implements TypePlain {
             AesCtrSecretKey key, List<int> counter, int length)
         aesCtr,
     required TResult Function(AesGcmSecretKey key, Uint8List iv,
-            List<int>? additionalData, int? tagLength)
+            List<int>? authTag, List<int>? additionalData, int? tagLength)
         aesGcm,
     required TResult Function(RsaOaepPrivateKey key, List<int>? label) rsaOaep,
   }) {
@@ -189,7 +191,7 @@ class _$TypePlain with DiagnosticableTreeMixin implements TypePlain {
     TResult Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
     TResult Function(AesCtrSecretKey key, List<int> counter, int length)?
         aesCtr,
-    TResult Function(AesGcmSecretKey key, Uint8List iv,
+    TResult Function(AesGcmSecretKey key, Uint8List iv, List<int>? authTag,
             List<int>? additionalData, int? tagLength)?
         aesGcm,
     TResult Function(RsaOaepPrivateKey key, List<int>? label)? rsaOaep,
@@ -322,7 +324,7 @@ class _$TypeAesCbc with DiagnosticableTreeMixin implements TypeAesCbc {
             AesCtrSecretKey key, List<int> counter, int length)
         aesCtr,
     required TResult Function(AesGcmSecretKey key, Uint8List iv,
-            List<int>? additionalData, int? tagLength)
+            List<int>? authTag, List<int>? additionalData, int? tagLength)
         aesGcm,
     required TResult Function(RsaOaepPrivateKey key, List<int>? label) rsaOaep,
   }) {
@@ -336,7 +338,7 @@ class _$TypeAesCbc with DiagnosticableTreeMixin implements TypeAesCbc {
     TResult Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
     TResult Function(AesCtrSecretKey key, List<int> counter, int length)?
         aesCtr,
-    TResult Function(AesGcmSecretKey key, Uint8List iv,
+    TResult Function(AesGcmSecretKey key, Uint8List iv, List<int>? authTag,
             List<int>? additionalData, int? tagLength)?
         aesGcm,
     TResult Function(RsaOaepPrivateKey key, List<int>? label)? rsaOaep,
@@ -489,7 +491,7 @@ class _$TypeAesCtr with DiagnosticableTreeMixin implements TypeAesCtr {
             AesCtrSecretKey key, List<int> counter, int length)
         aesCtr,
     required TResult Function(AesGcmSecretKey key, Uint8List iv,
-            List<int>? additionalData, int? tagLength)
+            List<int>? authTag, List<int>? additionalData, int? tagLength)
         aesGcm,
     required TResult Function(RsaOaepPrivateKey key, List<int>? label) rsaOaep,
   }) {
@@ -503,7 +505,7 @@ class _$TypeAesCtr with DiagnosticableTreeMixin implements TypeAesCtr {
     TResult Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
     TResult Function(AesCtrSecretKey key, List<int> counter, int length)?
         aesCtr,
-    TResult Function(AesGcmSecretKey key, Uint8List iv,
+    TResult Function(AesGcmSecretKey key, Uint8List iv, List<int>? authTag,
             List<int>? additionalData, int? tagLength)?
         aesGcm,
     TResult Function(RsaOaepPrivateKey key, List<int>? label)? rsaOaep,
@@ -566,6 +568,7 @@ abstract class $TypeAesGcmCopyWith<$Res> {
   $Res call(
       {AesGcmSecretKey key,
       Uint8List iv,
+      List<int>? authTag,
       List<int>? additionalData,
       int? tagLength});
 }
@@ -583,6 +586,7 @@ class _$TypeAesGcmCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
   $Res call({
     Object? key = freezed,
     Object? iv = freezed,
+    Object? authTag = freezed,
     Object? additionalData = freezed,
     Object? tagLength = freezed,
   }) {
@@ -595,6 +599,10 @@ class _$TypeAesGcmCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
           ? _value.iv
           : iv // ignore: cast_nullable_to_non_nullable
               as Uint8List,
+      authTag: authTag == freezed
+          ? _value.authTag
+          : authTag // ignore: cast_nullable_to_non_nullable
+              as List<int>?,
       additionalData: additionalData == freezed
           ? _value.additionalData
           : additionalData // ignore: cast_nullable_to_non_nullable
@@ -612,6 +620,7 @@ class _$TypeAesGcm with DiagnosticableTreeMixin implements TypeAesGcm {
   const _$TypeAesGcm(
       {required this.key,
       required this.iv,
+      this.authTag,
       this.additionalData,
       this.tagLength});
 
@@ -620,13 +629,15 @@ class _$TypeAesGcm with DiagnosticableTreeMixin implements TypeAesGcm {
   @override
   final Uint8List iv;
   @override
+  final List<int>? authTag;
+  @override
   final List<int>? additionalData;
   @override
   final int? tagLength;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'CryptoType.aesGcm(key: $key, iv: $iv, additionalData: $additionalData, tagLength: $tagLength)';
+    return 'CryptoType.aesGcm(key: $key, iv: $iv, authTag: $authTag, additionalData: $additionalData, tagLength: $tagLength)';
   }
 
   @override
@@ -636,6 +647,7 @@ class _$TypeAesGcm with DiagnosticableTreeMixin implements TypeAesGcm {
       ..add(DiagnosticsProperty('type', 'CryptoType.aesGcm'))
       ..add(DiagnosticsProperty('key', key))
       ..add(DiagnosticsProperty('iv', iv))
+      ..add(DiagnosticsProperty('authTag', authTag))
       ..add(DiagnosticsProperty('additionalData', additionalData))
       ..add(DiagnosticsProperty('tagLength', tagLength));
   }
@@ -648,6 +660,9 @@ class _$TypeAesGcm with DiagnosticableTreeMixin implements TypeAesGcm {
                 const DeepCollectionEquality().equals(other.key, key)) &&
             (identical(other.iv, iv) ||
                 const DeepCollectionEquality().equals(other.iv, iv)) &&
+            (identical(other.authTag, authTag) ||
+                const DeepCollectionEquality()
+                    .equals(other.authTag, authTag)) &&
             (identical(other.additionalData, additionalData) ||
                 const DeepCollectionEquality()
                     .equals(other.additionalData, additionalData)) &&
@@ -661,6 +676,7 @@ class _$TypeAesGcm with DiagnosticableTreeMixin implements TypeAesGcm {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(key) ^
       const DeepCollectionEquality().hash(iv) ^
+      const DeepCollectionEquality().hash(authTag) ^
       const DeepCollectionEquality().hash(additionalData) ^
       const DeepCollectionEquality().hash(tagLength);
 
@@ -678,11 +694,11 @@ class _$TypeAesGcm with DiagnosticableTreeMixin implements TypeAesGcm {
             AesCtrSecretKey key, List<int> counter, int length)
         aesCtr,
     required TResult Function(AesGcmSecretKey key, Uint8List iv,
-            List<int>? additionalData, int? tagLength)
+            List<int>? authTag, List<int>? additionalData, int? tagLength)
         aesGcm,
     required TResult Function(RsaOaepPrivateKey key, List<int>? label) rsaOaep,
   }) {
-    return aesGcm(key, iv, additionalData, tagLength);
+    return aesGcm(key, iv, authTag, additionalData, tagLength);
   }
 
   @override
@@ -692,14 +708,14 @@ class _$TypeAesGcm with DiagnosticableTreeMixin implements TypeAesGcm {
     TResult Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
     TResult Function(AesCtrSecretKey key, List<int> counter, int length)?
         aesCtr,
-    TResult Function(AesGcmSecretKey key, Uint8List iv,
+    TResult Function(AesGcmSecretKey key, Uint8List iv, List<int>? authTag,
             List<int>? additionalData, int? tagLength)?
         aesGcm,
     TResult Function(RsaOaepPrivateKey key, List<int>? label)? rsaOaep,
     required TResult orElse(),
   }) {
     if (aesGcm != null) {
-      return aesGcm(key, iv, additionalData, tagLength);
+      return aesGcm(key, iv, authTag, additionalData, tagLength);
     }
     return orElse();
   }
@@ -737,11 +753,13 @@ abstract class TypeAesGcm implements CryptoType {
   const factory TypeAesGcm(
       {required AesGcmSecretKey key,
       required Uint8List iv,
+      List<int>? authTag,
       List<int>? additionalData,
       int? tagLength}) = _$TypeAesGcm;
 
   AesGcmSecretKey get key => throw _privateConstructorUsedError;
   Uint8List get iv => throw _privateConstructorUsedError;
+  List<int>? get authTag => throw _privateConstructorUsedError;
   List<int>? get additionalData => throw _privateConstructorUsedError;
   int? get tagLength => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -838,7 +856,7 @@ class _$TypeRsaOaep with DiagnosticableTreeMixin implements TypeRsaOaep {
             AesCtrSecretKey key, List<int> counter, int length)
         aesCtr,
     required TResult Function(AesGcmSecretKey key, Uint8List iv,
-            List<int>? additionalData, int? tagLength)
+            List<int>? authTag, List<int>? additionalData, int? tagLength)
         aesGcm,
     required TResult Function(RsaOaepPrivateKey key, List<int>? label) rsaOaep,
   }) {
@@ -852,7 +870,7 @@ class _$TypeRsaOaep with DiagnosticableTreeMixin implements TypeRsaOaep {
     TResult Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
     TResult Function(AesCtrSecretKey key, List<int> counter, int length)?
         aesCtr,
-    TResult Function(AesGcmSecretKey key, Uint8List iv,
+    TResult Function(AesGcmSecretKey key, Uint8List iv, List<int>? authTag,
             List<int>? additionalData, int? tagLength)?
         aesGcm,
     TResult Function(RsaOaepPrivateKey key, List<int>? label)? rsaOaep,
