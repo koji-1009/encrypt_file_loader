@@ -112,6 +112,7 @@ class __$DecryptResultCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$_DecryptResult with DiagnosticableTreeMixin implements _DecryptResult {
   const _$_DecryptResult({required this.data, required this.filename});
 
