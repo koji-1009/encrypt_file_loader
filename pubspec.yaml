@@ -11,9 +11,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # network
-  http: ^0.13.0
-
   # db
   moor: ^4.2.0
   sqlite3_flutter_libs: ^0.4.0
