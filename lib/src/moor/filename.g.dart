@@ -155,7 +155,7 @@ class CachesCompanion extends UpdateCompanion<Cache> {
     required Uint8List bytes,
     this.filename = const Value.absent(),
     required DateTime updated,
-  })   : url = Value(url),
+  })  : url = Value(url),
         group = Value(group),
         bytes = Value(bytes),
         updated = Value(updated);

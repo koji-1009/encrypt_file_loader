@@ -146,6 +146,7 @@ class _$TypePlainCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$TypePlain with DiagnosticableTreeMixin implements TypePlain {
   const _$TypePlain();
 
@@ -272,6 +273,7 @@ class _$TypeAesCbcCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$TypeAesCbc with DiagnosticableTreeMixin implements TypeAesCbc {
   const _$TypeAesCbc({required this.key, required this.iv});
 
@@ -431,6 +433,7 @@ class _$TypeAesCtrCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$TypeAesCtr with DiagnosticableTreeMixin implements TypeAesCtr {
   const _$TypeAesCtr(
       {required this.key, required this.counter, required this.length});
@@ -616,6 +619,7 @@ class _$TypeAesGcmCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$TypeAesGcm with DiagnosticableTreeMixin implements TypeAesGcm {
   const _$TypeAesGcm(
       {required this.key,
@@ -804,6 +808,7 @@ class _$TypeRsaOaepCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$TypeRsaOaep with DiagnosticableTreeMixin implements TypeRsaOaep {
   const _$TypeRsaOaep({required this.key, this.label});
 
