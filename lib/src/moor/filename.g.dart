@@ -32,18 +32,16 @@ class Cache extends DataClass implements Insertable<Cache> {
   factory Cache.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final stringType = db.typeSystem.forDartType<String>();
-    final uint8ListType = db.typeSystem.forDartType<Uint8List>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
     return Cache(
-      url: stringType.mapFromDatabaseResponse(data['${effectivePrefix}url'])!,
-      group:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}group'])!,
-      bytes: uint8ListType
+      url: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}url'])!,
+      group: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}group'])!,
+      bytes: const BlobType()
           .mapFromDatabaseResponse(data['${effectivePrefix}bytes'])!,
-      filename: stringType
+      filename: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}filename']),
-      updated: dateTimeType
+      updated: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}updated'])!,
     );
   }
@@ -126,7 +124,7 @@ class Cache extends DataClass implements Insertable<Cache> {
       $mrjc(group.hashCode,
           $mrjc(bytes.hashCode, $mrjc(filename.hashCode, updated.hashCode)))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Cache &&
           other.url == this.url &&

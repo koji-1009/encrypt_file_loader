@@ -94,12 +94,20 @@ class EncryptFileLoader {
   }
 
   /// Delete all files.
-  Future deleteAllFiles() async {
-    await _db.deleteAll();
+  /// Returns the amount of rows that were deleted.
+  Future<int> deleteAll() async {
+    return await _db.deleteAll();
+  }
+
+  /// Delete files that belong to the [group].
+  /// Returns the amount of rows that were deleted.
+  Future<int> deleteGroup(String group) async {
+    return await _db.deleteGroup(group);
   }
 
   /// Delete files older than the [base].
-  Future deleteOldFiles(DateTime base) async {
-    await _db.deleteOldFiles(base);
+  /// Returns the amount of rows that were deleted.
+  Future<int> deleteOldFiles(DateTime base) async {
+    return await _db.deleteOldFiles(base);
   }
 }
