@@ -95,7 +95,7 @@ class EncryptFileLoader {
 
   /// Delete all files.
   /// Returns the amount of rows that were deleted.
-  Future<int> deleteAllFiles() async {
+  Future<int> deleteAll() async {
     return await _db.deleteAll();
   }
 
