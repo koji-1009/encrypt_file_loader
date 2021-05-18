@@ -112,7 +112,7 @@ class EncryptFileLoader {
   }
 
   /// Rebuilds the database file,
-  /// repacking it into a minimal amount of disk space
+  /// repacking it into a minimal amount of disk space.
   Future<void> vacuum() async {
     await _db.customStatement('vacuum;');
   }
