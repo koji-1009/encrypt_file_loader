@@ -35,30 +35,32 @@ class Database extends _$Database {
   @override
   int get schemaVersion => 1;
 
-  /// Insert cache file
-  Future<int> insertCache(CachesCompanion entry) {
-    return into(caches).insert(entry);
-  }
+  /// Insert cache file.
+  Future<int> insertCache(CachesCompanion entry) => into(caches).insert(entry);
 
-  /// Get cache file
+  /// Get cache file.
   Future<Cache?> getFile(String url) =>
       (select(caches)..where((tbl) => tbl.url.equals(url))).getSingleOrNull();
 
-  /// Delete cache file
+  /// Delete cache file.
+  /// Returns the amount of rows that were deleted.
   Future<int> deleteFile(String url) =>
       (delete(caches)..where((tbl) => tbl.url.equals(url))).go();
 
-  /// Delete all files
+  /// Delete all files.
+  /// Returns the amount of rows that were deleted .
   Future<int> deleteAll() => delete(caches).go();
 
+  /// Delete files whose group value is [group].
+  /// Returns the amount of rows that were deleted.
+  Future<int> deleteGroup(String group) =>
+      (delete(caches)..where((tbl) => tbl.group.equals(group))).go();
+
   /// Delete files older than the [base].
+  /// Returns the amount of rows that were deleted.
   Future<int> deleteOldFiles(DateTime base) =>
       (delete(caches)..where((tbl) => tbl.updated.isSmallerOrEqualValue(base)))
           .go();
-
-  /// Delete files whose group value is [group].
-  Future<int> deleteGroup(String group) =>
-      (delete(caches)..where((tbl) => tbl.group.equals(group))).go();
 }
 
 /// Create entity for saving
