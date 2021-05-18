@@ -110,4 +110,10 @@ class EncryptFileLoader {
   Future<int> deleteOldFiles(DateTime base) async {
     return await _db.deleteOldFiles(base);
   }
+
+  /// Rebuilds the database file,
+  /// repacking it into a minimal amount of disk space.
+  Future<void> vacuum() async {
+    await _db.customStatement('vacuum;');
+  }
 }
