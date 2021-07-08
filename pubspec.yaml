@@ -4,8 +4,8 @@ version: 0.0.1
 homepage: https://github.com/koji-1009/encrypt_file_loader
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=2.0.0"
+  sdk: ">=2.13.0 <3.0.0"
+  flutter: ">=2.2.0"
 
 dependencies:
   flutter:
@@ -13,7 +13,7 @@ dependencies:
 
   # db
   moor: ^4.2.0
-  sqlite3_flutter_libs: ^0.4.0
+  sqlite3_flutter_libs: ^0.5.0
   path_provider: ^2.0.0
   path: ^1.8.0
 

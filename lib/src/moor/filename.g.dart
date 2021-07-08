@@ -227,68 +227,31 @@ class $CachesTable extends Caches with TableInfo<$CachesTable, Cache> {
   final String? _alias;
   $CachesTable(this._db, [this._alias]);
   final VerificationMeta _urlMeta = const VerificationMeta('url');
-  @override
-  late final GeneratedTextColumn url = _constructUrl();
-  GeneratedTextColumn _constructUrl() {
-    return GeneratedTextColumn(
-      'url',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<String?> url = GeneratedColumn<String?>(
+      'url', aliasedName, false,
+      typeName: 'TEXT', requiredDuringInsert: true);
   final VerificationMeta _groupMeta = const VerificationMeta('group');
-  @override
-  late final GeneratedTextColumn group = _constructGroup();
-  GeneratedTextColumn _constructGroup() {
-    return GeneratedTextColumn(
-      'group',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<String?> group = GeneratedColumn<String?>(
+      'group', aliasedName, false,
+      typeName: 'TEXT', requiredDuringInsert: true);
   final VerificationMeta _bytesMeta = const VerificationMeta('bytes');
-  @override
-  late final GeneratedBlobColumn bytes = _constructBytes();
-  GeneratedBlobColumn _constructBytes() {
-    return GeneratedBlobColumn(
-      'bytes',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<Uint8List?> bytes = GeneratedColumn<Uint8List?>(
+      'bytes', aliasedName, false,
+      typeName: 'BLOB', requiredDuringInsert: true);
   final VerificationMeta _filenameMeta = const VerificationMeta('filename');
-  @override
-  late final GeneratedTextColumn filename = _constructFilename();
-  GeneratedTextColumn _constructFilename() {
-    return GeneratedTextColumn(
-      'filename',
-      $tableName,
-      true,
-    );
-  }
-
+  late final GeneratedColumn<String?> filename = GeneratedColumn<String?>(
+      'filename', aliasedName, true,
+      typeName: 'TEXT', requiredDuringInsert: false);
   final VerificationMeta _updatedMeta = const VerificationMeta('updated');
-  @override
-  late final GeneratedDateTimeColumn updated = _constructUpdated();
-  GeneratedDateTimeColumn _constructUpdated() {
-    return GeneratedDateTimeColumn(
-      'updated',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<DateTime?> updated = GeneratedColumn<DateTime?>(
+      'updated', aliasedName, false,
+      typeName: 'INTEGER', requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [url, group, bytes, filename, updated];
   @override
-  $CachesTable get asDslTable => this;
+  String get aliasedName => _alias ?? 'caches';
   @override
-  String get $tableName => _alias ?? 'caches';
-  @override
-  final String actualTableName = 'caches';
+  String get actualTableName => 'caches';
   @override
   VerificationContext validateIntegrity(Insertable<Cache> instance,
       {bool isInserting = false}) {
@@ -329,8 +292,8 @@ class $CachesTable extends Caches with TableInfo<$CachesTable, Cache> {
   Set<GeneratedColumn> get $primaryKey => {url};
   @override
   Cache map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return Cache.fromData(data, _db, prefix: effectivePrefix);
+    return Cache.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
