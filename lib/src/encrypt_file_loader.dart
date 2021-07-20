@@ -51,7 +51,7 @@ class EncryptFileLoader {
         String? filename;
         final disposition = response.headers['Content-Disposition']?.toString();
         if (disposition != null) {
-          final reg = RegExp('''/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/''');
+          final reg = RegExp('''/filename[^;=\n]*=((['"]).*?2|[^;\n]*)/''');
           final match = reg.firstMatch(disposition);
           filename = match?[0];
         }
