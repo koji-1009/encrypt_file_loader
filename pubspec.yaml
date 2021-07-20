@@ -1,6 +1,6 @@
 name: encrypt_file_loader
-description: A new Flutter package.
-version: 0.0.1
+description: encrypt_file_loader is a library that can store files encrypted with webcrypto.
+version: 1.0.0
 homepage: https://github.com/koji-1009/encrypt_file_loader
 
 environment:
@@ -19,7 +19,7 @@ dependencies:
 
   # decrypt
   webcrypto: ^0.5.2
-  freezed_annotation:
+  freezed_annotation: ^0.14.2
 
 dev_dependencies:
   flutter_test:
