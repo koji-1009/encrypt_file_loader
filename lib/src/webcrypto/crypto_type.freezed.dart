@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'crypto_type.dart';
 
@@ -80,6 +81,18 @@ mixin _$CryptoType {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? plain,
+    TResult Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
+    TResult Function(AesCtrSecretKey key, List<int> counter, int length)?
+        aesCtr,
+    TResult Function(AesGcmSecretKey key, Uint8List iv, List<int>? authTag,
+            List<int>? additionalData, int? tagLength)?
+        aesGcm,
+    TResult Function(RsaOaepPrivateKey key, List<int>? label)? rsaOaep,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? plain,
     TResult Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
@@ -99,6 +112,15 @@ mixin _$CryptoType {
     required TResult Function(TypeAesCtr value) aesCtr,
     required TResult Function(TypeAesGcm value) aesGcm,
     required TResult Function(TypeRsaOaep value) rsaOaep,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(TypePlain value)? plain,
+    TResult Function(TypeAesCbc value)? aesCbc,
+    TResult Function(TypeAesCtr value)? aesCtr,
+    TResult Function(TypeAesGcm value)? aesGcm,
+    TResult Function(TypeRsaOaep value)? rsaOaep,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -187,6 +209,21 @@ class _$TypePlain with DiagnosticableTreeMixin implements TypePlain {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? plain,
+    TResult Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
+    TResult Function(AesCtrSecretKey key, List<int> counter, int length)?
+        aesCtr,
+    TResult Function(AesGcmSecretKey key, Uint8List iv, List<int>? authTag,
+            List<int>? additionalData, int? tagLength)?
+        aesGcm,
+    TResult Function(RsaOaepPrivateKey key, List<int>? label)? rsaOaep,
+  }) {
+    return plain?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? plain,
     TResult Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
@@ -214,6 +251,18 @@ class _$TypePlain with DiagnosticableTreeMixin implements TypePlain {
     required TResult Function(TypeRsaOaep value) rsaOaep,
   }) {
     return plain(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(TypePlain value)? plain,
+    TResult Function(TypeAesCbc value)? aesCbc,
+    TResult Function(TypeAesCtr value)? aesCtr,
+    TResult Function(TypeAesGcm value)? aesGcm,
+    TResult Function(TypeRsaOaep value)? rsaOaep,
+  }) {
+    return plain?.call(this);
   }
 
   @override
@@ -335,6 +384,21 @@ class _$TypeAesCbc with DiagnosticableTreeMixin implements TypeAesCbc {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? plain,
+    TResult Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
+    TResult Function(AesCtrSecretKey key, List<int> counter, int length)?
+        aesCtr,
+    TResult Function(AesGcmSecretKey key, Uint8List iv, List<int>? authTag,
+            List<int>? additionalData, int? tagLength)?
+        aesGcm,
+    TResult Function(RsaOaepPrivateKey key, List<int>? label)? rsaOaep,
+  }) {
+    return aesCbc?.call(key, iv);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? plain,
     TResult Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
@@ -362,6 +426,18 @@ class _$TypeAesCbc with DiagnosticableTreeMixin implements TypeAesCbc {
     required TResult Function(TypeRsaOaep value) rsaOaep,
   }) {
     return aesCbc(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(TypePlain value)? plain,
+    TResult Function(TypeAesCbc value)? aesCbc,
+    TResult Function(TypeAesCtr value)? aesCtr,
+    TResult Function(TypeAesGcm value)? aesGcm,
+    TResult Function(TypeRsaOaep value)? rsaOaep,
+  }) {
+    return aesCbc?.call(this);
   }
 
   @override
@@ -503,6 +579,21 @@ class _$TypeAesCtr with DiagnosticableTreeMixin implements TypeAesCtr {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? plain,
+    TResult Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
+    TResult Function(AesCtrSecretKey key, List<int> counter, int length)?
+        aesCtr,
+    TResult Function(AesGcmSecretKey key, Uint8List iv, List<int>? authTag,
+            List<int>? additionalData, int? tagLength)?
+        aesGcm,
+    TResult Function(RsaOaepPrivateKey key, List<int>? label)? rsaOaep,
+  }) {
+    return aesCtr?.call(key, counter, length);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? plain,
     TResult Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
@@ -530,6 +621,18 @@ class _$TypeAesCtr with DiagnosticableTreeMixin implements TypeAesCtr {
     required TResult Function(TypeRsaOaep value) rsaOaep,
   }) {
     return aesCtr(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(TypePlain value)? plain,
+    TResult Function(TypeAesCbc value)? aesCbc,
+    TResult Function(TypeAesCtr value)? aesCtr,
+    TResult Function(TypeAesGcm value)? aesGcm,
+    TResult Function(TypeRsaOaep value)? rsaOaep,
+  }) {
+    return aesCtr?.call(this);
   }
 
   @override
@@ -707,6 +810,21 @@ class _$TypeAesGcm with DiagnosticableTreeMixin implements TypeAesGcm {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? plain,
+    TResult Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
+    TResult Function(AesCtrSecretKey key, List<int> counter, int length)?
+        aesCtr,
+    TResult Function(AesGcmSecretKey key, Uint8List iv, List<int>? authTag,
+            List<int>? additionalData, int? tagLength)?
+        aesGcm,
+    TResult Function(RsaOaepPrivateKey key, List<int>? label)? rsaOaep,
+  }) {
+    return aesGcm?.call(key, iv, authTag, additionalData, tagLength);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? plain,
     TResult Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
@@ -734,6 +852,18 @@ class _$TypeAesGcm with DiagnosticableTreeMixin implements TypeAesGcm {
     required TResult Function(TypeRsaOaep value) rsaOaep,
   }) {
     return aesGcm(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(TypePlain value)? plain,
+    TResult Function(TypeAesCbc value)? aesCbc,
+    TResult Function(TypeAesCtr value)? aesCtr,
+    TResult Function(TypeAesGcm value)? aesGcm,
+    TResult Function(TypeRsaOaep value)? rsaOaep,
+  }) {
+    return aesGcm?.call(this);
   }
 
   @override
@@ -870,6 +1000,21 @@ class _$TypeRsaOaep with DiagnosticableTreeMixin implements TypeRsaOaep {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? plain,
+    TResult Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
+    TResult Function(AesCtrSecretKey key, List<int> counter, int length)?
+        aesCtr,
+    TResult Function(AesGcmSecretKey key, Uint8List iv, List<int>? authTag,
+            List<int>? additionalData, int? tagLength)?
+        aesGcm,
+    TResult Function(RsaOaepPrivateKey key, List<int>? label)? rsaOaep,
+  }) {
+    return rsaOaep?.call(key, label);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? plain,
     TResult Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
@@ -897,6 +1042,18 @@ class _$TypeRsaOaep with DiagnosticableTreeMixin implements TypeRsaOaep {
     required TResult Function(TypeRsaOaep value) rsaOaep,
   }) {
     return rsaOaep(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(TypePlain value)? plain,
+    TResult Function(TypeAesCbc value)? aesCbc,
+    TResult Function(TypeAesCtr value)? aesCtr,
+    TResult Function(TypeAesGcm value)? aesGcm,
+    TResult Function(TypeRsaOaep value)? rsaOaep,
+  }) {
+    return rsaOaep?.call(this);
   }
 
   @override
