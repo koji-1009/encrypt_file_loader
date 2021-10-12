@@ -8,7 +8,7 @@ import 'package:path_provider/path_provider.dart';
 /// for Android, iOS...
 LazyDatabase getDatabase() {
   return LazyDatabase(() async {
-    final dbFolder = await getApplicationDocumentsDirectory();
+    final dbFolder = await getTemporaryDirectory();
     final file = File(p.join(dbFolder.path, 'encrypt_file_loader.sqlite'));
     return VmDatabase(file);
   });
