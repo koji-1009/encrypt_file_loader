@@ -1,3 +1,7 @@
+## [1.2.0] - 2021-10-12.
+
+* Change DB storage directory to cache.
+
 ## [1.1.0] - 2021-10-03.
 
 * Flutter 2.5.0
