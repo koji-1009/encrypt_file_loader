@@ -1,5 +1,5 @@
-import 'package:moor/moor.dart';
-import 'package:moor/moor_web.dart';
+import 'package:drift/drift.dart';
+import 'package:drift/web.dart';
 
 /// for Web
 LazyDatabase getDatabase() {

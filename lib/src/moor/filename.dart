@@ -1,4 +1,4 @@
-import 'package:moor/moor.dart';
+import 'package:drift/drift.dart';
 
 import 'db/connection.dart';
 
@@ -27,7 +27,7 @@ class Caches extends Table {
 }
 
 /// DataBase
-@UseMoor(tables: [Caches])
+@DriftDatabase(tables: [Caches])
 class Database extends _$Database {
   /// constructor
   Database() : super(Connection.instance);
