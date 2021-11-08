@@ -1,6 +1,10 @@
+## [1.2.1] - 2021-11-08.
+
+* Update dependenceis
+
 ## [1.2.0] - 2021-10-12.
 
-* Change DB storage directory to cache.
+* Change DB storage directory to cache
 
 ## [1.1.0] - 2021-10-03.
 
