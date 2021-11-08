@@ -12,14 +12,14 @@ dependencies:
     sdk: flutter
 
   # db
-  moor: ^4.5.0
+  moor: ^4.6.0
   sqlite3_flutter_libs: ^0.5.0
   path_provider: ^2.0.0
   path: ^1.8.0
 
   # decrypt
   webcrypto: ^0.5.2
-  freezed_annotation: ^0.14.0
+  freezed_annotation: ^0.15.0
 
 dev_dependencies:
   flutter_test:

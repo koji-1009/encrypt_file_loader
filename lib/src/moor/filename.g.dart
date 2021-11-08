@@ -119,10 +119,7 @@ class Cache extends DataClass implements Insertable<Cache> {
   }
 
   @override
-  int get hashCode => $mrjf($mrjc(
-      url.hashCode,
-      $mrjc(group.hashCode,
-          $mrjc(bytes.hashCode, $mrjc(filename.hashCode, updated.hashCode)))));
+  int get hashCode => Object.hash(url, group, bytes, filename, updated);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
