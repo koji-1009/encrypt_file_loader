@@ -185,7 +185,8 @@ class _$TypePlain with DiagnosticableTreeMixin implements TypePlain {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is TypePlain);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is TypePlain);
   }
 
   @override
@@ -348,18 +349,14 @@ class _$TypeAesCbc with DiagnosticableTreeMixin implements TypeAesCbc {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is TypeAesCbc &&
-            (identical(other.key, key) ||
-                const DeepCollectionEquality().equals(other.key, key)) &&
-            (identical(other.iv, iv) ||
-                const DeepCollectionEquality().equals(other.iv, iv)));
+        (other.runtimeType == runtimeType &&
+            other is TypeAesCbc &&
+            (identical(other.key, key) || other.key == key) &&
+            (identical(other.iv, iv) || other.iv == iv));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(key) ^
-      const DeepCollectionEquality().hash(iv);
+  int get hashCode => Object.hash(runtimeType, key, iv);
 
   @JsonKey(ignore: true)
   @override
@@ -461,8 +458,8 @@ abstract class TypeAesCbc implements CryptoType {
   const factory TypeAesCbc(
       {required AesCbcSecretKey key, required Uint8List iv}) = _$TypeAesCbc;
 
-  AesCbcSecretKey get key => throw _privateConstructorUsedError;
-  Uint8List get iv => throw _privateConstructorUsedError;
+  AesCbcSecretKey get key;
+  Uint8List get iv;
   @JsonKey(ignore: true)
   $TypeAesCbcCopyWith<TypeAesCbc> get copyWith =>
       throw _privateConstructorUsedError;
@@ -539,22 +536,16 @@ class _$TypeAesCtr with DiagnosticableTreeMixin implements TypeAesCtr {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is TypeAesCtr &&
-            (identical(other.key, key) ||
-                const DeepCollectionEquality().equals(other.key, key)) &&
-            (identical(other.counter, counter) ||
-                const DeepCollectionEquality()
-                    .equals(other.counter, counter)) &&
-            (identical(other.length, length) ||
-                const DeepCollectionEquality().equals(other.length, length)));
+        (other.runtimeType == runtimeType &&
+            other is TypeAesCtr &&
+            (identical(other.key, key) || other.key == key) &&
+            const DeepCollectionEquality().equals(other.counter, counter) &&
+            (identical(other.length, length) || other.length == length));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(key) ^
-      const DeepCollectionEquality().hash(counter) ^
-      const DeepCollectionEquality().hash(length);
+  int get hashCode => Object.hash(
+      runtimeType, key, const DeepCollectionEquality().hash(counter), length);
 
   @JsonKey(ignore: true)
   @override
@@ -658,9 +649,9 @@ abstract class TypeAesCtr implements CryptoType {
       required List<int> counter,
       required int length}) = _$TypeAesCtr;
 
-  AesCtrSecretKey get key => throw _privateConstructorUsedError;
-  List<int> get counter => throw _privateConstructorUsedError;
-  int get length => throw _privateConstructorUsedError;
+  AesCtrSecretKey get key;
+  List<int> get counter;
+  int get length;
   @JsonKey(ignore: true)
   $TypeAesCtrCopyWith<TypeAesCtr> get copyWith =>
       throw _privateConstructorUsedError;
@@ -762,30 +753,25 @@ class _$TypeAesGcm with DiagnosticableTreeMixin implements TypeAesGcm {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is TypeAesGcm &&
-            (identical(other.key, key) ||
-                const DeepCollectionEquality().equals(other.key, key)) &&
-            (identical(other.iv, iv) ||
-                const DeepCollectionEquality().equals(other.iv, iv)) &&
-            (identical(other.authTag, authTag) ||
-                const DeepCollectionEquality()
-                    .equals(other.authTag, authTag)) &&
-            (identical(other.additionalData, additionalData) ||
-                const DeepCollectionEquality()
-                    .equals(other.additionalData, additionalData)) &&
+        (other.runtimeType == runtimeType &&
+            other is TypeAesGcm &&
+            (identical(other.key, key) || other.key == key) &&
+            (identical(other.iv, iv) || other.iv == iv) &&
+            const DeepCollectionEquality().equals(other.authTag, authTag) &&
+            const DeepCollectionEquality()
+                .equals(other.additionalData, additionalData) &&
             (identical(other.tagLength, tagLength) ||
-                const DeepCollectionEquality()
-                    .equals(other.tagLength, tagLength)));
+                other.tagLength == tagLength));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(key) ^
-      const DeepCollectionEquality().hash(iv) ^
-      const DeepCollectionEquality().hash(authTag) ^
-      const DeepCollectionEquality().hash(additionalData) ^
-      const DeepCollectionEquality().hash(tagLength);
+  int get hashCode => Object.hash(
+      runtimeType,
+      key,
+      iv,
+      const DeepCollectionEquality().hash(authTag),
+      const DeepCollectionEquality().hash(additionalData),
+      tagLength);
 
   @JsonKey(ignore: true)
   @override
@@ -891,11 +877,11 @@ abstract class TypeAesGcm implements CryptoType {
       List<int>? additionalData,
       int? tagLength}) = _$TypeAesGcm;
 
-  AesGcmSecretKey get key => throw _privateConstructorUsedError;
-  Uint8List get iv => throw _privateConstructorUsedError;
-  List<int>? get authTag => throw _privateConstructorUsedError;
-  List<int>? get additionalData => throw _privateConstructorUsedError;
-  int? get tagLength => throw _privateConstructorUsedError;
+  AesGcmSecretKey get key;
+  Uint8List get iv;
+  List<int>? get authTag;
+  List<int>? get additionalData;
+  int? get tagLength;
   @JsonKey(ignore: true)
   $TypeAesGcmCopyWith<TypeAesGcm> get copyWith =>
       throw _privateConstructorUsedError;
@@ -964,18 +950,15 @@ class _$TypeRsaOaep with DiagnosticableTreeMixin implements TypeRsaOaep {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is TypeRsaOaep &&
-            (identical(other.key, key) ||
-                const DeepCollectionEquality().equals(other.key, key)) &&
-            (identical(other.label, label) ||
-                const DeepCollectionEquality().equals(other.label, label)));
+        (other.runtimeType == runtimeType &&
+            other is TypeRsaOaep &&
+            (identical(other.key, key) || other.key == key) &&
+            const DeepCollectionEquality().equals(other.label, label));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(key) ^
-      const DeepCollectionEquality().hash(label);
+      Object.hash(runtimeType, key, const DeepCollectionEquality().hash(label));
 
   @JsonKey(ignore: true)
   @override
@@ -1077,8 +1060,8 @@ abstract class TypeRsaOaep implements CryptoType {
   const factory TypeRsaOaep(
       {required RsaOaepPrivateKey key, List<int>? label}) = _$TypeRsaOaep;
 
-  RsaOaepPrivateKey get key => throw _privateConstructorUsedError;
-  List<int>? get label => throw _privateConstructorUsedError;
+  RsaOaepPrivateKey get key;
+  List<int>? get label;
   @JsonKey(ignore: true)
   $TypeRsaOaepCopyWith<TypeRsaOaep> get copyWith =>
       throw _privateConstructorUsedError;

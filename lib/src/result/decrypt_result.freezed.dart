@@ -139,19 +139,15 @@ class _$_DecryptResult with DiagnosticableTreeMixin implements _DecryptResult {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _DecryptResult &&
-            (identical(other.data, data) ||
-                const DeepCollectionEquality().equals(other.data, data)) &&
+        (other.runtimeType == runtimeType &&
+            other is _DecryptResult &&
+            (identical(other.data, data) || other.data == data) &&
             (identical(other.filename, filename) ||
-                const DeepCollectionEquality()
-                    .equals(other.filename, filename)));
+                other.filename == filename));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(data) ^
-      const DeepCollectionEquality().hash(filename);
+  int get hashCode => Object.hash(runtimeType, data, filename);
 
   @JsonKey(ignore: true)
   @override
@@ -164,9 +160,9 @@ abstract class _DecryptResult implements DecryptResult {
       {required Uint8List data, required String? filename}) = _$_DecryptResult;
 
   @override
-  Uint8List get data => throw _privateConstructorUsedError;
+  Uint8List get data;
   @override
-  String? get filename => throw _privateConstructorUsedError;
+  String? get filename;
   @override
   @JsonKey(ignore: true)
   _$DecryptResultCopyWith<_DecryptResult> get copyWith =>
