@@ -29,8 +29,7 @@ class Cache extends DataClass implements Insertable<Cache> {
       required this.bytes,
       this.filename,
       required this.updated});
-  factory Cache.fromData(Map<String, dynamic> data, GeneratedDatabase db,
-      {String? prefix}) {
+  factory Cache.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Cache(
       url: const StringType()
@@ -72,7 +71,7 @@ class Cache extends DataClass implements Insertable<Cache> {
 
   factory Cache.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
+    serializer ??= driftRuntimeOptions.defaultSerializer;
     return Cache(
       url: serializer.fromJson<String>(json['url']),
       group: serializer.fromJson<String>(json['group']),
@@ -83,7 +82,7 @@ class Cache extends DataClass implements Insertable<Cache> {
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
+    serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'url': serializer.toJson<String>(url),
       'group': serializer.toJson<String>(group),
@@ -289,7 +288,7 @@ class $CachesTable extends Caches with TableInfo<$CachesTable, Cache> {
   Set<GeneratedColumn> get $primaryKey => {url};
   @override
   Cache map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return Cache.fromData(data, _db,
+    return Cache.fromData(data,
         prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 

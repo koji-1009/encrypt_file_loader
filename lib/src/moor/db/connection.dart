@@ -1,4 +1,4 @@
-import 'package:moor/moor.dart';
+import 'package:drift/drift.dart';
 
 import 'connection_stub.dart'
     if (dart.library.io) 'db_ffi.dart'
