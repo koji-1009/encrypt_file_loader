@@ -19,7 +19,7 @@ dependencies:
 
   # decrypt
   webcrypto: ^0.5.2
-  freezed_annotation: ^0.15.0
+  freezed_annotation: ^1.0.0
 
 dev_dependencies:
   flutter_test:
