@@ -1,3 +1,7 @@
+## [2.0.1] - 2021-11-18.
+
+* freezed 1.0.0
+
 ## [2.0.0] - 2021-11-08.
 
 * Migrate to drift from moor
