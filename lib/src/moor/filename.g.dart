@@ -223,25 +223,30 @@ class $CachesTable extends Caches with TableInfo<$CachesTable, Cache> {
   final String? _alias;
   $CachesTable(this._db, [this._alias]);
   final VerificationMeta _urlMeta = const VerificationMeta('url');
+  @override
   late final GeneratedColumn<String?> url = GeneratedColumn<String?>(
       'url', aliasedName, false,
-      typeName: 'TEXT', requiredDuringInsert: true);
+      type: const StringType(), requiredDuringInsert: true);
   final VerificationMeta _groupMeta = const VerificationMeta('group');
+  @override
   late final GeneratedColumn<String?> group = GeneratedColumn<String?>(
       'group', aliasedName, false,
-      typeName: 'TEXT', requiredDuringInsert: true);
+      type: const StringType(), requiredDuringInsert: true);
   final VerificationMeta _bytesMeta = const VerificationMeta('bytes');
+  @override
   late final GeneratedColumn<Uint8List?> bytes = GeneratedColumn<Uint8List?>(
       'bytes', aliasedName, false,
-      typeName: 'BLOB', requiredDuringInsert: true);
+      type: const BlobType(), requiredDuringInsert: true);
   final VerificationMeta _filenameMeta = const VerificationMeta('filename');
+  @override
   late final GeneratedColumn<String?> filename = GeneratedColumn<String?>(
       'filename', aliasedName, true,
-      typeName: 'TEXT', requiredDuringInsert: false);
+      type: const StringType(), requiredDuringInsert: false);
   final VerificationMeta _updatedMeta = const VerificationMeta('updated');
+  @override
   late final GeneratedColumn<DateTime?> updated = GeneratedColumn<DateTime?>(
       'updated', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      type: const IntType(), requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [url, group, bytes, filename, updated];
   @override

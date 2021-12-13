@@ -141,13 +141,15 @@ class _$_DecryptResult with DiagnosticableTreeMixin implements _DecryptResult {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _DecryptResult &&
-            (identical(other.data, data) || other.data == data) &&
-            (identical(other.filename, filename) ||
-                other.filename == filename));
+            const DeepCollectionEquality().equals(other.data, data) &&
+            const DeepCollectionEquality().equals(other.filename, filename));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, data, filename);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(data),
+      const DeepCollectionEquality().hash(filename));
 
   @JsonKey(ignore: true)
   @override
