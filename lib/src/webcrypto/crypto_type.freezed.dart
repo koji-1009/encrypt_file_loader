@@ -351,12 +351,15 @@ class _$TypeAesCbc with DiagnosticableTreeMixin implements TypeAesCbc {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is TypeAesCbc &&
-            (identical(other.key, key) || other.key == key) &&
-            (identical(other.iv, iv) || other.iv == iv));
+            const DeepCollectionEquality().equals(other.key, key) &&
+            const DeepCollectionEquality().equals(other.iv, iv));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, key, iv);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(key),
+      const DeepCollectionEquality().hash(iv));
 
   @JsonKey(ignore: true)
   @override
@@ -538,14 +541,17 @@ class _$TypeAesCtr with DiagnosticableTreeMixin implements TypeAesCtr {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is TypeAesCtr &&
-            (identical(other.key, key) || other.key == key) &&
+            const DeepCollectionEquality().equals(other.key, key) &&
             const DeepCollectionEquality().equals(other.counter, counter) &&
-            (identical(other.length, length) || other.length == length));
+            const DeepCollectionEquality().equals(other.length, length));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, key, const DeepCollectionEquality().hash(counter), length);
+      runtimeType,
+      const DeepCollectionEquality().hash(key),
+      const DeepCollectionEquality().hash(counter),
+      const DeepCollectionEquality().hash(length));
 
   @JsonKey(ignore: true)
   @override
@@ -755,23 +761,22 @@ class _$TypeAesGcm with DiagnosticableTreeMixin implements TypeAesGcm {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is TypeAesGcm &&
-            (identical(other.key, key) || other.key == key) &&
-            (identical(other.iv, iv) || other.iv == iv) &&
+            const DeepCollectionEquality().equals(other.key, key) &&
+            const DeepCollectionEquality().equals(other.iv, iv) &&
             const DeepCollectionEquality().equals(other.authTag, authTag) &&
             const DeepCollectionEquality()
                 .equals(other.additionalData, additionalData) &&
-            (identical(other.tagLength, tagLength) ||
-                other.tagLength == tagLength));
+            const DeepCollectionEquality().equals(other.tagLength, tagLength));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      key,
-      iv,
+      const DeepCollectionEquality().hash(key),
+      const DeepCollectionEquality().hash(iv),
       const DeepCollectionEquality().hash(authTag),
       const DeepCollectionEquality().hash(additionalData),
-      tagLength);
+      const DeepCollectionEquality().hash(tagLength));
 
   @JsonKey(ignore: true)
   @override
@@ -952,13 +957,15 @@ class _$TypeRsaOaep with DiagnosticableTreeMixin implements TypeRsaOaep {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is TypeRsaOaep &&
-            (identical(other.key, key) || other.key == key) &&
+            const DeepCollectionEquality().equals(other.key, key) &&
             const DeepCollectionEquality().equals(other.label, label));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, key, const DeepCollectionEquality().hash(label));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(key),
+      const DeepCollectionEquality().hash(label));
 
   @JsonKey(ignore: true)
   @override
