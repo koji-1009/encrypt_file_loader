@@ -1,6 +1,6 @@
 name: encrypt_file_loader
 description: encrypt_file_loader is a library that can store files encrypted with webcrypto.
-version: 2.1.0
+version: 2.1.1
 homepage: https://github.com/koji-1009/encrypt_file_loader
 
 environment:
