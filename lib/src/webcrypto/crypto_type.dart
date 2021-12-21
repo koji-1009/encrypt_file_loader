@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:cryptography/cryptography.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:webcrypto/webcrypto.dart';
 
 import '../result/decrypt_result.dart';
 
@@ -18,31 +18,26 @@ class CryptoType with _$CryptoType {
 
   /// see [AesCbcSecretKey]
   const factory CryptoType.aesCbc({
-    required AesCbcSecretKey key,
+    required AesCbc key,
     required Uint8List iv,
+    required SecretKey secretKey,
   }) = TypeAesCbc;
 
   /// see [AesCtrSecretKey]
   const factory CryptoType.aesCtr({
-    required AesCtrSecretKey key,
-    required List<int> counter,
-    required int length,
+    required AesCtr key,
+    required Uint8List iv,
+    required SecretKey secretKey,
   }) = TypeAesCtr;
 
   /// see [AesGcmSecretKey]
   const factory CryptoType.aesGcm({
-    required AesGcmSecretKey key,
+    required AesGcm key,
     required Uint8List iv,
-    List<int>? authTag,
-    List<int>? additionalData,
-    int? tagLength,
+    required SecretKey secretKey,
+    @Default([]) List<int> aad,
+    Uint8List? tag,
   }) = TypeAesGcm;
-
-  /// see [RsaOaepPrivateKey]
-  const factory CryptoType.rsaOaep({
-    required RsaOaepPrivateKey key,
-    List<int>? label,
-  }) = TypeRsaOaep;
 }
 
 /// extension
@@ -54,16 +49,37 @@ extension CryptoTypeExt on CryptoType {
   }) async {
     final data = await when(
       plain: () async => bytes,
-      aesCbc: (key, iv) => key.decryptBytes(bytes, iv),
-      aesCtr: (key, counter, length) =>
-          key.decryptBytes(bytes, counter, length),
-      aesGcm: (key, iv, authTag, additionalData, tagLength) => key.decryptBytes(
-        bytes + (authTag ?? []),
-        iv,
-        additionalData: additionalData,
-        tagLength: tagLength,
+      aesCbc: (key, iv, secretKey) async => Uint8List.fromList(
+        await key.decrypt(
+          SecretBox(
+            Uint8List.sublistView(bytes, 0, bytes.lengthInBytes - 16),
+            nonce: iv,
+            mac: Mac(Uint8List.sublistView(bytes, bytes.lengthInBytes - 16)),
+          ),
+          secretKey: secretKey,
+        ),
       ),
-      rsaOaep: (key, label) => key.decryptBytes(bytes, label: label),
+      aesCtr: (key, iv, secretKey) async => Uint8List.fromList(
+        await key.decrypt(
+          SecretBox(
+            Uint8List.sublistView(bytes, 0, bytes.lengthInBytes - 16),
+            nonce: iv,
+            mac: Mac(Uint8List.sublistView(bytes, bytes.lengthInBytes - 16)),
+          ),
+          secretKey: secretKey,
+        ),
+      ),
+      aesGcm: (key, iv, secretKey, aad, tag) async => Uint8List.fromList(
+        await key.decrypt(
+          SecretBox(
+            bytes,
+            nonce: iv,
+            mac: Mac(tag ?? []),
+          ),
+          secretKey: secretKey,
+          aad: aad,
+        ),
+      ),
     );
 
     return DecryptResult(

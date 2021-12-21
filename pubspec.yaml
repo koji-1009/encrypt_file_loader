@@ -5,12 +5,8 @@ homepage: https://github.com/koji-1009/encrypt_file_loader
 
 environment:
   sdk: ">=2.14.0 <3.0.0"
-  flutter: ">=2.5.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
-
   http: ^0.13.4
 
   # db
@@ -20,7 +16,7 @@ dependencies:
   path: ^1.8.0
 
   # decrypt
-  webcrypto: ^0.5.2
+  cryptography: ^2.0.0
   freezed_annotation: ^1.0.0
 
 dev_dependencies:
