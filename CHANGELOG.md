@@ -1,3 +1,8 @@
+## [2.2.0] - 2022-03-04.
+
+* Flutter 2.10.0
+* Support Drift 1.14.0
+
 ## [2.1.1] - 2021-12-16.
 
 * remove pubspec.lock
