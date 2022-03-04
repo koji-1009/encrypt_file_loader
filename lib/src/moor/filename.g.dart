@@ -219,9 +219,10 @@ class CachesCompanion extends UpdateCompanion<Cache> {
 }
 
 class $CachesTable extends Caches with TableInfo<$CachesTable, Cache> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $CachesTable(this._db, [this._alias]);
+  $CachesTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _urlMeta = const VerificationMeta('url');
   @override
   late final GeneratedColumn<String?> url = GeneratedColumn<String?>(
@@ -299,7 +300,7 @@ class $CachesTable extends Caches with TableInfo<$CachesTable, Cache> {
 
   @override
   $CachesTable createAlias(String alias) {
-    return $CachesTable(_db, alias);
+    return $CachesTable(attachedDatabase, alias);
   }
 }
 
