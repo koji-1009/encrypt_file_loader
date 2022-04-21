@@ -12,22 +12,7 @@ part of 'decrypt_result.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$DecryptResultTearOff {
-  const _$DecryptResultTearOff();
-
-  _DecryptResult call({required Uint8List data, required String? filename}) {
-    return _DecryptResult(
-      data: data,
-      filename: filename,
-    );
-  }
-}
-
-/// @nodoc
-const $DecryptResult = _$DecryptResultTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$DecryptResult {
@@ -160,12 +145,13 @@ class _$_DecryptResult with DiagnosticableTreeMixin implements _DecryptResult {
 
 abstract class _DecryptResult implements DecryptResult {
   const factory _DecryptResult(
-      {required Uint8List data, required String? filename}) = _$_DecryptResult;
+      {required final Uint8List data,
+      required final String? filename}) = _$_DecryptResult;
 
   @override
-  Uint8List get data;
+  Uint8List get data => throw _privateConstructorUsedError;
   @override
-  String? get filename;
+  String? get filename => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$DecryptResultCopyWith<_DecryptResult> get copyWith =>

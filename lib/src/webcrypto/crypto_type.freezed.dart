@@ -12,59 +12,7 @@ part of 'crypto_type.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$CryptoTypeTearOff {
-  const _$CryptoTypeTearOff();
-
-  TypePlain plain() {
-    return const TypePlain();
-  }
-
-  TypeAesCbc aesCbc({required AesCbcSecretKey key, required Uint8List iv}) {
-    return TypeAesCbc(
-      key: key,
-      iv: iv,
-    );
-  }
-
-  TypeAesCtr aesCtr(
-      {required AesCtrSecretKey key,
-      required List<int> counter,
-      required int length}) {
-    return TypeAesCtr(
-      key: key,
-      counter: counter,
-      length: length,
-    );
-  }
-
-  TypeAesGcm aesGcm(
-      {required AesGcmSecretKey key,
-      required Uint8List iv,
-      List<int>? authTag,
-      List<int>? additionalData,
-      int? tagLength}) {
-    return TypeAesGcm(
-      key: key,
-      iv: iv,
-      authTag: authTag,
-      additionalData: additionalData,
-      tagLength: tagLength,
-    );
-  }
-
-  TypeRsaOaep rsaOaep({required RsaOaepPrivateKey key, List<int>? label}) {
-    return TypeRsaOaep(
-      key: key,
-      label: label,
-    );
-  }
-}
-
-/// @nodoc
-const $CryptoType = _$CryptoTypeTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$CryptoType {
@@ -181,7 +129,7 @@ class _$TypePlain with DiagnosticableTreeMixin implements TypePlain {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties..add(DiagnosticsProperty('type', 'CryptoType.plain'));
+    properties.add(DiagnosticsProperty('type', 'CryptoType.plain'));
   }
 
   @override
@@ -460,10 +408,11 @@ class _$TypeAesCbc with DiagnosticableTreeMixin implements TypeAesCbc {
 
 abstract class TypeAesCbc implements CryptoType {
   const factory TypeAesCbc(
-      {required AesCbcSecretKey key, required Uint8List iv}) = _$TypeAesCbc;
+      {required final AesCbcSecretKey key,
+      required final Uint8List iv}) = _$TypeAesCbc;
 
-  AesCbcSecretKey get key;
-  Uint8List get iv;
+  AesCbcSecretKey get key => throw _privateConstructorUsedError;
+  Uint8List get iv => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $TypeAesCbcCopyWith<TypeAesCbc> get copyWith =>
       throw _privateConstructorUsedError;
@@ -513,12 +462,20 @@ class _$TypeAesCtrCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
 
 class _$TypeAesCtr with DiagnosticableTreeMixin implements TypeAesCtr {
   const _$TypeAesCtr(
-      {required this.key, required this.counter, required this.length});
+      {required this.key,
+      required final List<int> counter,
+      required this.length})
+      : _counter = counter;
 
   @override
   final AesCtrSecretKey key;
+  final List<int> _counter;
   @override
-  final List<int> counter;
+  List<int> get counter {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_counter);
+  }
+
   @override
   final int length;
 
@@ -652,13 +609,13 @@ class _$TypeAesCtr with DiagnosticableTreeMixin implements TypeAesCtr {
 
 abstract class TypeAesCtr implements CryptoType {
   const factory TypeAesCtr(
-      {required AesCtrSecretKey key,
-      required List<int> counter,
-      required int length}) = _$TypeAesCtr;
+      {required final AesCtrSecretKey key,
+      required final List<int> counter,
+      required final int length}) = _$TypeAesCtr;
 
-  AesCtrSecretKey get key;
-  List<int> get counter;
-  int get length;
+  AesCtrSecretKey get key => throw _privateConstructorUsedError;
+  List<int> get counter => throw _privateConstructorUsedError;
+  int get length => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $TypeAesCtrCopyWith<TypeAesCtr> get copyWith =>
       throw _privateConstructorUsedError;
@@ -725,18 +682,34 @@ class _$TypeAesGcm with DiagnosticableTreeMixin implements TypeAesGcm {
   const _$TypeAesGcm(
       {required this.key,
       required this.iv,
-      this.authTag,
-      this.additionalData,
-      this.tagLength});
+      final List<int>? authTag,
+      final List<int>? additionalData,
+      this.tagLength})
+      : _authTag = authTag,
+        _additionalData = additionalData;
 
   @override
   final AesGcmSecretKey key;
   @override
   final Uint8List iv;
+  final List<int>? _authTag;
   @override
-  final List<int>? authTag;
+  List<int>? get authTag {
+    final value = _authTag;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<int>? _additionalData;
   @override
-  final List<int>? additionalData;
+  List<int>? get additionalData {
+    final value = _additionalData;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final int? tagLength;
 
@@ -877,17 +850,17 @@ class _$TypeAesGcm with DiagnosticableTreeMixin implements TypeAesGcm {
 
 abstract class TypeAesGcm implements CryptoType {
   const factory TypeAesGcm(
-      {required AesGcmSecretKey key,
-      required Uint8List iv,
-      List<int>? authTag,
-      List<int>? additionalData,
-      int? tagLength}) = _$TypeAesGcm;
+      {required final AesGcmSecretKey key,
+      required final Uint8List iv,
+      final List<int>? authTag,
+      final List<int>? additionalData,
+      final int? tagLength}) = _$TypeAesGcm;
 
-  AesGcmSecretKey get key;
-  Uint8List get iv;
-  List<int>? get authTag;
-  List<int>? get additionalData;
-  int? get tagLength;
+  AesGcmSecretKey get key => throw _privateConstructorUsedError;
+  Uint8List get iv => throw _privateConstructorUsedError;
+  List<int>? get authTag => throw _privateConstructorUsedError;
+  List<int>? get additionalData => throw _privateConstructorUsedError;
+  int? get tagLength => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $TypeAesGcmCopyWith<TypeAesGcm> get copyWith =>
       throw _privateConstructorUsedError;
@@ -932,12 +905,19 @@ class _$TypeRsaOaepCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
 /// @nodoc
 
 class _$TypeRsaOaep with DiagnosticableTreeMixin implements TypeRsaOaep {
-  const _$TypeRsaOaep({required this.key, this.label});
+  const _$TypeRsaOaep({required this.key, final List<int>? label})
+      : _label = label;
 
   @override
   final RsaOaepPrivateKey key;
+  final List<int>? _label;
   @override
-  final List<int>? label;
+  List<int>? get label {
+    final value = _label;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -1066,10 +1046,11 @@ class _$TypeRsaOaep with DiagnosticableTreeMixin implements TypeRsaOaep {
 
 abstract class TypeRsaOaep implements CryptoType {
   const factory TypeRsaOaep(
-      {required RsaOaepPrivateKey key, List<int>? label}) = _$TypeRsaOaep;
+      {required final RsaOaepPrivateKey key,
+      final List<int>? label}) = _$TypeRsaOaep;
 
-  RsaOaepPrivateKey get key;
-  List<int>? get label;
+  RsaOaepPrivateKey get key => throw _privateConstructorUsedError;
+  List<int>? get label => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $TypeRsaOaepCopyWith<TypeRsaOaep> get copyWith =>
       throw _privateConstructorUsedError;

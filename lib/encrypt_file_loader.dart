@@ -1,3 +1,5 @@
+library encrypt_file_loader;
+
 export 'package:webcrypto/webcrypto.dart';
 
 export 'src/encrypt_file_loader.dart' show EncryptFileLoader, LoadResult;
