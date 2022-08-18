@@ -1,3 +1,11 @@
+## [3.0.0] - 2022-08-19.
+
+* Flutter 3.0
+* Drift v2
+* Freezed v2
+* WebCrypto 0.5.3
+* Enable IndexedDB
+
 ## [2.2.1] - 2022-03-04.
 
 * export webcrypto lib
