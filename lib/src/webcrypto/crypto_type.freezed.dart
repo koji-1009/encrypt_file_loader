@@ -12,59 +12,7 @@ part of 'crypto_type.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$CryptoTypeTearOff {
-  const _$CryptoTypeTearOff();
-
-  TypePlain plain() {
-    return const TypePlain();
-  }
-
-  TypeAesCbc aesCbc({required AesCbcSecretKey key, required Uint8List iv}) {
-    return TypeAesCbc(
-      key: key,
-      iv: iv,
-    );
-  }
-
-  TypeAesCtr aesCtr(
-      {required AesCtrSecretKey key,
-      required List<int> counter,
-      required int length}) {
-    return TypeAesCtr(
-      key: key,
-      counter: counter,
-      length: length,
-    );
-  }
-
-  TypeAesGcm aesGcm(
-      {required AesGcmSecretKey key,
-      required Uint8List iv,
-      List<int>? authTag,
-      List<int>? additionalData,
-      int? tagLength}) {
-    return TypeAesGcm(
-      key: key,
-      iv: iv,
-      authTag: authTag,
-      additionalData: additionalData,
-      tagLength: tagLength,
-    );
-  }
-
-  TypeRsaOaep rsaOaep({required RsaOaepPrivateKey key, List<int>? label}) {
-    return TypeRsaOaep(
-      key: key,
-      label: label,
-    );
-  }
-}
-
-/// @nodoc
-const $CryptoType = _$CryptoTypeTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$CryptoType {
@@ -153,19 +101,21 @@ class _$CryptoTypeCopyWithImpl<$Res> implements $CryptoTypeCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class $TypePlainCopyWith<$Res> {
-  factory $TypePlainCopyWith(TypePlain value, $Res Function(TypePlain) then) =
-      _$TypePlainCopyWithImpl<$Res>;
+abstract class _$$TypePlainCopyWith<$Res> {
+  factory _$$TypePlainCopyWith(
+          _$TypePlain value, $Res Function(_$TypePlain) then) =
+      __$$TypePlainCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$TypePlainCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
-    implements $TypePlainCopyWith<$Res> {
-  _$TypePlainCopyWithImpl(TypePlain _value, $Res Function(TypePlain) _then)
-      : super(_value, (v) => _then(v as TypePlain));
+class __$$TypePlainCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
+    implements _$$TypePlainCopyWith<$Res> {
+  __$$TypePlainCopyWithImpl(
+      _$TypePlain _value, $Res Function(_$TypePlain) _then)
+      : super(_value, (v) => _then(v as _$TypePlain));
 
   @override
-  TypePlain get _value => super._value as TypePlain;
+  _$TypePlain get _value => super._value as _$TypePlain;
 }
 
 /// @nodoc
@@ -181,13 +131,13 @@ class _$TypePlain with DiagnosticableTreeMixin implements TypePlain {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties..add(DiagnosticsProperty('type', 'CryptoType.plain'));
+    properties.add(DiagnosticsProperty('type', 'CryptoType.plain'));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is TypePlain);
+        (other.runtimeType == runtimeType && other is _$TypePlain);
   }
 
   @override
@@ -289,28 +239,29 @@ abstract class TypePlain implements CryptoType {
 }
 
 /// @nodoc
-abstract class $TypeAesCbcCopyWith<$Res> {
-  factory $TypeAesCbcCopyWith(
-          TypeAesCbc value, $Res Function(TypeAesCbc) then) =
-      _$TypeAesCbcCopyWithImpl<$Res>;
+abstract class _$$TypeAesCbcCopyWith<$Res> {
+  factory _$$TypeAesCbcCopyWith(
+          _$TypeAesCbc value, $Res Function(_$TypeAesCbc) then) =
+      __$$TypeAesCbcCopyWithImpl<$Res>;
   $Res call({AesCbcSecretKey key, Uint8List iv});
 }
 
 /// @nodoc
-class _$TypeAesCbcCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
-    implements $TypeAesCbcCopyWith<$Res> {
-  _$TypeAesCbcCopyWithImpl(TypeAesCbc _value, $Res Function(TypeAesCbc) _then)
-      : super(_value, (v) => _then(v as TypeAesCbc));
+class __$$TypeAesCbcCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
+    implements _$$TypeAesCbcCopyWith<$Res> {
+  __$$TypeAesCbcCopyWithImpl(
+      _$TypeAesCbc _value, $Res Function(_$TypeAesCbc) _then)
+      : super(_value, (v) => _then(v as _$TypeAesCbc));
 
   @override
-  TypeAesCbc get _value => super._value as TypeAesCbc;
+  _$TypeAesCbc get _value => super._value as _$TypeAesCbc;
 
   @override
   $Res call({
     Object? key = freezed,
     Object? iv = freezed,
   }) {
-    return _then(TypeAesCbc(
+    return _then(_$TypeAesCbc(
       key: key == freezed
           ? _value.key
           : key // ignore: cast_nullable_to_non_nullable
@@ -351,7 +302,7 @@ class _$TypeAesCbc with DiagnosticableTreeMixin implements TypeAesCbc {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is TypeAesCbc &&
+            other is _$TypeAesCbc &&
             const DeepCollectionEquality().equals(other.key, key) &&
             const DeepCollectionEquality().equals(other.iv, iv));
   }
@@ -364,8 +315,8 @@ class _$TypeAesCbc with DiagnosticableTreeMixin implements TypeAesCbc {
 
   @JsonKey(ignore: true)
   @override
-  $TypeAesCbcCopyWith<TypeAesCbc> get copyWith =>
-      _$TypeAesCbcCopyWithImpl<TypeAesCbc>(this, _$identity);
+  _$$TypeAesCbcCopyWith<_$TypeAesCbc> get copyWith =>
+      __$$TypeAesCbcCopyWithImpl<_$TypeAesCbc>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -460,31 +411,33 @@ class _$TypeAesCbc with DiagnosticableTreeMixin implements TypeAesCbc {
 
 abstract class TypeAesCbc implements CryptoType {
   const factory TypeAesCbc(
-      {required AesCbcSecretKey key, required Uint8List iv}) = _$TypeAesCbc;
+      {required final AesCbcSecretKey key,
+      required final Uint8List iv}) = _$TypeAesCbc;
 
   AesCbcSecretKey get key;
   Uint8List get iv;
   @JsonKey(ignore: true)
-  $TypeAesCbcCopyWith<TypeAesCbc> get copyWith =>
+  _$$TypeAesCbcCopyWith<_$TypeAesCbc> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $TypeAesCtrCopyWith<$Res> {
-  factory $TypeAesCtrCopyWith(
-          TypeAesCtr value, $Res Function(TypeAesCtr) then) =
-      _$TypeAesCtrCopyWithImpl<$Res>;
+abstract class _$$TypeAesCtrCopyWith<$Res> {
+  factory _$$TypeAesCtrCopyWith(
+          _$TypeAesCtr value, $Res Function(_$TypeAesCtr) then) =
+      __$$TypeAesCtrCopyWithImpl<$Res>;
   $Res call({AesCtrSecretKey key, List<int> counter, int length});
 }
 
 /// @nodoc
-class _$TypeAesCtrCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
-    implements $TypeAesCtrCopyWith<$Res> {
-  _$TypeAesCtrCopyWithImpl(TypeAesCtr _value, $Res Function(TypeAesCtr) _then)
-      : super(_value, (v) => _then(v as TypeAesCtr));
+class __$$TypeAesCtrCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
+    implements _$$TypeAesCtrCopyWith<$Res> {
+  __$$TypeAesCtrCopyWithImpl(
+      _$TypeAesCtr _value, $Res Function(_$TypeAesCtr) _then)
+      : super(_value, (v) => _then(v as _$TypeAesCtr));
 
   @override
-  TypeAesCtr get _value => super._value as TypeAesCtr;
+  _$TypeAesCtr get _value => super._value as _$TypeAesCtr;
 
   @override
   $Res call({
@@ -492,13 +445,13 @@ class _$TypeAesCtrCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
     Object? counter = freezed,
     Object? length = freezed,
   }) {
-    return _then(TypeAesCtr(
+    return _then(_$TypeAesCtr(
       key: key == freezed
           ? _value.key
           : key // ignore: cast_nullable_to_non_nullable
               as AesCtrSecretKey,
       counter: counter == freezed
-          ? _value.counter
+          ? _value._counter
           : counter // ignore: cast_nullable_to_non_nullable
               as List<int>,
       length: length == freezed
@@ -513,12 +466,20 @@ class _$TypeAesCtrCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
 
 class _$TypeAesCtr with DiagnosticableTreeMixin implements TypeAesCtr {
   const _$TypeAesCtr(
-      {required this.key, required this.counter, required this.length});
+      {required this.key,
+      required final List<int> counter,
+      required this.length})
+      : _counter = counter;
 
   @override
   final AesCtrSecretKey key;
+  final List<int> _counter;
   @override
-  final List<int> counter;
+  List<int> get counter {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_counter);
+  }
+
   @override
   final int length;
 
@@ -541,9 +502,9 @@ class _$TypeAesCtr with DiagnosticableTreeMixin implements TypeAesCtr {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is TypeAesCtr &&
+            other is _$TypeAesCtr &&
             const DeepCollectionEquality().equals(other.key, key) &&
-            const DeepCollectionEquality().equals(other.counter, counter) &&
+            const DeepCollectionEquality().equals(other._counter, _counter) &&
             const DeepCollectionEquality().equals(other.length, length));
   }
 
@@ -551,13 +512,13 @@ class _$TypeAesCtr with DiagnosticableTreeMixin implements TypeAesCtr {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(key),
-      const DeepCollectionEquality().hash(counter),
+      const DeepCollectionEquality().hash(_counter),
       const DeepCollectionEquality().hash(length));
 
   @JsonKey(ignore: true)
   @override
-  $TypeAesCtrCopyWith<TypeAesCtr> get copyWith =>
-      _$TypeAesCtrCopyWithImpl<TypeAesCtr>(this, _$identity);
+  _$$TypeAesCtrCopyWith<_$TypeAesCtr> get copyWith =>
+      __$$TypeAesCtrCopyWithImpl<_$TypeAesCtr>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -652,23 +613,23 @@ class _$TypeAesCtr with DiagnosticableTreeMixin implements TypeAesCtr {
 
 abstract class TypeAesCtr implements CryptoType {
   const factory TypeAesCtr(
-      {required AesCtrSecretKey key,
-      required List<int> counter,
-      required int length}) = _$TypeAesCtr;
+      {required final AesCtrSecretKey key,
+      required final List<int> counter,
+      required final int length}) = _$TypeAesCtr;
 
   AesCtrSecretKey get key;
   List<int> get counter;
   int get length;
   @JsonKey(ignore: true)
-  $TypeAesCtrCopyWith<TypeAesCtr> get copyWith =>
+  _$$TypeAesCtrCopyWith<_$TypeAesCtr> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $TypeAesGcmCopyWith<$Res> {
-  factory $TypeAesGcmCopyWith(
-          TypeAesGcm value, $Res Function(TypeAesGcm) then) =
-      _$TypeAesGcmCopyWithImpl<$Res>;
+abstract class _$$TypeAesGcmCopyWith<$Res> {
+  factory _$$TypeAesGcmCopyWith(
+          _$TypeAesGcm value, $Res Function(_$TypeAesGcm) then) =
+      __$$TypeAesGcmCopyWithImpl<$Res>;
   $Res call(
       {AesGcmSecretKey key,
       Uint8List iv,
@@ -678,13 +639,14 @@ abstract class $TypeAesGcmCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$TypeAesGcmCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
-    implements $TypeAesGcmCopyWith<$Res> {
-  _$TypeAesGcmCopyWithImpl(TypeAesGcm _value, $Res Function(TypeAesGcm) _then)
-      : super(_value, (v) => _then(v as TypeAesGcm));
+class __$$TypeAesGcmCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
+    implements _$$TypeAesGcmCopyWith<$Res> {
+  __$$TypeAesGcmCopyWithImpl(
+      _$TypeAesGcm _value, $Res Function(_$TypeAesGcm) _then)
+      : super(_value, (v) => _then(v as _$TypeAesGcm));
 
   @override
-  TypeAesGcm get _value => super._value as TypeAesGcm;
+  _$TypeAesGcm get _value => super._value as _$TypeAesGcm;
 
   @override
   $Res call({
@@ -694,7 +656,7 @@ class _$TypeAesGcmCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
     Object? additionalData = freezed,
     Object? tagLength = freezed,
   }) {
-    return _then(TypeAesGcm(
+    return _then(_$TypeAesGcm(
       key: key == freezed
           ? _value.key
           : key // ignore: cast_nullable_to_non_nullable
@@ -704,11 +666,11 @@ class _$TypeAesGcmCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
           : iv // ignore: cast_nullable_to_non_nullable
               as Uint8List,
       authTag: authTag == freezed
-          ? _value.authTag
+          ? _value._authTag
           : authTag // ignore: cast_nullable_to_non_nullable
               as List<int>?,
       additionalData: additionalData == freezed
-          ? _value.additionalData
+          ? _value._additionalData
           : additionalData // ignore: cast_nullable_to_non_nullable
               as List<int>?,
       tagLength: tagLength == freezed
@@ -725,18 +687,34 @@ class _$TypeAesGcm with DiagnosticableTreeMixin implements TypeAesGcm {
   const _$TypeAesGcm(
       {required this.key,
       required this.iv,
-      this.authTag,
-      this.additionalData,
-      this.tagLength});
+      final List<int>? authTag,
+      final List<int>? additionalData,
+      this.tagLength})
+      : _authTag = authTag,
+        _additionalData = additionalData;
 
   @override
   final AesGcmSecretKey key;
   @override
   final Uint8List iv;
+  final List<int>? _authTag;
   @override
-  final List<int>? authTag;
+  List<int>? get authTag {
+    final value = _authTag;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<int>? _additionalData;
   @override
-  final List<int>? additionalData;
+  List<int>? get additionalData {
+    final value = _additionalData;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final int? tagLength;
 
@@ -761,12 +739,12 @@ class _$TypeAesGcm with DiagnosticableTreeMixin implements TypeAesGcm {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is TypeAesGcm &&
+            other is _$TypeAesGcm &&
             const DeepCollectionEquality().equals(other.key, key) &&
             const DeepCollectionEquality().equals(other.iv, iv) &&
-            const DeepCollectionEquality().equals(other.authTag, authTag) &&
+            const DeepCollectionEquality().equals(other._authTag, _authTag) &&
             const DeepCollectionEquality()
-                .equals(other.additionalData, additionalData) &&
+                .equals(other._additionalData, _additionalData) &&
             const DeepCollectionEquality().equals(other.tagLength, tagLength));
   }
 
@@ -775,14 +753,14 @@ class _$TypeAesGcm with DiagnosticableTreeMixin implements TypeAesGcm {
       runtimeType,
       const DeepCollectionEquality().hash(key),
       const DeepCollectionEquality().hash(iv),
-      const DeepCollectionEquality().hash(authTag),
-      const DeepCollectionEquality().hash(additionalData),
+      const DeepCollectionEquality().hash(_authTag),
+      const DeepCollectionEquality().hash(_additionalData),
       const DeepCollectionEquality().hash(tagLength));
 
   @JsonKey(ignore: true)
   @override
-  $TypeAesGcmCopyWith<TypeAesGcm> get copyWith =>
-      _$TypeAesGcmCopyWithImpl<TypeAesGcm>(this, _$identity);
+  _$$TypeAesGcmCopyWith<_$TypeAesGcm> get copyWith =>
+      __$$TypeAesGcmCopyWithImpl<_$TypeAesGcm>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -877,11 +855,11 @@ class _$TypeAesGcm with DiagnosticableTreeMixin implements TypeAesGcm {
 
 abstract class TypeAesGcm implements CryptoType {
   const factory TypeAesGcm(
-      {required AesGcmSecretKey key,
-      required Uint8List iv,
-      List<int>? authTag,
-      List<int>? additionalData,
-      int? tagLength}) = _$TypeAesGcm;
+      {required final AesGcmSecretKey key,
+      required final Uint8List iv,
+      final List<int>? authTag,
+      final List<int>? additionalData,
+      final int? tagLength}) = _$TypeAesGcm;
 
   AesGcmSecretKey get key;
   Uint8List get iv;
@@ -889,40 +867,40 @@ abstract class TypeAesGcm implements CryptoType {
   List<int>? get additionalData;
   int? get tagLength;
   @JsonKey(ignore: true)
-  $TypeAesGcmCopyWith<TypeAesGcm> get copyWith =>
+  _$$TypeAesGcmCopyWith<_$TypeAesGcm> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $TypeRsaOaepCopyWith<$Res> {
-  factory $TypeRsaOaepCopyWith(
-          TypeRsaOaep value, $Res Function(TypeRsaOaep) then) =
-      _$TypeRsaOaepCopyWithImpl<$Res>;
+abstract class _$$TypeRsaOaepCopyWith<$Res> {
+  factory _$$TypeRsaOaepCopyWith(
+          _$TypeRsaOaep value, $Res Function(_$TypeRsaOaep) then) =
+      __$$TypeRsaOaepCopyWithImpl<$Res>;
   $Res call({RsaOaepPrivateKey key, List<int>? label});
 }
 
 /// @nodoc
-class _$TypeRsaOaepCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
-    implements $TypeRsaOaepCopyWith<$Res> {
-  _$TypeRsaOaepCopyWithImpl(
-      TypeRsaOaep _value, $Res Function(TypeRsaOaep) _then)
-      : super(_value, (v) => _then(v as TypeRsaOaep));
+class __$$TypeRsaOaepCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
+    implements _$$TypeRsaOaepCopyWith<$Res> {
+  __$$TypeRsaOaepCopyWithImpl(
+      _$TypeRsaOaep _value, $Res Function(_$TypeRsaOaep) _then)
+      : super(_value, (v) => _then(v as _$TypeRsaOaep));
 
   @override
-  TypeRsaOaep get _value => super._value as TypeRsaOaep;
+  _$TypeRsaOaep get _value => super._value as _$TypeRsaOaep;
 
   @override
   $Res call({
     Object? key = freezed,
     Object? label = freezed,
   }) {
-    return _then(TypeRsaOaep(
+    return _then(_$TypeRsaOaep(
       key: key == freezed
           ? _value.key
           : key // ignore: cast_nullable_to_non_nullable
               as RsaOaepPrivateKey,
       label: label == freezed
-          ? _value.label
+          ? _value._label
           : label // ignore: cast_nullable_to_non_nullable
               as List<int>?,
     ));
@@ -932,12 +910,19 @@ class _$TypeRsaOaepCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
 /// @nodoc
 
 class _$TypeRsaOaep with DiagnosticableTreeMixin implements TypeRsaOaep {
-  const _$TypeRsaOaep({required this.key, this.label});
+  const _$TypeRsaOaep({required this.key, final List<int>? label})
+      : _label = label;
 
   @override
   final RsaOaepPrivateKey key;
+  final List<int>? _label;
   @override
-  final List<int>? label;
+  List<int>? get label {
+    final value = _label;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -957,21 +942,21 @@ class _$TypeRsaOaep with DiagnosticableTreeMixin implements TypeRsaOaep {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is TypeRsaOaep &&
+            other is _$TypeRsaOaep &&
             const DeepCollectionEquality().equals(other.key, key) &&
-            const DeepCollectionEquality().equals(other.label, label));
+            const DeepCollectionEquality().equals(other._label, _label));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(key),
-      const DeepCollectionEquality().hash(label));
+      const DeepCollectionEquality().hash(_label));
 
   @JsonKey(ignore: true)
   @override
-  $TypeRsaOaepCopyWith<TypeRsaOaep> get copyWith =>
-      _$TypeRsaOaepCopyWithImpl<TypeRsaOaep>(this, _$identity);
+  _$$TypeRsaOaepCopyWith<_$TypeRsaOaep> get copyWith =>
+      __$$TypeRsaOaepCopyWithImpl<_$TypeRsaOaep>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1066,11 +1051,12 @@ class _$TypeRsaOaep with DiagnosticableTreeMixin implements TypeRsaOaep {
 
 abstract class TypeRsaOaep implements CryptoType {
   const factory TypeRsaOaep(
-      {required RsaOaepPrivateKey key, List<int>? label}) = _$TypeRsaOaep;
+      {required final RsaOaepPrivateKey key,
+      final List<int>? label}) = _$TypeRsaOaep;
 
   RsaOaepPrivateKey get key;
   List<int>? get label;
   @JsonKey(ignore: true)
-  $TypeRsaOaepCopyWith<TypeRsaOaep> get copyWith =>
+  _$$TypeRsaOaepCopyWith<_$TypeRsaOaep> get copyWith =>
       throw _privateConstructorUsedError;
 }

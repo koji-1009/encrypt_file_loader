@@ -4,6 +4,8 @@ import 'package:drift/web.dart';
 /// for Web
 LazyDatabase getDatabase() {
   return LazyDatabase(() async {
-    return WebDatabase('encrypt_file_loader');
+    return WebDatabase.withStorage(
+      await DriftWebStorage.indexedDbIfSupported('encrypt_file_loader'),
+    );
   });
 }

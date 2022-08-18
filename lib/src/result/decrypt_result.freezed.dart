@@ -12,22 +12,7 @@ part of 'decrypt_result.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$DecryptResultTearOff {
-  const _$DecryptResultTearOff();
-
-  _DecryptResult call({required Uint8List data, required String? filename}) {
-    return _DecryptResult(
-      data: data,
-      filename: filename,
-    );
-  }
-}
-
-/// @nodoc
-const $DecryptResult = _$DecryptResultTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$DecryptResult {
@@ -75,32 +60,32 @@ class _$DecryptResultCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$DecryptResultCopyWith<$Res>
+abstract class _$$_DecryptResultCopyWith<$Res>
     implements $DecryptResultCopyWith<$Res> {
-  factory _$DecryptResultCopyWith(
-          _DecryptResult value, $Res Function(_DecryptResult) then) =
-      __$DecryptResultCopyWithImpl<$Res>;
+  factory _$$_DecryptResultCopyWith(
+          _$_DecryptResult value, $Res Function(_$_DecryptResult) then) =
+      __$$_DecryptResultCopyWithImpl<$Res>;
   @override
   $Res call({Uint8List data, String? filename});
 }
 
 /// @nodoc
-class __$DecryptResultCopyWithImpl<$Res>
+class __$$_DecryptResultCopyWithImpl<$Res>
     extends _$DecryptResultCopyWithImpl<$Res>
-    implements _$DecryptResultCopyWith<$Res> {
-  __$DecryptResultCopyWithImpl(
-      _DecryptResult _value, $Res Function(_DecryptResult) _then)
-      : super(_value, (v) => _then(v as _DecryptResult));
+    implements _$$_DecryptResultCopyWith<$Res> {
+  __$$_DecryptResultCopyWithImpl(
+      _$_DecryptResult _value, $Res Function(_$_DecryptResult) _then)
+      : super(_value, (v) => _then(v as _$_DecryptResult));
 
   @override
-  _DecryptResult get _value => super._value as _DecryptResult;
+  _$_DecryptResult get _value => super._value as _$_DecryptResult;
 
   @override
   $Res call({
     Object? data = freezed,
     Object? filename = freezed,
   }) {
-    return _then(_DecryptResult(
+    return _then(_$_DecryptResult(
       data: data == freezed
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
@@ -141,7 +126,7 @@ class _$_DecryptResult with DiagnosticableTreeMixin implements _DecryptResult {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _DecryptResult &&
+            other is _$_DecryptResult &&
             const DeepCollectionEquality().equals(other.data, data) &&
             const DeepCollectionEquality().equals(other.filename, filename));
   }
@@ -154,13 +139,14 @@ class _$_DecryptResult with DiagnosticableTreeMixin implements _DecryptResult {
 
   @JsonKey(ignore: true)
   @override
-  _$DecryptResultCopyWith<_DecryptResult> get copyWith =>
-      __$DecryptResultCopyWithImpl<_DecryptResult>(this, _$identity);
+  _$$_DecryptResultCopyWith<_$_DecryptResult> get copyWith =>
+      __$$_DecryptResultCopyWithImpl<_$_DecryptResult>(this, _$identity);
 }
 
 abstract class _DecryptResult implements DecryptResult {
   const factory _DecryptResult(
-      {required Uint8List data, required String? filename}) = _$_DecryptResult;
+      {required final Uint8List data,
+      required final String? filename}) = _$_DecryptResult;
 
   @override
   Uint8List get data;
@@ -168,6 +154,6 @@ abstract class _DecryptResult implements DecryptResult {
   String? get filename;
   @override
   @JsonKey(ignore: true)
-  _$DecryptResultCopyWith<_DecryptResult> get copyWith =>
+  _$$_DecryptResultCopyWith<_$_DecryptResult> get copyWith =>
       throw _privateConstructorUsedError;
 }
