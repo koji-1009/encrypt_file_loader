@@ -3,10 +3,10 @@
 part of 'filename.dart';
 
 // **************************************************************************
-// MoorGenerator
+// DriftDatabaseGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
+// ignore_for_file: type=lint
 class Cache extends DataClass implements Insertable<Cache> {
   /// primary key
   /// server url
@@ -23,27 +23,12 @@ class Cache extends DataClass implements Insertable<Cache> {
 
   /// last edited date and time
   final DateTime updated;
-  Cache(
+  const Cache(
       {required this.url,
       required this.group,
       required this.bytes,
       this.filename,
       required this.updated});
-  factory Cache.fromData(Map<String, dynamic> data, {String? prefix}) {
-    final effectivePrefix = prefix ?? '';
-    return Cache(
-      url: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}url'])!,
-      group: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}group'])!,
-      bytes: const BlobType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}bytes'])!,
-      filename: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}filename']),
-      updated: const DateTimeType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}updated'])!,
-    );
-  }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -51,7 +36,7 @@ class Cache extends DataClass implements Insertable<Cache> {
     map['group'] = Variable<String>(group);
     map['bytes'] = Variable<Uint8List>(bytes);
     if (!nullToAbsent || filename != null) {
-      map['filename'] = Variable<String?>(filename);
+      map['filename'] = Variable<String>(filename);
     }
     map['updated'] = Variable<DateTime>(updated);
     return map;
@@ -96,13 +81,13 @@ class Cache extends DataClass implements Insertable<Cache> {
           {String? url,
           String? group,
           Uint8List? bytes,
-          String? filename,
+          Value<String?> filename = const Value.absent(),
           DateTime? updated}) =>
       Cache(
         url: url ?? this.url,
         group: group ?? this.group,
         bytes: bytes ?? this.bytes,
-        filename: filename ?? this.filename,
+        filename: filename.present ? filename.value : this.filename,
         updated: updated ?? this.updated,
       );
   @override
@@ -157,7 +142,7 @@ class CachesCompanion extends UpdateCompanion<Cache> {
     Expression<String>? url,
     Expression<String>? group,
     Expression<Uint8List>? bytes,
-    Expression<String?>? filename,
+    Expression<String>? filename,
     Expression<DateTime>? updated,
   }) {
     return RawValuesInsertable({
@@ -197,7 +182,7 @@ class CachesCompanion extends UpdateCompanion<Cache> {
       map['bytes'] = Variable<Uint8List>(bytes.value);
     }
     if (filename.present) {
-      map['filename'] = Variable<String?>(filename.value);
+      map['filename'] = Variable<String>(filename.value);
     }
     if (updated.present) {
       map['updated'] = Variable<DateTime>(updated.value);
@@ -225,29 +210,29 @@ class $CachesTable extends Caches with TableInfo<$CachesTable, Cache> {
   $CachesTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _urlMeta = const VerificationMeta('url');
   @override
-  late final GeneratedColumn<String?> url = GeneratedColumn<String?>(
+  late final GeneratedColumn<String> url = GeneratedColumn<String>(
       'url', aliasedName, false,
-      type: const StringType(), requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _groupMeta = const VerificationMeta('group');
   @override
-  late final GeneratedColumn<String?> group = GeneratedColumn<String?>(
+  late final GeneratedColumn<String> group = GeneratedColumn<String>(
       'group', aliasedName, false,
-      type: const StringType(), requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _bytesMeta = const VerificationMeta('bytes');
   @override
-  late final GeneratedColumn<Uint8List?> bytes = GeneratedColumn<Uint8List?>(
+  late final GeneratedColumn<Uint8List> bytes = GeneratedColumn<Uint8List>(
       'bytes', aliasedName, false,
-      type: const BlobType(), requiredDuringInsert: true);
+      type: DriftSqlType.blob, requiredDuringInsert: true);
   final VerificationMeta _filenameMeta = const VerificationMeta('filename');
   @override
-  late final GeneratedColumn<String?> filename = GeneratedColumn<String?>(
+  late final GeneratedColumn<String> filename = GeneratedColumn<String>(
       'filename', aliasedName, true,
-      type: const StringType(), requiredDuringInsert: false);
+      type: DriftSqlType.string, requiredDuringInsert: false);
   final VerificationMeta _updatedMeta = const VerificationMeta('updated');
   @override
-  late final GeneratedColumn<DateTime?> updated = GeneratedColumn<DateTime?>(
+  late final GeneratedColumn<DateTime> updated = GeneratedColumn<DateTime>(
       'updated', aliasedName, false,
-      type: const IntType(), requiredDuringInsert: true);
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [url, group, bytes, filename, updated];
   @override
@@ -294,8 +279,19 @@ class $CachesTable extends Caches with TableInfo<$CachesTable, Cache> {
   Set<GeneratedColumn> get $primaryKey => {url};
   @override
   Cache map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return Cache.fromData(data,
-        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Cache(
+      url: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}url'])!,
+      group: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}group'])!,
+      bytes: attachedDatabase.options.types
+          .read(DriftSqlType.blob, data['${effectivePrefix}bytes'])!,
+      filename: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}filename']),
+      updated: attachedDatabase.options.types
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}updated'])!,
+    );
   }
 
   @override
@@ -305,10 +301,11 @@ class $CachesTable extends Caches with TableInfo<$CachesTable, Cache> {
 }
 
 abstract class _$Database extends GeneratedDatabase {
-  _$Database(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
+  _$Database(QueryExecutor e) : super(e);
   late final $CachesTable caches = $CachesTable(this);
   @override
-  Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
+  Iterable<TableInfo<Table, dynamic>> get allTables =>
+      allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [caches];
 }
