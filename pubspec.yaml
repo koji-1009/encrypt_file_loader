@@ -4,8 +4,8 @@ version: 3.0.0
 homepage: https://github.com/koji-1009/encrypt_file_loader
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
-  flutter: ">=3.0.0"
+  sdk: ">=2.18.0 <3.0.0"
+  flutter: ">=3.3.0"
 
 dependencies:
   flutter:
@@ -16,10 +16,10 @@ dependencies:
   http: ^0.13.0
 
   # db
-  drift: ^2.0.0
-  sqlite3_flutter_libs: ^0.5.0
+  isar: ^3.0.0
+  isar_flutter_libs: ^3.0.0
+
   path_provider: ^2.0.0
-  path: ^1.8.0
 
   # decrypt
   webcrypto: ^0.5.3
@@ -28,10 +28,10 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  drift_dev: ^2.0.0
+  flutter_lints: ^2.0.0
+
   freezed: ^2.0.0
   build_runner: ^2.0.0
-
-  flutter_lints: ^2.0.0
+  isar_generator: ^3.0.0
 
 flutter:

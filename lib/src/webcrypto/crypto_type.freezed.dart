@@ -31,14 +31,14 @@ mixin _$CryptoType {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? plain,
-    TResult Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
-    TResult Function(AesCtrSecretKey key, List<int> counter, int length)?
+    TResult? Function()? plain,
+    TResult? Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
+    TResult? Function(AesCtrSecretKey key, List<int> counter, int length)?
         aesCtr,
-    TResult Function(AesGcmSecretKey key, Uint8List iv, List<int>? authTag,
+    TResult? Function(AesGcmSecretKey key, Uint8List iv, List<int>? authTag,
             List<int>? additionalData, int? tagLength)?
         aesGcm,
-    TResult Function(RsaOaepPrivateKey key, List<int>? label)? rsaOaep,
+    TResult? Function(RsaOaepPrivateKey key, List<int>? label)? rsaOaep,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -65,11 +65,11 @@ mixin _$CryptoType {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(TypePlain value)? plain,
-    TResult Function(TypeAesCbc value)? aesCbc,
-    TResult Function(TypeAesCtr value)? aesCtr,
-    TResult Function(TypeAesGcm value)? aesGcm,
-    TResult Function(TypeRsaOaep value)? rsaOaep,
+    TResult? Function(TypePlain value)? plain,
+    TResult? Function(TypeAesCbc value)? aesCbc,
+    TResult? Function(TypeAesCtr value)? aesCtr,
+    TResult? Function(TypeAesGcm value)? aesGcm,
+    TResult? Function(TypeRsaOaep value)? rsaOaep,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -88,16 +88,18 @@ mixin _$CryptoType {
 abstract class $CryptoTypeCopyWith<$Res> {
   factory $CryptoTypeCopyWith(
           CryptoType value, $Res Function(CryptoType) then) =
-      _$CryptoTypeCopyWithImpl<$Res>;
+      _$CryptoTypeCopyWithImpl<$Res, CryptoType>;
 }
 
 /// @nodoc
-class _$CryptoTypeCopyWithImpl<$Res> implements $CryptoTypeCopyWith<$Res> {
+class _$CryptoTypeCopyWithImpl<$Res, $Val extends CryptoType>
+    implements $CryptoTypeCopyWith<$Res> {
   _$CryptoTypeCopyWithImpl(this._value, this._then);
 
-  final CryptoType _value;
   // ignore: unused_field
-  final $Res Function(CryptoType) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -108,14 +110,12 @@ abstract class _$$TypePlainCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$TypePlainCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
+class __$$TypePlainCopyWithImpl<$Res>
+    extends _$CryptoTypeCopyWithImpl<$Res, _$TypePlain>
     implements _$$TypePlainCopyWith<$Res> {
   __$$TypePlainCopyWithImpl(
       _$TypePlain _value, $Res Function(_$TypePlain) _then)
-      : super(_value, (v) => _then(v as _$TypePlain));
-
-  @override
-  _$TypePlain get _value => super._value as _$TypePlain;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -162,14 +162,14 @@ class _$TypePlain with DiagnosticableTreeMixin implements TypePlain {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? plain,
-    TResult Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
-    TResult Function(AesCtrSecretKey key, List<int> counter, int length)?
+    TResult? Function()? plain,
+    TResult? Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
+    TResult? Function(AesCtrSecretKey key, List<int> counter, int length)?
         aesCtr,
-    TResult Function(AesGcmSecretKey key, Uint8List iv, List<int>? authTag,
+    TResult? Function(AesGcmSecretKey key, Uint8List iv, List<int>? authTag,
             List<int>? additionalData, int? tagLength)?
         aesGcm,
-    TResult Function(RsaOaepPrivateKey key, List<int>? label)? rsaOaep,
+    TResult? Function(RsaOaepPrivateKey key, List<int>? label)? rsaOaep,
   }) {
     return plain?.call();
   }
@@ -208,11 +208,11 @@ class _$TypePlain with DiagnosticableTreeMixin implements TypePlain {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(TypePlain value)? plain,
-    TResult Function(TypeAesCbc value)? aesCbc,
-    TResult Function(TypeAesCtr value)? aesCtr,
-    TResult Function(TypeAesGcm value)? aesGcm,
-    TResult Function(TypeRsaOaep value)? rsaOaep,
+    TResult? Function(TypePlain value)? plain,
+    TResult? Function(TypeAesCbc value)? aesCbc,
+    TResult? Function(TypeAesCtr value)? aesCtr,
+    TResult? Function(TypeAesGcm value)? aesGcm,
+    TResult? Function(TypeRsaOaep value)? rsaOaep,
   }) {
     return plain?.call(this);
   }
@@ -243,30 +243,30 @@ abstract class _$$TypeAesCbcCopyWith<$Res> {
   factory _$$TypeAesCbcCopyWith(
           _$TypeAesCbc value, $Res Function(_$TypeAesCbc) then) =
       __$$TypeAesCbcCopyWithImpl<$Res>;
+  @useResult
   $Res call({AesCbcSecretKey key, Uint8List iv});
 }
 
 /// @nodoc
-class __$$TypeAesCbcCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
+class __$$TypeAesCbcCopyWithImpl<$Res>
+    extends _$CryptoTypeCopyWithImpl<$Res, _$TypeAesCbc>
     implements _$$TypeAesCbcCopyWith<$Res> {
   __$$TypeAesCbcCopyWithImpl(
       _$TypeAesCbc _value, $Res Function(_$TypeAesCbc) _then)
-      : super(_value, (v) => _then(v as _$TypeAesCbc));
+      : super(_value, _then);
 
-  @override
-  _$TypeAesCbc get _value => super._value as _$TypeAesCbc;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? key = freezed,
-    Object? iv = freezed,
+    Object? key = null,
+    Object? iv = null,
   }) {
     return _then(_$TypeAesCbc(
-      key: key == freezed
+      key: null == key
           ? _value.key
           : key // ignore: cast_nullable_to_non_nullable
               as AesCbcSecretKey,
-      iv: iv == freezed
+      iv: null == iv
           ? _value.iv
           : iv // ignore: cast_nullable_to_non_nullable
               as Uint8List,
@@ -303,18 +303,17 @@ class _$TypeAesCbc with DiagnosticableTreeMixin implements TypeAesCbc {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TypeAesCbc &&
-            const DeepCollectionEquality().equals(other.key, key) &&
+            (identical(other.key, key) || other.key == key) &&
             const DeepCollectionEquality().equals(other.iv, iv));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(key),
-      const DeepCollectionEquality().hash(iv));
+  int get hashCode =>
+      Object.hash(runtimeType, key, const DeepCollectionEquality().hash(iv));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$TypeAesCbcCopyWith<_$TypeAesCbc> get copyWith =>
       __$$TypeAesCbcCopyWithImpl<_$TypeAesCbc>(this, _$identity);
 
@@ -337,14 +336,14 @@ class _$TypeAesCbc with DiagnosticableTreeMixin implements TypeAesCbc {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? plain,
-    TResult Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
-    TResult Function(AesCtrSecretKey key, List<int> counter, int length)?
+    TResult? Function()? plain,
+    TResult? Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
+    TResult? Function(AesCtrSecretKey key, List<int> counter, int length)?
         aesCtr,
-    TResult Function(AesGcmSecretKey key, Uint8List iv, List<int>? authTag,
+    TResult? Function(AesGcmSecretKey key, Uint8List iv, List<int>? authTag,
             List<int>? additionalData, int? tagLength)?
         aesGcm,
-    TResult Function(RsaOaepPrivateKey key, List<int>? label)? rsaOaep,
+    TResult? Function(RsaOaepPrivateKey key, List<int>? label)? rsaOaep,
   }) {
     return aesCbc?.call(key, iv);
   }
@@ -383,11 +382,11 @@ class _$TypeAesCbc with DiagnosticableTreeMixin implements TypeAesCbc {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(TypePlain value)? plain,
-    TResult Function(TypeAesCbc value)? aesCbc,
-    TResult Function(TypeAesCtr value)? aesCtr,
-    TResult Function(TypeAesGcm value)? aesGcm,
-    TResult Function(TypeRsaOaep value)? rsaOaep,
+    TResult? Function(TypePlain value)? plain,
+    TResult? Function(TypeAesCbc value)? aesCbc,
+    TResult? Function(TypeAesCtr value)? aesCtr,
+    TResult? Function(TypeAesGcm value)? aesGcm,
+    TResult? Function(TypeRsaOaep value)? rsaOaep,
   }) {
     return aesCbc?.call(this);
   }
@@ -426,35 +425,35 @@ abstract class _$$TypeAesCtrCopyWith<$Res> {
   factory _$$TypeAesCtrCopyWith(
           _$TypeAesCtr value, $Res Function(_$TypeAesCtr) then) =
       __$$TypeAesCtrCopyWithImpl<$Res>;
+  @useResult
   $Res call({AesCtrSecretKey key, List<int> counter, int length});
 }
 
 /// @nodoc
-class __$$TypeAesCtrCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
+class __$$TypeAesCtrCopyWithImpl<$Res>
+    extends _$CryptoTypeCopyWithImpl<$Res, _$TypeAesCtr>
     implements _$$TypeAesCtrCopyWith<$Res> {
   __$$TypeAesCtrCopyWithImpl(
       _$TypeAesCtr _value, $Res Function(_$TypeAesCtr) _then)
-      : super(_value, (v) => _then(v as _$TypeAesCtr));
+      : super(_value, _then);
 
-  @override
-  _$TypeAesCtr get _value => super._value as _$TypeAesCtr;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? key = freezed,
-    Object? counter = freezed,
-    Object? length = freezed,
+    Object? key = null,
+    Object? counter = null,
+    Object? length = null,
   }) {
     return _then(_$TypeAesCtr(
-      key: key == freezed
+      key: null == key
           ? _value.key
           : key // ignore: cast_nullable_to_non_nullable
               as AesCtrSecretKey,
-      counter: counter == freezed
+      counter: null == counter
           ? _value._counter
           : counter // ignore: cast_nullable_to_non_nullable
               as List<int>,
-      length: length == freezed
+      length: null == length
           ? _value.length
           : length // ignore: cast_nullable_to_non_nullable
               as int,
@@ -503,20 +502,18 @@ class _$TypeAesCtr with DiagnosticableTreeMixin implements TypeAesCtr {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TypeAesCtr &&
-            const DeepCollectionEquality().equals(other.key, key) &&
+            (identical(other.key, key) || other.key == key) &&
             const DeepCollectionEquality().equals(other._counter, _counter) &&
-            const DeepCollectionEquality().equals(other.length, length));
+            (identical(other.length, length) || other.length == length));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(key),
-      const DeepCollectionEquality().hash(_counter),
-      const DeepCollectionEquality().hash(length));
+      runtimeType, key, const DeepCollectionEquality().hash(_counter), length);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$TypeAesCtrCopyWith<_$TypeAesCtr> get copyWith =>
       __$$TypeAesCtrCopyWithImpl<_$TypeAesCtr>(this, _$identity);
 
@@ -539,14 +536,14 @@ class _$TypeAesCtr with DiagnosticableTreeMixin implements TypeAesCtr {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? plain,
-    TResult Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
-    TResult Function(AesCtrSecretKey key, List<int> counter, int length)?
+    TResult? Function()? plain,
+    TResult? Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
+    TResult? Function(AesCtrSecretKey key, List<int> counter, int length)?
         aesCtr,
-    TResult Function(AesGcmSecretKey key, Uint8List iv, List<int>? authTag,
+    TResult? Function(AesGcmSecretKey key, Uint8List iv, List<int>? authTag,
             List<int>? additionalData, int? tagLength)?
         aesGcm,
-    TResult Function(RsaOaepPrivateKey key, List<int>? label)? rsaOaep,
+    TResult? Function(RsaOaepPrivateKey key, List<int>? label)? rsaOaep,
   }) {
     return aesCtr?.call(key, counter, length);
   }
@@ -585,11 +582,11 @@ class _$TypeAesCtr with DiagnosticableTreeMixin implements TypeAesCtr {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(TypePlain value)? plain,
-    TResult Function(TypeAesCbc value)? aesCbc,
-    TResult Function(TypeAesCtr value)? aesCtr,
-    TResult Function(TypeAesGcm value)? aesGcm,
-    TResult Function(TypeRsaOaep value)? rsaOaep,
+    TResult? Function(TypePlain value)? plain,
+    TResult? Function(TypeAesCbc value)? aesCbc,
+    TResult? Function(TypeAesCtr value)? aesCtr,
+    TResult? Function(TypeAesGcm value)? aesGcm,
+    TResult? Function(TypeRsaOaep value)? rsaOaep,
   }) {
     return aesCtr?.call(this);
   }
@@ -630,6 +627,7 @@ abstract class _$$TypeAesGcmCopyWith<$Res> {
   factory _$$TypeAesGcmCopyWith(
           _$TypeAesGcm value, $Res Function(_$TypeAesGcm) then) =
       __$$TypeAesGcmCopyWithImpl<$Res>;
+  @useResult
   $Res call(
       {AesGcmSecretKey key,
       Uint8List iv,
@@ -639,41 +637,40 @@ abstract class _$$TypeAesGcmCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$TypeAesGcmCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
+class __$$TypeAesGcmCopyWithImpl<$Res>
+    extends _$CryptoTypeCopyWithImpl<$Res, _$TypeAesGcm>
     implements _$$TypeAesGcmCopyWith<$Res> {
   __$$TypeAesGcmCopyWithImpl(
       _$TypeAesGcm _value, $Res Function(_$TypeAesGcm) _then)
-      : super(_value, (v) => _then(v as _$TypeAesGcm));
+      : super(_value, _then);
 
-  @override
-  _$TypeAesGcm get _value => super._value as _$TypeAesGcm;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? key = freezed,
-    Object? iv = freezed,
+    Object? key = null,
+    Object? iv = null,
     Object? authTag = freezed,
     Object? additionalData = freezed,
     Object? tagLength = freezed,
   }) {
     return _then(_$TypeAesGcm(
-      key: key == freezed
+      key: null == key
           ? _value.key
           : key // ignore: cast_nullable_to_non_nullable
               as AesGcmSecretKey,
-      iv: iv == freezed
+      iv: null == iv
           ? _value.iv
           : iv // ignore: cast_nullable_to_non_nullable
               as Uint8List,
-      authTag: authTag == freezed
+      authTag: freezed == authTag
           ? _value._authTag
           : authTag // ignore: cast_nullable_to_non_nullable
               as List<int>?,
-      additionalData: additionalData == freezed
+      additionalData: freezed == additionalData
           ? _value._additionalData
           : additionalData // ignore: cast_nullable_to_non_nullable
               as List<int>?,
-      tagLength: tagLength == freezed
+      tagLength: freezed == tagLength
           ? _value.tagLength
           : tagLength // ignore: cast_nullable_to_non_nullable
               as int?,
@@ -740,25 +737,27 @@ class _$TypeAesGcm with DiagnosticableTreeMixin implements TypeAesGcm {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TypeAesGcm &&
-            const DeepCollectionEquality().equals(other.key, key) &&
+            (identical(other.key, key) || other.key == key) &&
             const DeepCollectionEquality().equals(other.iv, iv) &&
             const DeepCollectionEquality().equals(other._authTag, _authTag) &&
             const DeepCollectionEquality()
                 .equals(other._additionalData, _additionalData) &&
-            const DeepCollectionEquality().equals(other.tagLength, tagLength));
+            (identical(other.tagLength, tagLength) ||
+                other.tagLength == tagLength));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(key),
+      key,
       const DeepCollectionEquality().hash(iv),
       const DeepCollectionEquality().hash(_authTag),
       const DeepCollectionEquality().hash(_additionalData),
-      const DeepCollectionEquality().hash(tagLength));
+      tagLength);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$TypeAesGcmCopyWith<_$TypeAesGcm> get copyWith =>
       __$$TypeAesGcmCopyWithImpl<_$TypeAesGcm>(this, _$identity);
 
@@ -781,14 +780,14 @@ class _$TypeAesGcm with DiagnosticableTreeMixin implements TypeAesGcm {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? plain,
-    TResult Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
-    TResult Function(AesCtrSecretKey key, List<int> counter, int length)?
+    TResult? Function()? plain,
+    TResult? Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
+    TResult? Function(AesCtrSecretKey key, List<int> counter, int length)?
         aesCtr,
-    TResult Function(AesGcmSecretKey key, Uint8List iv, List<int>? authTag,
+    TResult? Function(AesGcmSecretKey key, Uint8List iv, List<int>? authTag,
             List<int>? additionalData, int? tagLength)?
         aesGcm,
-    TResult Function(RsaOaepPrivateKey key, List<int>? label)? rsaOaep,
+    TResult? Function(RsaOaepPrivateKey key, List<int>? label)? rsaOaep,
   }) {
     return aesGcm?.call(key, iv, authTag, additionalData, tagLength);
   }
@@ -827,11 +826,11 @@ class _$TypeAesGcm with DiagnosticableTreeMixin implements TypeAesGcm {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(TypePlain value)? plain,
-    TResult Function(TypeAesCbc value)? aesCbc,
-    TResult Function(TypeAesCtr value)? aesCtr,
-    TResult Function(TypeAesGcm value)? aesGcm,
-    TResult Function(TypeRsaOaep value)? rsaOaep,
+    TResult? Function(TypePlain value)? plain,
+    TResult? Function(TypeAesCbc value)? aesCbc,
+    TResult? Function(TypeAesCtr value)? aesCtr,
+    TResult? Function(TypeAesGcm value)? aesGcm,
+    TResult? Function(TypeRsaOaep value)? rsaOaep,
   }) {
     return aesGcm?.call(this);
   }
@@ -876,30 +875,30 @@ abstract class _$$TypeRsaOaepCopyWith<$Res> {
   factory _$$TypeRsaOaepCopyWith(
           _$TypeRsaOaep value, $Res Function(_$TypeRsaOaep) then) =
       __$$TypeRsaOaepCopyWithImpl<$Res>;
+  @useResult
   $Res call({RsaOaepPrivateKey key, List<int>? label});
 }
 
 /// @nodoc
-class __$$TypeRsaOaepCopyWithImpl<$Res> extends _$CryptoTypeCopyWithImpl<$Res>
+class __$$TypeRsaOaepCopyWithImpl<$Res>
+    extends _$CryptoTypeCopyWithImpl<$Res, _$TypeRsaOaep>
     implements _$$TypeRsaOaepCopyWith<$Res> {
   __$$TypeRsaOaepCopyWithImpl(
       _$TypeRsaOaep _value, $Res Function(_$TypeRsaOaep) _then)
-      : super(_value, (v) => _then(v as _$TypeRsaOaep));
+      : super(_value, _then);
 
-  @override
-  _$TypeRsaOaep get _value => super._value as _$TypeRsaOaep;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? key = freezed,
+    Object? key = null,
     Object? label = freezed,
   }) {
     return _then(_$TypeRsaOaep(
-      key: key == freezed
+      key: null == key
           ? _value.key
           : key // ignore: cast_nullable_to_non_nullable
               as RsaOaepPrivateKey,
-      label: label == freezed
+      label: freezed == label
           ? _value._label
           : label // ignore: cast_nullable_to_non_nullable
               as List<int>?,
@@ -943,18 +942,17 @@ class _$TypeRsaOaep with DiagnosticableTreeMixin implements TypeRsaOaep {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TypeRsaOaep &&
-            const DeepCollectionEquality().equals(other.key, key) &&
+            (identical(other.key, key) || other.key == key) &&
             const DeepCollectionEquality().equals(other._label, _label));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(key),
-      const DeepCollectionEquality().hash(_label));
+      runtimeType, key, const DeepCollectionEquality().hash(_label));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$TypeRsaOaepCopyWith<_$TypeRsaOaep> get copyWith =>
       __$$TypeRsaOaepCopyWithImpl<_$TypeRsaOaep>(this, _$identity);
 
@@ -977,14 +975,14 @@ class _$TypeRsaOaep with DiagnosticableTreeMixin implements TypeRsaOaep {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? plain,
-    TResult Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
-    TResult Function(AesCtrSecretKey key, List<int> counter, int length)?
+    TResult? Function()? plain,
+    TResult? Function(AesCbcSecretKey key, Uint8List iv)? aesCbc,
+    TResult? Function(AesCtrSecretKey key, List<int> counter, int length)?
         aesCtr,
-    TResult Function(AesGcmSecretKey key, Uint8List iv, List<int>? authTag,
+    TResult? Function(AesGcmSecretKey key, Uint8List iv, List<int>? authTag,
             List<int>? additionalData, int? tagLength)?
         aesGcm,
-    TResult Function(RsaOaepPrivateKey key, List<int>? label)? rsaOaep,
+    TResult? Function(RsaOaepPrivateKey key, List<int>? label)? rsaOaep,
   }) {
     return rsaOaep?.call(key, label);
   }
@@ -1023,11 +1021,11 @@ class _$TypeRsaOaep with DiagnosticableTreeMixin implements TypeRsaOaep {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(TypePlain value)? plain,
-    TResult Function(TypeAesCbc value)? aesCbc,
-    TResult Function(TypeAesCtr value)? aesCtr,
-    TResult Function(TypeAesGcm value)? aesGcm,
-    TResult Function(TypeRsaOaep value)? rsaOaep,
+    TResult? Function(TypePlain value)? plain,
+    TResult? Function(TypeAesCbc value)? aesCbc,
+    TResult? Function(TypeAesCtr value)? aesCtr,
+    TResult? Function(TypeAesGcm value)? aesGcm,
+    TResult? Function(TypeRsaOaep value)? rsaOaep,
   }) {
     return rsaOaep?.call(this);
   }

@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -49,7 +48,7 @@ class CryptoType with _$CryptoType {
 extension CryptoTypeExt on CryptoType {
   /// Decrypt [Uint8List] and create [File].
   Future<DecryptResult> decrypt({
-    required Uint8List bytes,
+    required List<int> bytes,
     required String? filename,
   }) async {
     final data = await when(
@@ -67,7 +66,7 @@ extension CryptoTypeExt on CryptoType {
     );
 
     return DecryptResult(
-      data: data,
+      data: Uint8List.fromList(data),
       filename: filename,
     );
   }
