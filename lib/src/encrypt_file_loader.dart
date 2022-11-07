@@ -43,7 +43,8 @@ class EncryptFileLoader {
     }
 
     try {
-      final response = await http.get(Uri.parse(url));
+      final uri = Uri.parse(url);
+      final response = await http.get(uri);
       if (response.statusCode == 200) {
         String? filename;
         final disposition = response.headers['Content-Disposition']?.toString();
@@ -51,6 +52,8 @@ class EncryptFileLoader {
           final reg = RegExp('''/filename[^;=\n]*=((['"]).*?2|[^;\n]*)/''');
           final match = reg.firstMatch(disposition);
           filename = match?[0];
+        } else {
+          filename = uri.pathSegments.last;
         }
 
         final entry = Caches(
