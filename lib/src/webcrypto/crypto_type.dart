@@ -1,10 +1,9 @@
 import 'dart:io';
 
+import 'package:encrypt_file_loader/src/result/decrypt_result.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:webcrypto/webcrypto.dart';
-
-import '../result/decrypt_result.dart';
 
 part 'crypto_type.freezed.dart';
 

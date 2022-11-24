@@ -2,11 +2,10 @@ import 'dart:io';
 
 import 'package:encrypt_file_loader/src/isar/cache.dart';
 import 'package:encrypt_file_loader/src/isar/db/connection.dart';
+import 'package:encrypt_file_loader/src/result/decrypt_result.dart';
+import 'package:encrypt_file_loader/src/webcrypto/crypto_type.dart';
 import 'package:http/http.dart' as http;
 import 'package:isar/isar.dart';
-
-import 'result/decrypt_result.dart';
-import 'webcrypto/crypto_type.dart';
 
 /// Result pattern on [EncryptFileLoader.load]
 enum LoadResult {
