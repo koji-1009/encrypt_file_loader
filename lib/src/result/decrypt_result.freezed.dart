@@ -28,34 +28,37 @@ mixin _$DecryptResult {
 abstract class $DecryptResultCopyWith<$Res> {
   factory $DecryptResultCopyWith(
           DecryptResult value, $Res Function(DecryptResult) then) =
-      _$DecryptResultCopyWithImpl<$Res>;
+      _$DecryptResultCopyWithImpl<$Res, DecryptResult>;
+  @useResult
   $Res call({Uint8List data, String? filename});
 }
 
 /// @nodoc
-class _$DecryptResultCopyWithImpl<$Res>
+class _$DecryptResultCopyWithImpl<$Res, $Val extends DecryptResult>
     implements $DecryptResultCopyWith<$Res> {
   _$DecryptResultCopyWithImpl(this._value, this._then);
 
-  final DecryptResult _value;
   // ignore: unused_field
-  final $Res Function(DecryptResult) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? data = freezed,
+    Object? data = null,
     Object? filename = freezed,
   }) {
     return _then(_value.copyWith(
-      data: data == freezed
+      data: null == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as Uint8List,
-      filename: filename == freezed
+      filename: freezed == filename
           ? _value.filename
           : filename // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -66,31 +69,30 @@ abstract class _$$_DecryptResultCopyWith<$Res>
           _$_DecryptResult value, $Res Function(_$_DecryptResult) then) =
       __$$_DecryptResultCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({Uint8List data, String? filename});
 }
 
 /// @nodoc
 class __$$_DecryptResultCopyWithImpl<$Res>
-    extends _$DecryptResultCopyWithImpl<$Res>
+    extends _$DecryptResultCopyWithImpl<$Res, _$_DecryptResult>
     implements _$$_DecryptResultCopyWith<$Res> {
   __$$_DecryptResultCopyWithImpl(
       _$_DecryptResult _value, $Res Function(_$_DecryptResult) _then)
-      : super(_value, (v) => _then(v as _$_DecryptResult));
+      : super(_value, _then);
 
-  @override
-  _$_DecryptResult get _value => super._value as _$_DecryptResult;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? data = freezed,
+    Object? data = null,
     Object? filename = freezed,
   }) {
     return _then(_$_DecryptResult(
-      data: data == freezed
+      data: null == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as Uint8List,
-      filename: filename == freezed
+      filename: freezed == filename
           ? _value.filename
           : filename // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -128,17 +130,17 @@ class _$_DecryptResult with DiagnosticableTreeMixin implements _DecryptResult {
         (other.runtimeType == runtimeType &&
             other is _$_DecryptResult &&
             const DeepCollectionEquality().equals(other.data, data) &&
-            const DeepCollectionEquality().equals(other.filename, filename));
+            (identical(other.filename, filename) ||
+                other.filename == filename));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(data),
-      const DeepCollectionEquality().hash(filename));
+      runtimeType, const DeepCollectionEquality().hash(data), filename);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_DecryptResultCopyWith<_$_DecryptResult> get copyWith =>
       __$$_DecryptResultCopyWithImpl<_$_DecryptResult>(this, _$identity);
 }

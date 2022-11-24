@@ -1,5 +1,6 @@
 # encrypt_file_loader
 
-encrypt_file_loader is a library that can store files encrypted with [webcrypto](https://pub.dev/packages/webcrypto).
+encrypt_file_loader downloads and saves the encrypted file. It can then set the key and decrypt the file.
 
-The DB is created by [Drift](https://pub.dev/packages/drift).
+Decrypt using [webcrypto](https://pub.dev/packages/webcrypto). This library runs fast on Android and iOS.
+The DB is created by [Isar](https://pub.dev/packages/isar).

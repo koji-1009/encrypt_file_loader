@@ -1,10 +1,11 @@
 import 'dart:io';
 
+import 'package:encrypt_file_loader/src/isar/cache.dart';
+import 'package:encrypt_file_loader/src/isar/db/connection.dart';
+import 'package:encrypt_file_loader/src/result/decrypt_result.dart';
+import 'package:encrypt_file_loader/src/webcrypto/crypto_type.dart';
 import 'package:http/http.dart' as http;
-
-import 'moor/filename.dart';
-import 'result/decrypt_result.dart';
-import 'webcrypto/crypto_type.dart';
+import 'package:isar/isar.dart';
 
 /// Result pattern on [EncryptFileLoader.load]
 enum LoadResult {
@@ -29,20 +30,20 @@ enum LoadResult {
 
 /// [EncryptFileLoader] is a class that loads, caches, and decrypts.
 class EncryptFileLoader {
-  final _db = Database();
-
   /// Load file from server or internal db.
   Future<LoadResult> load({
     required String url,
     String group = 'no_group',
   }) async {
-    final cache = await _db.getFile(url);
+    final isar = await Connection.instance;
+    final cache = await isar.caches.filter().urlEqualTo(url).findFirst();
     if (cache != null) {
       return LoadResult.cached;
     }
 
     try {
-      final response = await http.get(Uri.parse(url));
+      final uri = Uri.parse(url);
+      final response = await http.get(uri);
       if (response.statusCode == 200) {
         String? filename;
         final disposition = response.headers['Content-Disposition']?.toString();
@@ -50,15 +51,20 @@ class EncryptFileLoader {
           final reg = RegExp('''/filename[^;=\n]*=((['"]).*?2|[^;\n]*)/''');
           final match = reg.firstMatch(disposition);
           filename = match?[0];
+        } else {
+          filename = uri.pathSegments.last;
         }
 
-        final entry = createEntity(
+        final entry = Caches(
           url: url,
           group: group,
           bytes: response.bodyBytes,
           filename: filename,
+          updated: DateTime.now().toUtc(),
         );
-        _db.insertCache(entry);
+        await isar.writeTxn(() async {
+          await isar.caches.put(entry);
+        });
 
         return LoadResult.load;
       }
@@ -78,7 +84,8 @@ class EncryptFileLoader {
     required String url,
     required CryptoType type,
   }) async {
-    final cache = await _db.getFile(url);
+    final isar = await Connection.instance;
+    final cache = await isar.caches.filter().urlEqualTo(url).findFirst();
     if (cache == null) {
       return null;
     }
@@ -91,25 +98,28 @@ class EncryptFileLoader {
 
   /// Delete all files.
   /// Returns the amount of rows that were deleted.
-  Future<int> deleteAll() async {
-    return await _db.deleteAll();
+  Future<void> deleteAll() async {
+    final isar = await Connection.instance;
+    return await isar.writeTxn(
+      () async => await isar.clear(),
+    );
   }
 
   /// Delete files that belong to the [group].
   /// Returns the amount of rows that were deleted.
   Future<int> deleteGroup(String group) async {
-    return await _db.deleteGroup(group);
+    final isar = await Connection.instance;
+    return await isar.writeTxn(
+      () async => await isar.caches.filter().groupEqualTo(group).deleteAll(),
+    );
   }
 
   /// Delete files older than the [base].
   /// Returns the amount of rows that were deleted.
   Future<int> deleteOldFiles(DateTime base) async {
-    return await _db.deleteOldFiles(base);
-  }
-
-  /// Rebuilds the database file,
-  /// repacking it into a minimal amount of disk space.
-  Future<void> vacuum() async {
-    await _db.customStatement('vacuum;');
+    final isar = await Connection.instance;
+    return await isar.writeTxn(
+      () async => await isar.caches.filter().updatedLessThan(base).deleteAll(),
+    );
   }
 }
