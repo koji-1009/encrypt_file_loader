@@ -1,3 +1,9 @@
+## [4.0.0-dev.1] - 2022-11-24
+
+* Flutter 3.3
+* Add Isar
+* Remove Drift
+
 ## [3.0.0] - 2022-08-19.
 
 * Flutter 3.0
