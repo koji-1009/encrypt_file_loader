@@ -1,3 +1,7 @@
+## [4.0.0-dev.2] - 2022-11-25
+
+* export `CachesSchema`
+
 ## [4.0.0-dev.1] - 2022-11-24
 
 * Flutter 3.3
