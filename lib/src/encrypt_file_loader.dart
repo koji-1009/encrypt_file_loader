@@ -1,11 +1,11 @@
 import 'dart:io';
 
-import 'package:encrypt_file_loader/src/isar/cache.dart';
-import 'package:encrypt_file_loader/src/isar/db/connection.dart';
-import 'package:encrypt_file_loader/src/result/decrypt_result.dart';
-import 'package:encrypt_file_loader/src/webcrypto/crypto_type.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:isar/isar.dart';
+
+import 'drift/filename.dart';
+import 'result/decrypt_result.dart';
+import 'webcrypto/crypto_type.dart';
 
 /// Result pattern on [EncryptFileLoader.load]
 enum LoadResult {
@@ -30,13 +30,14 @@ enum LoadResult {
 
 /// [EncryptFileLoader] is a class that loads, caches, and decrypts.
 class EncryptFileLoader {
+  final _db = Database();
+
   /// Load file from server or internal db.
   Future<LoadResult> load({
     required String url,
     String group = 'no_group',
   }) async {
-    final isar = await Connection.instance;
-    final cache = await isar.caches.filter().urlEqualTo(url).findFirst();
+    final cache = await _db.getFile(url);
     if (cache != null) {
       return LoadResult.cached;
     }
@@ -55,16 +56,13 @@ class EncryptFileLoader {
           filename = uri.pathSegments.last;
         }
 
-        final entry = Caches(
+        final entry = createEntity(
           url: url,
           group: group,
           bytes: response.bodyBytes,
           filename: filename,
-          updated: DateTime.now().toUtc(),
         );
-        await isar.writeTxn(() async {
-          await isar.caches.put(entry);
-        });
+        await _db.insertCache(entry);
 
         return LoadResult.load;
       }
@@ -84,8 +82,7 @@ class EncryptFileLoader {
     required String url,
     required CryptoType type,
   }) async {
-    final isar = await Connection.instance;
-    final cache = await isar.caches.filter().urlEqualTo(url).findFirst();
+    final cache = await _db.getFile(url);
     if (cache == null) {
       return null;
     }
@@ -98,28 +95,30 @@ class EncryptFileLoader {
 
   /// Delete all files.
   /// Returns the amount of rows that were deleted.
-  Future<void> deleteAll() async {
-    final isar = await Connection.instance;
-    return await isar.writeTxn(
-      () async => await isar.clear(),
-    );
+  Future<int> deleteAll() async {
+    return await _db.deleteAll();
   }
 
   /// Delete files that belong to the [group].
   /// Returns the amount of rows that were deleted.
   Future<int> deleteGroup(String group) async {
-    final isar = await Connection.instance;
-    return await isar.writeTxn(
-      () async => await isar.caches.filter().groupEqualTo(group).deleteAll(),
-    );
+    return await _db.deleteGroup(group);
   }
 
   /// Delete files older than the [base].
   /// Returns the amount of rows that were deleted.
   Future<int> deleteOldFiles(DateTime base) async {
-    final isar = await Connection.instance;
-    return await isar.writeTxn(
-      () async => await isar.caches.filter().updatedLessThan(base).deleteAll(),
-    );
+    return await _db.deleteOldFiles(base);
   }
+
+  /// Rebuilds the database file,
+  /// repacking it into a minimal amount of disk space.
+  Future<void> vacuum() async {
+    await compute(_vacuum, _db);
+  }
+}
+
+/// Run vacuum on background thread.
+Future<void> _vacuum(Database db) async {
+  await db.customStatement('vacuum;');
 }

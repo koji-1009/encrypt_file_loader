@@ -8,7 +8,7 @@ import 'package:webcrypto/webcrypto.dart';
 part 'crypto_type.freezed.dart';
 
 /// A type of encryption based on Web Crypto.
-/// see: https://pub.dev/packages/webcrypto
+/// see: [https://pub.dev/packages/webcrypto]
 @freezed
 class CryptoType with _$CryptoType {
   /// non-encrypted file
@@ -52,16 +52,26 @@ extension CryptoTypeExt on CryptoType {
   }) async {
     final data = await when(
       plain: () async => bytes,
-      aesCbc: (key, iv) => key.decryptBytes(bytes, iv),
-      aesCtr: (key, counter, length) =>
-          key.decryptBytes(bytes, counter, length),
-      aesGcm: (key, iv, authTag, additionalData, tagLength) => key.decryptBytes(
+      aesCbc: (key, iv) async => key.decryptBytes(
+        bytes,
+        iv,
+      ),
+      aesCtr: (key, counter, length) async => key.decryptBytes(
+        bytes,
+        counter,
+        length,
+      ),
+      aesGcm: (key, iv, authTag, additionalData, tagLength) async =>
+          key.decryptBytes(
         bytes + (authTag ?? []),
         iv,
         additionalData: additionalData,
         tagLength: tagLength,
       ),
-      rsaOaep: (key, label) => key.decryptBytes(bytes, label: label),
+      rsaOaep: (key, label) async => key.decryptBytes(
+        bytes,
+        label: label,
+      ),
     );
 
     return DecryptResult(
