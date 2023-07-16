@@ -1,14 +1,18 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-
-part 'decrypt_result.freezed.dart';
 
 /// Decrypted result from db
-@freezed
-class DecryptResult with _$DecryptResult {
+@immutable
+class DecryptResult with EquatableMixin {
   /// result
-  const factory DecryptResult({
-    required Uint8List data,
-    required String? filename,
-  }) = _DecryptResult;
+  const DecryptResult({
+    required this.data,
+    required this.filename,
+  });
+
+  final Uint8List data;
+  final String? filename;
+
+  @override
+  List<Object?> get props => [data, filename];
 }

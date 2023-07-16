@@ -2,45 +2,72 @@ import 'dart:io';
 
 import 'package:encrypt_file_loader/src/result/decrypt_result.dart';
 import 'package:flutter/foundation.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:webcrypto/webcrypto.dart';
-
-part 'crypto_type.freezed.dart';
 
 /// A type of encryption based on Web Crypto.
 /// see: [https://pub.dev/packages/webcrypto]
-@freezed
-class CryptoType with _$CryptoType {
-  /// non-encrypted file
-  const factory CryptoType.plain() = TypePlain;
+sealed class CryptoType {}
 
-  /// see [AesCbcSecretKey]
-  const factory CryptoType.aesCbc({
-    required AesCbcSecretKey key,
-    required Uint8List iv,
-  }) = TypeAesCbc;
+/// non-encrypted file
+@immutable
+class TypePlain implements CryptoType {
+  const TypePlain();
+}
 
-  /// see [AesCtrSecretKey]
-  const factory CryptoType.aesCtr({
-    required AesCtrSecretKey key,
-    required List<int> counter,
-    required int length,
-  }) = TypeAesCtr;
+/// see [AesCbcSecretKey]
+@immutable
+class TypeAesCbc implements CryptoType {
+  const TypeAesCbc({
+    required this.key,
+    required this.iv,
+  });
 
-  /// see [AesGcmSecretKey]
-  const factory CryptoType.aesGcm({
-    required AesGcmSecretKey key,
-    required Uint8List iv,
-    List<int>? authTag,
-    List<int>? additionalData,
-    int? tagLength,
-  }) = TypeAesGcm;
+  final AesCbcSecretKey key;
+  final Uint8List iv;
+}
 
-  /// see [RsaOaepPrivateKey]
-  const factory CryptoType.rsaOaep({
-    required RsaOaepPrivateKey key,
-    List<int>? label,
-  }) = TypeRsaOaep;
+/// see [AesCtrSecretKey]
+@immutable
+class TypeAesCtr implements CryptoType {
+  const TypeAesCtr({
+    required this.key,
+    required this.counter,
+    required this.length,
+  });
+
+  final AesCtrSecretKey key;
+  final List<int> counter;
+  final int length;
+}
+
+/// see [AesGcmSecretKey]
+@immutable
+class TypeAesGcm implements CryptoType {
+  const TypeAesGcm({
+    required this.key,
+    required this.iv,
+    this.authTag,
+    this.additionalData,
+    this.tagLength,
+  });
+
+  final AesGcmSecretKey key;
+  final Uint8List iv;
+  final List<int>? authTag;
+  final List<int>? additionalData;
+  final int? tagLength;
+}
+
+/// see [RsaOaepPrivateKey]
+@immutable
+class TypeRsaOaep implements CryptoType {
+  const TypeRsaOaep({
+    required this.key,
+    this.label,
+  });
+
+  final RsaOaepPrivateKey key;
+  final List<int>? label;
 }
 
 /// extension
@@ -50,29 +77,48 @@ extension CryptoTypeExt on CryptoType {
     required List<int> bytes,
     required String? filename,
   }) async {
-    final data = await when(
-      plain: () async => bytes,
-      aesCbc: (key, iv) async => key.decryptBytes(
-        bytes,
-        iv,
-      ),
-      aesCtr: (key, counter, length) async => key.decryptBytes(
-        bytes,
-        counter,
-        length,
-      ),
-      aesGcm: (key, iv, authTag, additionalData, tagLength) async =>
-          key.decryptBytes(
-        bytes + (authTag ?? []),
-        iv,
-        additionalData: additionalData,
-        tagLength: tagLength,
-      ),
-      rsaOaep: (key, label) async => key.decryptBytes(
-        bytes,
-        label: label,
-      ),
-    );
+    final data = switch (this) {
+      TypePlain() => bytes,
+      TypeAesCbc(
+        key: final key,
+        iv: final iv,
+      ) =>
+        await key.decryptBytes(
+          bytes,
+          iv,
+        ),
+      TypeAesCtr(
+        key: final key,
+        counter: final counter,
+        length: final length,
+      ) =>
+        await key.decryptBytes(
+          bytes,
+          counter,
+          length,
+        ),
+      TypeAesGcm(
+        key: final key,
+        iv: final iv,
+        authTag: final authTag,
+        additionalData: final additionalData,
+        tagLength: final tagLength,
+      ) =>
+        await key.decryptBytes(
+          bytes + (authTag ?? []),
+          iv,
+          additionalData: additionalData,
+          tagLength: tagLength,
+        ),
+      TypeRsaOaep(
+        key: final key,
+        label: final label,
+      ) =>
+        await key.decryptBytes(
+          bytes,
+          label: label,
+        ),
+    };
 
     return DecryptResult(
       data: Uint8List.fromList(data),

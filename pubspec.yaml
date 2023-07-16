@@ -4,16 +4,15 @@ version: 4.0.0-dev.2
 homepage: https://github.com/koji-1009/encrypt_file_loader
 
 environment:
-  sdk: ">=2.18.0 <3.0.0"
-  flutter: ">=3.3.0"
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: '>=3.10.0'
 
 dependencies:
   flutter:
     sdk: flutter
 
-  freezed_annotation: ^2.0.0
-
-  http: ^0.13.0
+  http: '>=0.13.0 <2.0.0'
+  equatable: ^2.0.0
 
   # db
   drift: ^2.0.0
@@ -31,7 +30,6 @@ dev_dependencies:
 
   flutter_lints: ^2.0.0
 
-  freezed: ^2.0.0
   build_runner: ^2.0.0
   drift_dev: ^2.0.0
 
