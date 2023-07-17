@@ -1,3 +1,11 @@
+## [4.0.0] - 2023-07-17
+
+* Flutter 3.10.0
+* Dart 3
+* Use drift
+* Remove freezed
+* Update http
+
 ## [4.0.0-dev.2] - 2022-11-25
 
 * export `CachesSchema`
