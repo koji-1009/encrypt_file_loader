@@ -1,36 +1,57 @@
 import 'dart:io';
 
+import 'package:encrypt_file_loader/src/crypto_type.dart';
+import 'package:encrypt_file_loader/src/drift/filename.dart';
+import 'package:encrypt_file_loader/src/result.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
-import 'drift/filename.dart';
-import 'result/decrypt_result.dart';
-import 'webcrypto/crypto_type.dart';
-
-/// Result pattern on [EncryptFileLoader.load]
-enum LoadResult {
-  /// data is cached
-  cached,
-
-  /// data is loaded from server
-  load,
-
-  /// failed request
-  failed,
-
-  /// SocketException
-  connectionError,
-
-  /// HttpException
-  urlError,
-
-  /// FormatException
-  formatError,
-}
+/// Decrypted result from db
+typedef DecryptResult = ({
+  Uint8List data,
+  String? filename,
+});
 
 /// [EncryptFileLoader] is a class that loads, caches, and decrypts.
 class EncryptFileLoader {
+  EncryptFileLoader();
+
   final _db = Database();
+
+  Future<LoaderResult> loadAndDecrypt({
+    required String url,
+    required CryptoType type,
+    String group = 'no_group',
+  }) async {
+    final result = await load(
+      url: url,
+      group: group,
+    );
+    switch (result) {
+      case LoadResult.cached:
+      case LoadResult.load:
+        final result = await getData(
+          url: url,
+          type: type,
+        );
+        if (result == null) {
+          return const LoaderEmpty();
+        }
+
+        return LoaderSuccess(
+          data: result.data,
+          filename: result.filename,
+        );
+      case LoadResult.failed:
+        return const LoaderFailed();
+      case LoadResult.connectionError:
+        return const LoaderConnectionError();
+      case LoadResult.urlError:
+        return const LoaderUrlError();
+      case LoadResult.formatError:
+        return const LoaderFormatError();
+    }
+  }
 
   /// Load file from server or internal db.
   Future<LoadResult> load({
@@ -121,4 +142,61 @@ class EncryptFileLoader {
 /// Run vacuum on background thread.
 Future<void> _vacuum(Database db) async {
   await db.customStatement('vacuum;');
+}
+
+/// extension
+extension on CryptoType {
+  /// Decrypt [Uint8List] and create [File].
+  Future<DecryptResult> decrypt({
+    required List<int> bytes,
+    required String? filename,
+  }) async {
+    final data = switch (this) {
+      TypePlain() => bytes,
+      TypeAesCbc(
+        key: final key,
+        iv: final iv,
+      ) =>
+        await key.decryptBytes(
+          bytes,
+          iv,
+        ),
+      TypeAesCtr(
+        key: final key,
+        counter: final counter,
+        length: final length,
+      ) =>
+        await key.decryptBytes(
+          bytes,
+          counter,
+          length,
+        ),
+      TypeAesGcm(
+        key: final key,
+        iv: final iv,
+        authTag: final authTag,
+        additionalData: final additionalData,
+        tagLength: final tagLength,
+      ) =>
+        await key.decryptBytes(
+          bytes + (authTag ?? []),
+          iv,
+          additionalData: additionalData,
+          tagLength: tagLength,
+        ),
+      TypeRsaOaep(
+        key: final key,
+        label: final label,
+      ) =>
+        await key.decryptBytes(
+          bytes,
+          label: label,
+        ),
+    };
+
+    return (
+      data: Uint8List.fromList(data),
+      filename: filename,
+    );
+  }
 }
