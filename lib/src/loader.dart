@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:encrypt_file_loader/src/crypto_type.dart';
@@ -12,6 +13,12 @@ typedef DecryptResult = ({
   String? filename,
 });
 
+/// Encrypted data is retrieved in the response
+enum ResponseType {
+  bodyBytes,
+  bodyText,
+}
+
 /// [EncryptFileLoader] is a class that loads, caches, and decrypts.
 class EncryptFileLoader {
   EncryptFileLoader();
@@ -21,11 +28,13 @@ class EncryptFileLoader {
   Future<LoaderResult> loadAndDecrypt({
     required String url,
     required CryptoType type,
+    ResponseType responseType = ResponseType.bodyBytes,
     String group = 'no_group',
   }) async {
     final result = await load(
       url: url,
       group: group,
+      responseType: responseType,
     );
     switch (result) {
       case LoadResult.cached:
@@ -56,6 +65,7 @@ class EncryptFileLoader {
   /// Load file from server or internal db.
   Future<LoadResult> load({
     required String url,
+    ResponseType responseType = ResponseType.bodyBytes,
     String group = 'no_group',
   }) async {
     final cache = await _db.getFile(url);
@@ -80,7 +90,12 @@ class EncryptFileLoader {
         final entry = createEntity(
           url: url,
           group: group,
-          bytes: response.bodyBytes,
+          bytes: switch (responseType) {
+            ResponseType.bodyBytes => response.bodyBytes,
+            ResponseType.bodyText => Uint8List.fromList(
+                json.decode(response.body).cast<int>(),
+              ),
+          },
           filename: filename,
         );
         await _db.insertCache(entry);

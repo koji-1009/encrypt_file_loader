@@ -54,6 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   url:
                       'https://raw.githubusercontent.com/koji-1009/encrypt_file_loader/main/fixture/plain.json',
                   type: const TypePlain(),
+                  responseType: ResponseType.bodyBytes,
                 );
 
                 setState(() {
@@ -70,51 +71,53 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ElevatedButton(
               onPressed: () async {
-                final value = _db.loadAndDecrypt(
+                final key = await AesCbcSecretKey.importRawKey([
+                  169,
+                  153,
+                  153,
+                  89,
+                  151,
+                  174,
+                  104,
+                  213,
+                  193,
+                  185,
+                  118,
+                  112,
+                  123,
+                  39,
+                  157,
+                  141,
+                ]);
+                final iv = Uint8List.fromList(
+                  [
+                    205,
+                    108,
+                    3,
+                    111,
+                    125,
+                    147,
+                    153,
+                    175,
+                    228,
+                    101,
+                    195,
+                    225,
+                    18,
+                    252,
+                    192,
+                    222,
+                  ],
+                );
+
+                final value = await _db.loadAndDecrypt(
                   url:
-                      'https://raw.githubusercontent.com/koji-1009/encrypt_file_loader/main/fixture/aes_cbc.txt',
+                      'https://raw.githubusercontent.com/koji-1009/encrypt_file_loader/main/fixture/aes_cbc.json',
                   type: TypeAesCbc(
-                    key: await AesCbcSecretKey.importRawKey(
-                      [
-                        169,
-                        153,
-                        153,
-                        89,
-                        151,
-                        174,
-                        104,
-                        213,
-                        193,
-                        185,
-                        118,
-                        112,
-                        123,
-                        39,
-                        157,
-                        141,
-                      ],
-                    ),
-                    iv: Uint8List.fromList(
-                      [
-                        205,
-                        108,
-                        3,
-                        111,
-                        125,
-                        147,
-                        153,
-                        175,
-                        228,
-                        101,
-                        195,
-                        225,
-                        18,
-                        252,
-                        192,
-                        222,
-                      ],
-                    ),
+                    key: key,
+                    iv: iv,
                   ),
+                  responseType: ResponseType.bodyText,
                 );
 
                 setState(() {
