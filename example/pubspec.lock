@@ -317,7 +317,7 @@ packages:
     source: hosted
     version: "2.1.4"
   webcrypto:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: webcrypto
       sha256: a3cc45ce5efa053435505a958d32785f7497a684a859e6910d805ddf094f903f
