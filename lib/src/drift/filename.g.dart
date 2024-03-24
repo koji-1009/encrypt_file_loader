@@ -38,9 +38,10 @@ class $CachesTable extends Caches with TableInfo<$CachesTable, Cache> {
   @override
   List<GeneratedColumn> get $columns => [url, group, bytes, filename, updated];
   @override
-  String get aliasedName => _alias ?? 'caches';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'caches';
+  String get actualTableName => $name;
+  static const String $name = 'caches';
   @override
   VerificationContext validateIntegrity(Insertable<Cache> instance,
       {bool isInserting = false}) {
