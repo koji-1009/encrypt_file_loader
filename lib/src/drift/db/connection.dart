@@ -2,7 +2,7 @@ import 'package:drift/drift.dart';
 
 import 'connection_stub.dart'
     if (dart.library.io) 'db_ffi.dart'
-    if (dart.library.js) 'db_web.dart';
+    if (dart.library.js_interop) 'db_web.dart';
 
 /// [Connection] is a class that returns [LazyDatabase].
 abstract class Connection {
