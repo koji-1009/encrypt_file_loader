@@ -186,6 +186,16 @@ class Cache extends DataClass implements Insertable<Cache> {
         filename: filename.present ? filename.value : this.filename,
         updated: updated ?? this.updated,
       );
+  Cache copyWithCompanion(CachesCompanion data) {
+    return Cache(
+      url: data.url.present ? data.url.value : this.url,
+      group: data.group.present ? data.group.value : this.group,
+      bytes: data.bytes.present ? data.bytes.value : this.bytes,
+      filename: data.filename.present ? data.filename.value : this.filename,
+      updated: data.updated.present ? data.updated.value : this.updated,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('Cache(')
@@ -313,10 +323,182 @@ class CachesCompanion extends UpdateCompanion<Cache> {
 
 abstract class _$Database extends GeneratedDatabase {
   _$Database(QueryExecutor e) : super(e);
+  $DatabaseManager get managers => $DatabaseManager(this);
   late final $CachesTable caches = $CachesTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [caches];
+}
+
+typedef $$CachesTableCreateCompanionBuilder = CachesCompanion Function({
+  required String url,
+  required String group,
+  required Uint8List bytes,
+  Value<String?> filename,
+  required DateTime updated,
+  Value<int> rowid,
+});
+typedef $$CachesTableUpdateCompanionBuilder = CachesCompanion Function({
+  Value<String> url,
+  Value<String> group,
+  Value<Uint8List> bytes,
+  Value<String?> filename,
+  Value<DateTime> updated,
+  Value<int> rowid,
+});
+
+class $$CachesTableFilterComposer extends Composer<_$Database, $CachesTable> {
+  $$CachesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get url => $composableBuilder(
+      column: $table.url, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get group => $composableBuilder(
+      column: $table.group, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<Uint8List> get bytes => $composableBuilder(
+      column: $table.bytes, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get filename => $composableBuilder(
+      column: $table.filename, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get updated => $composableBuilder(
+      column: $table.updated, builder: (column) => ColumnFilters(column));
+}
+
+class $$CachesTableOrderingComposer extends Composer<_$Database, $CachesTable> {
+  $$CachesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get url => $composableBuilder(
+      column: $table.url, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get group => $composableBuilder(
+      column: $table.group, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<Uint8List> get bytes => $composableBuilder(
+      column: $table.bytes, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get filename => $composableBuilder(
+      column: $table.filename, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get updated => $composableBuilder(
+      column: $table.updated, builder: (column) => ColumnOrderings(column));
+}
+
+class $$CachesTableAnnotationComposer
+    extends Composer<_$Database, $CachesTable> {
+  $$CachesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get url =>
+      $composableBuilder(column: $table.url, builder: (column) => column);
+
+  GeneratedColumn<String> get group =>
+      $composableBuilder(column: $table.group, builder: (column) => column);
+
+  GeneratedColumn<Uint8List> get bytes =>
+      $composableBuilder(column: $table.bytes, builder: (column) => column);
+
+  GeneratedColumn<String> get filename =>
+      $composableBuilder(column: $table.filename, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updated =>
+      $composableBuilder(column: $table.updated, builder: (column) => column);
+}
+
+class $$CachesTableTableManager extends RootTableManager<
+    _$Database,
+    $CachesTable,
+    Cache,
+    $$CachesTableFilterComposer,
+    $$CachesTableOrderingComposer,
+    $$CachesTableAnnotationComposer,
+    $$CachesTableCreateCompanionBuilder,
+    $$CachesTableUpdateCompanionBuilder,
+    (Cache, BaseReferences<_$Database, $CachesTable, Cache>),
+    Cache,
+    PrefetchHooks Function()> {
+  $$CachesTableTableManager(_$Database db, $CachesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$CachesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$CachesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$CachesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> url = const Value.absent(),
+            Value<String> group = const Value.absent(),
+            Value<Uint8List> bytes = const Value.absent(),
+            Value<String?> filename = const Value.absent(),
+            Value<DateTime> updated = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              CachesCompanion(
+            url: url,
+            group: group,
+            bytes: bytes,
+            filename: filename,
+            updated: updated,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String url,
+            required String group,
+            required Uint8List bytes,
+            Value<String?> filename = const Value.absent(),
+            required DateTime updated,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              CachesCompanion.insert(
+            url: url,
+            group: group,
+            bytes: bytes,
+            filename: filename,
+            updated: updated,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$CachesTableProcessedTableManager = ProcessedTableManager<
+    _$Database,
+    $CachesTable,
+    Cache,
+    $$CachesTableFilterComposer,
+    $$CachesTableOrderingComposer,
+    $$CachesTableAnnotationComposer,
+    $$CachesTableCreateCompanionBuilder,
+    $$CachesTableUpdateCompanionBuilder,
+    (Cache, BaseReferences<_$Database, $CachesTable, Cache>),
+    Cache,
+    PrefetchHooks Function()>;
+
+class $DatabaseManager {
+  final _$Database _db;
+  $DatabaseManager(this._db);
+  $$CachesTableTableManager get caches =>
+      $$CachesTableTableManager(_db, _db.caches);
 }

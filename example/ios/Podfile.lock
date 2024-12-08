@@ -3,29 +3,33 @@ PODS:
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
-  - sqlite3 (3.41.2):
-    - sqlite3/common (= 3.41.2)
-  - sqlite3/common (3.41.2)
-  - sqlite3/fts5 (3.41.2):
+  - sqlite3 (3.47.0):
+    - sqlite3/common (= 3.47.0)
+  - sqlite3/common (3.47.0)
+  - sqlite3/dbstatvtab (3.47.0):
     - sqlite3/common
-  - sqlite3/perf-threadsafe (3.41.2):
+  - sqlite3/fts5 (3.47.0):
     - sqlite3/common
-  - sqlite3/rtree (3.41.2):
+  - sqlite3/perf-threadsafe (3.47.0):
+    - sqlite3/common
+  - sqlite3/rtree (3.47.0):
     - sqlite3/common
   - sqlite3_flutter_libs (0.0.1):
     - Flutter
-    - sqlite3 (~> 3.41.2)
+    - sqlite3 (~> 3.47.0)
+    - sqlite3/dbstatvtab
     - sqlite3/fts5
     - sqlite3/perf-threadsafe
     - sqlite3/rtree
   - webcrypto (0.1.1):
     - Flutter
+    - FlutterMacOS
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - sqlite3_flutter_libs (from `.symlinks/plugins/sqlite3_flutter_libs/ios`)
-  - webcrypto (from `.symlinks/plugins/webcrypto/ios`)
+  - webcrypto (from `.symlinks/plugins/webcrypto/darwin`)
 
 SPEC REPOS:
   trunk:
@@ -39,15 +43,15 @@ EXTERNAL SOURCES:
   sqlite3_flutter_libs:
     :path: ".symlinks/plugins/sqlite3_flutter_libs/ios"
   webcrypto:
-    :path: ".symlinks/plugins/webcrypto/ios"
+    :path: ".symlinks/plugins/webcrypto/darwin"
 
 SPEC CHECKSUMS:
-  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  path_provider_foundation: 29f094ae23ebbca9d3d0cec13889cd9060c0e943
-  sqlite3: fd89671d969f3e73efe503ce203e28b016b58f68
-  sqlite3_flutter_libs: 04ba0d14a04335a2fbf9a331e8664f401fbccdd5
-  webcrypto: 58dac29c85327d3d72a47d19d44128f10905f58e
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
+  sqlite3: 0aa20658a9b238a3b1ff7175eb7bdd863b0ab4fd
+  sqlite3_flutter_libs: b55ef23cfafea5318ae5081e0bf3fbbce8417c94
+  webcrypto: f44963fa2d88f93deea971a9f59f2e21c2301689
 
-PODFILE CHECKSUM: 70d9d25280d0dd177a5f637cdb0f0b0b12c6a189
+PODFILE CHECKSUM: 819463e6a0290f5a72f145ba7cde16e8b6ef0796
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.16.2
